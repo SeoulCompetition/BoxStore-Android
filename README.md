@@ -1,2 +1,1 @@
-"# BoxStore-Server" 
 # BoxStore-Android

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BoxStore</string>
+    <string name="camera_and_external_storage">camera_and_external_storage</string>
 </resources>

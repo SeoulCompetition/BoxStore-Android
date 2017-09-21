@@ -44,10 +44,10 @@ public class PhotoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.button:
-                        SelectPhoto();
+                        selectPhoto();
                         break;
                     case R.id.button2:
-                        SelectGallery();
+                        selectGallery();
 
                         break;
                 }
@@ -65,7 +65,7 @@ public class PhotoActivity extends AppCompatActivity {
 
     }
 
-    private void SelectPhoto() {
+    private void selectPhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,CAMERA_CODE);
     }
@@ -79,10 +79,10 @@ public class PhotoActivity extends AppCompatActivity {
             switch (requestCode) {
 
                 case GALLERY_CODE:
-                    SendPicture(data); //갤러리에서 가져오기
+                    sendPicture(data); //갤러리에서 가져오기
                     break;
                 case CAMERA_CODE:
-                    SendPicture(data); //카메라에서 가져오기
+                    sendPicture(data); //카메라에서 가져오기
                     break;
 
                 default:
@@ -92,7 +92,7 @@ public class PhotoActivity extends AppCompatActivity {
         }
     }
 
-    private void SendPicture(Intent data) {
+    private void sendPicture(Intent data) {
 
         Uri imgUri = data.getData();
         String imagePath = getRealPathFromURI(imgUri); // path 경로
@@ -109,7 +109,7 @@ public class PhotoActivity extends AppCompatActivity {
         imageView.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
 
     }
-    private void SelectGallery(){
+    private void selectGallery(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");

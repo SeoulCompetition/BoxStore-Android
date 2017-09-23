@@ -3,6 +3,7 @@ package com.b05studio.boxstore;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,12 +28,26 @@ public class SplashActivity extends AppCompatActivity implements EasyPermissions
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this, PhotoActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(getApplicationContext(), PhotoActivity.class);
 
+
+
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION};
+        if (EasyPermissions.hasPermissions(this, perms))
+        {
+            Log.d(TAG,"You aleady have Permissions");
+            startActivity(intent);
+        }
 
         methodRequiresTwoPermission();
+        /*
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
+            }
+        },3000);
+        */
     }
 
     @AfterPermissionGranted(RC_CAMERA_AND_EXTERNAL)
@@ -40,15 +55,17 @@ public class SplashActivity extends AppCompatActivity implements EasyPermissions
         String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION};
         if (EasyPermissions.hasPermissions(this, perms)) {
 
-
             // Already have permission, do the thing
+            Log.d(TAG,"You  a aleady have Permissions");
             finish();
+
             //이미 있으면 finish();
             // ...
         } else {
             // Do not have permissions, request them now
             EasyPermissions.requestPermissions(this, getString(R.string.camera_and_external_storage),
                     RC_CAMERA_AND_EXTERNAL, perms);
+            Log.d(TAG,"Request Permission");
         }
     }
     @Override
@@ -63,6 +80,8 @@ public class SplashActivity extends AppCompatActivity implements EasyPermissions
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         Log.d(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
+        Intent intent = new Intent(getApplicationContext(), PhotoActivity.class);
+        startActivity(intent);
         finish();
     }
 

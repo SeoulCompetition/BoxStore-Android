@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1F1F1"
-    tools:context="com.b05studio.boxstore.auth.LoginActivity">
+    tools:context="com.b05studio.boxstore.auth.LoginActivity"
+    tools:ignore="MissingPrefix"
+    >
 
     <View
         android:id="@+id/loginTitleView"
@@ -26,6 +28,7 @@
         app:layout_constraintTop_toTopOf="@+id/loginTitleView"
         app:layout_constraintBottom_toBottomOf="@+id/loginTitleView"
         android:textSize="13sp"
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
         />
 
     <EditText
@@ -37,10 +40,12 @@
         app:layout_constraintTop_toBottomOf="@+id/loginTitleView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:textSize="10sp"
         android:paddingStart="18dp"
         android:layout_marginTop="30dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
         />
 
     <EditText
@@ -52,11 +57,14 @@
         app:layout_constraintTop_toBottomOf="@+id/loginIdTextView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:textSize="10sp"
         android:paddingStart="18dp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
+        />
     
     <Button
         android:id="@+id/loginIdPasswrodSubmitButton"
@@ -85,6 +93,7 @@
         />
 
     <Button
+        android:id="@+id/loginRegisterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
@@ -95,9 +104,11 @@
         android:textColor="#95989A"
         android:textAlignment="textEnd"
         android:layout_marginEnd="10dp"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
         />
 
     <Button
+        android:id="@+id/loginRetrivePasswordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
@@ -108,6 +119,7 @@
         android:textColor="#95989A"
         android:textAlignment="textStart"
         android:layout_marginStart="10dp"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
         />
 
     <ImageView
@@ -148,14 +160,6 @@
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
         />
-
-
-
-
-    
-
-
-
 
 
 </android.support.constraint.ConstraintLayout>

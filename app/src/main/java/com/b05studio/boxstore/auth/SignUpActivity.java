@@ -13,43 +13,31 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class LoginActivity extends AppCompatActivity {
-
-    @BindView(R.id.loginIdTextView)
+public class SignUpActivity extends AppCompatActivity {
+    
+    @BindView(R.id.signupIdTextView)
     EditText idEditText;
-
-    @BindView(R.id.loginPasswordTextView)
+    
+    @BindView(R.id.signupPasswordTextView)
     EditText passwordEditText;
-
-    @OnClick(R.id.loginIdPasswrodSubmitButton)
-    public void onClickIdAndPasswordLoginButton() {
-
+    
+    @BindView(R.id.signupPasswordRepeatTextView)
+    EditText passwordRepeatEditText;
+    
+    @OnClick(R.id.signupCheckIdButton)
+    public void checkIDButton() {
+        // TODO: 2017-09-25 나중에 데이터베이스가 생기면 고려해야되는 부분이라 생각됨. 
     }
-
-    @OnClick(R.id.loginRegisterButton)
-    public void onClickRegisterButton() {
-        BaseUtil.moveActivity(LoginActivity.this,SignUpActivity.class);
+    
+    @OnClick(R.id.signupNextButton)
+    public void moveIdenficationAcitivity() {
+        // TODO: 2017-09-25 유효값 검증 기능을 구현해야됨. 
+        BaseUtil.moveActivity(SignUpActivity.this, IdentificationActivity.class);
     }
-
-    @OnClick(R.id.loginRetrivePasswordButton)
-    public void onClickRetrivePasswordButton() {
-
-    }
-
-    @OnClick(R.id.loginFacebookButton)
-    public void onClickFacebookLoginButton() {
-
-    }
-
-    @OnClick(R.id.loginGoogleButton)
-    public void onClickGoogleLoginButton() {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
     }
 
@@ -57,5 +45,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
 
 }

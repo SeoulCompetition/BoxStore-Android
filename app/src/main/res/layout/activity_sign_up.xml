@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.b05studio.boxstore.auth.SignUpActivity"
+    tools:ignore="MissingPrefix"
+    >
+    <View
+        android:id="@+id/signupTitleView"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp"
+        android:background="#FFFFFF"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원가입"
+        app:layout_constraintLeft_toLeftOf="@+id/signupTitleView"
+        app:layout_constraintRight_toRightOf="@+id/signupTitleView"
+        app:layout_constraintTop_toTopOf="@+id/signupTitleView"
+        app:layout_constraintBottom_toBottomOf="@+id/signupTitleView"
+        android:textSize="13sp"
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"/>
+
+    <EditText
+        android:id="@+id/signupIdTextView"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="이메일 주소를 입력해주세요"
+        android:background="@drawable/login_input_textview"
+        app:layout_constraintTop_toBottomOf="@+id/signupTitleView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="10sp"
+        android:textColor="#95989A"
+        android:paddingStart="18dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
+        />
+
+    <ImageButton
+        android:id="@+id/signupCheckIdButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@+id/signupIdTextView"
+        app:layout_constraintTop_toTopOf="@+id/signupIdTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/signupIdTextView"
+        android:background="@null"
+        android:src="@drawable/ic_signup_check_button"
+        android:layout_marginEnd="14dp"
+        />
+
+    <EditText
+        android:id="@+id/signupPasswordTextView"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="비밀번호 {영문, 숫자, 특문 조합 8~15자}"
+        android:background="@drawable/login_input_textview"
+        app:layout_constraintTop_toBottomOf="@+id/signupIdTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="10sp"
+        android:textColor="#95989A"
+        android:paddingStart="18dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/signupPasswordRepeatTextView"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="비밀번호를 다시 한번 입력해주세요"
+        android:background="@drawable/login_input_textview"
+        app:layout_constraintTop_toBottomOf="@+id/signupPasswordTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="10sp"
+        android:textColor="#95989A"
+        android:paddingStart="18dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/signupNextButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="다음"
+        android:textColor="#ffffff"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@+id/signupPasswordRepeatTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/next_button_style"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

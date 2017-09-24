@@ -37,14 +37,14 @@
         android:layout_height="48dp"
         android:hint="이메일"
         android:background="@drawable/login_input_textview"
-        app:layout_constraintTop_toBottomOf="@+id/loginTitleView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:textSize="10sp"
         android:paddingStart="18dp"
         android:layout_marginTop="30dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/loginTitleView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
         />
 
@@ -72,13 +72,13 @@
         android:layout_height="50dp"
         android:text="로그인"
         android:textColor="#ffffff"
-        android:background="#4B65A7"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginPasswordTextView"
         android:layout_marginTop="15dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
+        android:background="@drawable/next_button_style"
         />
 
     <View
@@ -92,11 +92,10 @@
         android:background="#95989A"
         />
 
-    <Button
+    <TextView
         android:id="@+id/loginRegisterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
         android:text="회원가입"
         app:layout_constraintTop_toTopOf="@+id/logincCenterline"
         app:layout_constraintBottom_toBottomOf="@+id/logincCenterline"
@@ -107,11 +106,10 @@
         fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
         />
 
-    <Button
+    <TextView
         android:id="@+id/loginRetrivePasswordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
         android:text="비밀번호찾기"
         app:layout_constraintTop_toTopOf="@+id/logincCenterline"
         app:layout_constraintBottom_toBottomOf="@+id/logincCenterline"

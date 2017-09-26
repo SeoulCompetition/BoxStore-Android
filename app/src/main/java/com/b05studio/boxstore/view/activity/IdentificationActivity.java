@@ -1,4 +1,4 @@
-package com.b05studio.boxstore.auth;
+package com.b05studio.boxstore.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -45,6 +45,8 @@ public class IdentificationActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
+
+//        resendVerificationCode("01043019700",mResendToken);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -99,12 +101,14 @@ public class IdentificationActivity extends AppCompatActivity {
                 mResendToken = token;
 
                 // 이 메소드는 제공된 전화번호로 인증 코드가 SMS를 통해 전송된 후에 호출됩니다.
-
-
             }
         };
 
-        getMyPhoneNumber();
+      //  startPhoneNumberVerification("01043019700");
+//        startPhoneNumberVerification("+821043019700");
+//        startPhoneNumberVerification("+82043019700");
+
+
     }
 
     @Override
@@ -195,16 +199,6 @@ public class IdentificationActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    private void getMyPhoneNumber() {
-        TelephonyManager telephonyManager = (TelephonyManager) getApplicationContext().getSystemService(TELEPHONY_SERVICE);
-        try {
-            String phoneNum = telephonyManager.getLine1Number();
-            Log.d("phoneNum",phoneNum);
-
-        } catch (Exception e) {
-
-        }
-    }
 
 //    @Override
 //    public void onClick(View view) {

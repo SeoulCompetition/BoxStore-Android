@@ -1,4 +1,4 @@
-package com.b05studio.boxstore.auth;
+package com.b05studio.boxstore.view.activity;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;

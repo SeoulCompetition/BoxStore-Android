@@ -3,4 +3,24 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <color name="seoul">#4B65A7</color>
+    <color name="grey">#B6B6B6</color>
+    <color name="white">#FFFFFF</color>
+
+
+
+    <!--회색 시리즈-->
+    <color name="gray_100">#fff2f2f2</color>
+    <color name="gray_20">#33d7d7d7</color>
+    <color name="gray_200">#ffececec</color>
+    <color name="gray_300">#ffdbdbdb</color>
+    <color name="gray_400">#ffc2c2c2</color>
+    <color name="gray_500">#ff999999</color>
+    <color name="gray_600">#ff666666</color>
+    <color name="gray_65">#a6666666</color>
+    <color name="gray_700">#ff393939</color>
+    <color name="gray_c1">#fff8f8f8</color>
+    <color name="gray_c2">#fff5f5f5</color>
 </resources>

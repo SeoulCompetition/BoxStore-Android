@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="radius_box_circle">1000.0dip</dimen>
+    <dimen name="radius_round_box">2.0dip</dimen>
+    <dimen name="radius_round_button">2.0dip</dimen>
+    <dimen name="tab_size">48.0dip</dimen>
+    <dimen name="tab_size_copy">48.0dip</dimen>
+    <dimen name="thin_line">1.0px</dimen>
+    <dimen name="ts_body2">13.0sp</dimen>
+
+</resources>

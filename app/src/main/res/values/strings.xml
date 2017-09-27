@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">BoxStore</string>
     <string name="camera_and_external_storage">camera_and_external_storage</string>
+
+    <string name="title_notifications">알림</string>
+    <string name="title_home">홈</string>
+    <string name="title_mypage">마이페이지</string>
+    <string name="title_sell">판매하기</string>
+    <string name="title_category">카테고리</string>
+
+
 </resources>

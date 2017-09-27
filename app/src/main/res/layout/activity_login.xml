@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1F1F1"
+    tools:context="com.b05studio.boxstore.view.activity.LoginActivity"
+    tools:ignore="MissingPrefix"
+    >
+
+    <View
+        android:id="@+id/loginTitleView"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp"
+        android:background="#FFFFFF"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작하기"
+        app:layout_constraintLeft_toLeftOf="@+id/loginTitleView"
+        app:layout_constraintRight_toRightOf="@+id/loginTitleView"
+        app:layout_constraintTop_toTopOf="@+id/loginTitleView"
+        app:layout_constraintBottom_toBottomOf="@+id/loginTitleView"
+        android:textSize="13sp"
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+        />
+
+    <EditText
+        android:id="@+id/loginIdTextView"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="이메일"
+        android:background="@drawable/login_input_textview"
+        android:textSize="10sp"
+        android:paddingStart="18dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/loginTitleView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
+        />
+
+    <EditText
+        android:id="@+id/loginPasswordTextView"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="비밀번호"
+        android:background="@drawable/login_input_textview"
+        app:layout_constraintTop_toBottomOf="@+id/loginIdTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="10sp"
+        android:paddingStart="18dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:inputType="textPassword"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
+        />
+    
+    <Button
+        android:id="@+id/loginIdPasswrodSubmitButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="로그인"
+        android:textColor="#ffffff"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordTextView"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/next_button_style"
+        />
+
+    <View
+        android:id="@+id/logincCenterline"
+        android:layout_width="1dp"
+        android:layout_height="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginIdPasswrodSubmitButton"
+        android:layout_marginTop="15dp"
+        android:background="#95989A"
+        />
+
+    <TextView
+        android:id="@+id/loginRegisterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원가입"
+        app:layout_constraintTop_toTopOf="@+id/logincCenterline"
+        app:layout_constraintBottom_toBottomOf="@+id/logincCenterline"
+        app:layout_constraintRight_toLeftOf="@+id/logincCenterline"
+        android:textColor="#95989A"
+        android:textAlignment="textEnd"
+        android:layout_marginEnd="10dp"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
+        />
+
+    <TextView
+        android:id="@+id/loginRetrivePasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호찾기"
+        app:layout_constraintTop_toTopOf="@+id/logincCenterline"
+        app:layout_constraintBottom_toBottomOf="@+id/logincCenterline"
+        app:layout_constraintLeft_toRightOf="@+id/logincCenterline"
+        android:textColor="#95989A"
+        android:textAlignment="textStart"
+        android:layout_marginStart="10dp"
+        fontPath="fonts/NOTOSANSKR-LIGHT.OTF"
+        />
+
+    <ImageView
+        android:id="@+id/loginDevideView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginIdPasswrodSubmitButton"
+        android:layout_marginTop="68dp"
+        android:src="@drawable/login_devide_line"
+        />
+
+    <ImageButton
+        android:id="@+id/loginFacebookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_login_facebook_button"
+        android:background="@null"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginDevideView"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        />
+
+    <ImageButton
+        android:id="@+id/loginGoogleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_login_google_button"
+        android:background="@null"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginFacebookButton"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

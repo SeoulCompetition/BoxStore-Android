@@ -28,9 +28,11 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.firebase:firebase-core:11.2.2'
-    compile 'com.google.firebase:firebase-auth:11.2.2'
-    compile 'com.google.firebase:firebase-messaging:11.2.2'
+
+    compile 'com.google.firebase:firebase-core:11.0.1'
+    compile 'com.google.firebase:firebase-auth:11.0.1'
+    compile 'com.google.firebase:firebase-messaging:11.0.1'
+
     compile 'pub.devrel:easypermissions:1.0.0'
     compile 'com.jakewharton:butterknife:8.8.1'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'

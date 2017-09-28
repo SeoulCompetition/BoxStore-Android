@@ -1,4 +1,4 @@
-package com.b05studio.boxstore;
+package com.b05studio.boxstore.view.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.b05studio.boxstore.R;
 
 import java.io.IOException;
 

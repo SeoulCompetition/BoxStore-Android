@@ -26,17 +26,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".view.activity.IdentificationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".view.activity.PhotoActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".view.activity.SplashActivity"
             android:theme="@style/SplashTheme" />
-
         <service
             android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
@@ -52,6 +48,12 @@
 
         <activity android:name=".view.activity.SignUpActivity" />
         <activity android:name=".view.activity.LoginActivity"/>
+        <activity android:name=".view.activity.BoxstoreMenuActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
     </application>
 

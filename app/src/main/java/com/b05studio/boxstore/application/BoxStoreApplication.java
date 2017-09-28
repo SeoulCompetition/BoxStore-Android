@@ -12,6 +12,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class BoxStoreApplication extends Application {
 
+    // 향후 retrofit 객체도 여기
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,6 +22,5 @@ public class BoxStoreApplication extends Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
-
     }
 }

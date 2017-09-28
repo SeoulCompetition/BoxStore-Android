@@ -127,6 +127,7 @@ public class IdentificationActivity extends AppCompatActivity {
         mVerificationInProgress = savedInstanceState.getBoolean(KEY_VERIFY_IN_PROGRESS);
     }
 
+    // 해당 핸드폰 번호로 인증번호 발급.
     private void startPhoneNumberVerification(String phoneNumber) {
         // [START start_phone_auth]
         PhoneAuthProvider.getInstance().verifyPhoneNumber(

@@ -22,7 +22,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorSeoul"
+                android:background="@color/seoul"
                 app:contentInsetEnd="0.0dip"
                 app:contentInsetStart="0.0dip">
 
@@ -33,7 +33,7 @@
             </android.support.v7.widget.Toolbar>
 
             <LinearLayout
-                android:background="@color/colorSeoul"
+                android:background="@color/seoul"
                 android:id="@+id/search"
                 android:layout_width="fill_parent"
                 android:layout_height="48dp"

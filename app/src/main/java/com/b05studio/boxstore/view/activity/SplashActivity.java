@@ -3,7 +3,6 @@ package com.b05studio.boxstore.view.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;

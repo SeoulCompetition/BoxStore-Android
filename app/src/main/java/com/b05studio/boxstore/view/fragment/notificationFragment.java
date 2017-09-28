@@ -1,4 +1,4 @@
-package com.b05studio.boxstore.fragement;
+package com.b05studio.boxstore.view.fragment;
 
 /**
  * Created by seungwoo on 2017-09-25.
@@ -12,12 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.b05studio.boxstore.R;
 
-public class fragment_notification extends Fragment {
+public class notificationFragment extends Fragment {
 
 
-    public static fragment_notification newInstance(){
-        fragment_notification fragment_notification = new fragment_notification();
-        return fragment_notification;
+    public static notificationFragment newInstance(){
+        notificationFragment notificationFragment = new notificationFragment();
+        return notificationFragment;
     }
     @Override
     public void onCreate(Bundle savedInstanceState){

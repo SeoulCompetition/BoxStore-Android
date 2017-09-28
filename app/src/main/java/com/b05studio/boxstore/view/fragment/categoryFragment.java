@@ -1,4 +1,4 @@
-package com.b05studio.boxstore.fragement;
+package com.b05studio.boxstore.view.fragment;
 
 /**
  * Created by seungwoo on 2017-09-25.
@@ -12,12 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.b05studio.boxstore.R;
 
-public class fragment_category extends Fragment {
+public class categoryFragment extends Fragment {
 
 
-    public static fragment_category newInstance(){
-        fragment_category fragment_category = new fragment_category();
-        return fragment_category;
+    public static categoryFragment newInstance(){
+        categoryFragment categoryFragment = new categoryFragment();
+        return categoryFragment;
     }
     @Override
     public void onCreate(Bundle savedInstanceState){

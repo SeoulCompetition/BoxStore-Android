@@ -12,7 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.b05studio.boxstore.fragement.*;
+import com.b05studio.boxstore.view.fragment.categoryFragment;
+import com.b05studio.boxstore.view.fragment.homeFragment;
+import com.b05studio.boxstore.view.fragment.mypageFragment;
+import com.b05studio.boxstore.view.fragment.notificationFragment;
+import com.b05studio.boxstore.view.fragment.sellFragment;
 
 import java.lang.reflect.Field;
 
@@ -39,19 +43,19 @@ public class MainActivity extends AppCompatActivity {
                         Fragment selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
-                                selectedFragment = fragment_home.newInstance();
+                                selectedFragment = homeFragment.newInstance();
                                 break;
                             case R.id.navigation_category:
-                                selectedFragment = fragment_category.newInstance();
+                                selectedFragment = categoryFragment.newInstance();
                                 break;
                             case R.id.navigation_sell:
-                                selectedFragment = fragment_sell.newInstance();
+                                selectedFragment = sellFragment.newInstance();
                                 break;
                             case R.id.navigation_notifications:
-                                selectedFragment = fragment_notification.newInstance();
+                                selectedFragment = notificationFragment.newInstance();
                                 break;
                             case R.id.navigation_mypage:
-                                selectedFragment = fragment_mypage.newInstance();
+                                selectedFragment = mypageFragment.newInstance();
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, fragment_home.newInstance());
+        transaction.replace(R.id.frame_layout, homeFragment.newInstance());
         transaction.commit();
 
 

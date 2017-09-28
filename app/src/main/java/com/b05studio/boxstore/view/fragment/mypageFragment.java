@@ -1,4 +1,4 @@
-package com.b05studio.boxstore.fragement;
+package com.b05studio.boxstore.view.fragment;
 
 /**
  * Created by seungwoo on 2017-09-25.
@@ -12,12 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.b05studio.boxstore.R;
 
-public class fragment_home extends Fragment {
+public class mypageFragment extends Fragment {
 
 
-    public static fragment_home newInstance(){
-        fragment_home fragment_home = new fragment_home();
-        return fragment_home;
+    public static mypageFragment newInstance(){
+        mypageFragment mypageFragment = new mypageFragment();
+        return mypageFragment;
     }
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -25,6 +25,6 @@ public class fragment_home extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home,container,false);
+        return inflater.inflate(R.layout.fragment_mypage, container, false);
     }
 }

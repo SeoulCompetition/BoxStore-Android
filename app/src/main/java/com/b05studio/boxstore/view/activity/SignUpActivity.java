@@ -39,9 +39,11 @@ public class SignUpActivity extends AppCompatActivity {
     
     @OnClick(R.id.signupNextButton)
     public void moveIdenficationAcitivity() {
+        // TODO: 2017-10-01  서버에서 검증하는거 구현해야됨.
         // TODO: 2017-09-25 유효값 검증 기능을 구현해야됨.
-        if(alreadyRegisterID() && isEqualPassword()) {
+        if(!alreadyRegisterID() && isEqualPassword()) {
             BaseUtil.moveActivity(SignUpActivity.this, IdentificationActivity.class);
+
         } else {
             Toast.makeText(getApplicationContext(), "회원정보가 올바르지 않습니다.",Toast.LENGTH_SHORT).show();
         }
@@ -60,12 +62,24 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean alreadyRegisterID () {
-        // TODO: 2017-09-27 작성해야됨.
-        return true;
+
+        boolean isAleadyRegistedId = false;
+        // 회원정보가 제공되면 true;
+        // 회원정보가 제공되지 않으면 false;
+        // TODO: 2017-09-27 서버로부터 작성해야됨.
+        if(isAleadyRegistedId) {
+            Toast.makeText(getApplicationContext(), "이미 가입된 ID의 정보가 있습니다..",Toast.LENGTH_SHORT).show();
+        }
+
+        return isAleadyRegistedId;
     }
 
     private boolean isEqualPassword() {
-        return passwordEditText.getText().toString().equals(passwordRepeatEditText.getText().toString());
+        boolean isEqual = passwordEditText.getText().toString().equals(passwordRepeatEditText.getText().toString());
+        if(!isEqual) {
+            Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
+        }
+        return isEqual;
     }
 
 

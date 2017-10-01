@@ -8,5 +8,9 @@
     <string name="title_sell">판매하기</string>
     <string name="title_category">카테고리</string>
 
+    <string name="facebook_app_id">1658637104187874</string>
+    <string name="fb_login_protocol_scheme">fb1658637104187874</string>
+
+
 
 </resources>

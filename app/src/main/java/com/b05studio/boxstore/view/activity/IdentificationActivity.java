@@ -4,9 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.util.BaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -20,10 +23,51 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class IdentificationActivity extends AppCompatActivity {
 
+
+    @BindView(R.id.identifyNameEditText)
+    EditText userNameEditText;
+
+    @BindView(R.id.identifyPhoneNumEditText)
+    EditText phoneEditText;
+
+    @BindView(R.id.identifyAuthCodeEditText)
+    EditText authCodeEditText;
+
+    private boolean isFirstTimeGetToken = true;
+
+    // 전화번호 인증
+    @OnClick(R.id.identifyRequestAuthCodeButton)
+    public void onClickRequestAuthCodeButton() {
+        if (!validatePhoneNumber())
+            return;
+
+        if(isFirstTimeGetToken) {
+            startPhoneNumberVerification(phoneEditText.getText().toString());
+            isFirstTimeGetToken = false;
+
+        } else {
+            resendVerificationCode(phoneEditText.getText().toString(), mResendToken);
+        }
+    }
+
+    @OnClick(R.id.identifyNextButton)
+    public void registerUser() {
+
+        String code = authCodeEditText.getText().toString();
+        if (TextUtils.isEmpty(code)) {
+            authCodeEditText.setError("인증번호를 입력해주세요.");
+            return;
+        }
+
+        verifyPhoneNumberWithCode(mVerificationId, code);
+    }
 
     private static final String TAG = "IdentificationActivity";
     private static final String KEY_VERIFY_IN_PROGRESS = "key_verify_in_progress";
@@ -40,6 +84,7 @@ public class IdentificationActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identification);
+        ButterKnife.bind(this);
 
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
@@ -48,7 +93,6 @@ public class IdentificationActivity extends AppCompatActivity {
 //        resendVerificationCode("01043019700",mResendToken);
 
         mAuth = FirebaseAuth.getInstance();
-
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
@@ -62,12 +106,8 @@ public class IdentificationActivity extends AppCompatActivity {
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
                 // [END_EXCLUDE]
+                signInWithPhoneAuthCredential(credential);
 
-                // [START_EXCLUDE silent]
-                // Update the UI and attempt sign in with the phone credential
-                //updateUI(STATE_VERIFY_SUCCESS, credential);
-                // [END_EXCLUDE]
-              //  signInWithPhoneAuthCredential(credential);
             }
 
             @Override
@@ -81,6 +121,7 @@ public class IdentificationActivity extends AppCompatActivity {
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
+                    phoneEditText.setError("잘못된 전화번호 양식입니다.");
 
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
@@ -102,12 +143,6 @@ public class IdentificationActivity extends AppCompatActivity {
                 // 이 메소드는 제공된 전화번호로 인증 코드가 SMS를 통해 전송된 후에 호출됩니다.
             }
         };
-
-      //  startPhoneNumberVerification("01043019700");
-//        startPhoneNumberVerification("+821043019700");
-//        startPhoneNumberVerification("+82043019700");
-
-
     }
 
     @Override
@@ -115,7 +150,6 @@ public class IdentificationActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
     }
 
     @Override
@@ -135,7 +169,7 @@ public class IdentificationActivity extends AppCompatActivity {
         // [START start_phone_auth]
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
+                120,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
@@ -158,7 +192,7 @@ public class IdentificationActivity extends AppCompatActivity {
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
+                120,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks,         // OnVerificationStateChangedCallbacks
@@ -174,17 +208,18 @@ public class IdentificationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-
                             FirebaseUser user = task.getResult().getUser();
+                            // TODO: 2017-10-01 서버에 유저정보 등록하기
+
+                            BaseUtil.moveActivity(IdentificationActivity.this,BoxstoreMenuActivity.class);
 
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                // [START_EXCLUDE silent]
-                                //mVerificationField.setError("Invalid code.");
-                                // [END_EXCLUDE]
+
+                                authCodeEditText.setError("잘못된 인증번호입니다.");
+
                             }
 
                         }
@@ -193,10 +228,19 @@ public class IdentificationActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private boolean validatePhoneNumber() {
+        String phoneNumber = phoneEditText.getText().toString();
+        if (TextUtils.isEmpty(phoneNumber)) {
+            phoneEditText.setError("올바른 번호가 아닙니다.");
+            return false;
+        }
+
+        return true;
     }
 
 
@@ -207,7 +251,6 @@ public class IdentificationActivity extends AppCompatActivity {
 //                if (!validatePhoneNumber()) {
 //                    return;
 //                }
-//
 //                startPhoneNumberVerification(mPhoneNumberField.getText().toString());
 //                break;
 //            case R.id.button_verify_phone:
@@ -227,7 +270,6 @@ public class IdentificationActivity extends AppCompatActivity {
 //                break;
 //        }
 //    }
-
 
 
 }

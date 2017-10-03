@@ -209,9 +209,9 @@ public class IdentificationActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = task.getResult().getUser();
-
+                            // TODO: 2017-10-04 서버에 폰인증되었다는 정보와 함께 회원가입.
                             BaseUtil.moveActivity(IdentificationActivity.this,BoxstoreMenuActivity.class);
-
+                            finish();
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

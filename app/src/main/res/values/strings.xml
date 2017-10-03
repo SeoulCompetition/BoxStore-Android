@@ -10,6 +10,7 @@
 
     <string name="facebook_app_id">1658637104187874</string>
     <string name="fb_login_protocol_scheme">fb1658637104187874</string>
+    <string name="loading">로딩 중입니다.</string>
 
     <string-array name="line1_stations">
 

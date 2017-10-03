@@ -11,13 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.b05studio.boxstore.MainActivity;
 import com.b05studio.boxstore.R;
-import com.b05studio.boxstore.view.fragment.categoryFragment;
-import com.b05studio.boxstore.view.fragment.homeFragment;
-import com.b05studio.boxstore.view.fragment.mypageFragment;
-import com.b05studio.boxstore.view.fragment.notificationFragment;
-import com.b05studio.boxstore.view.fragment.sellFragment;
+import com.b05studio.boxstore.util.BaseUtil;
+import com.b05studio.boxstore.view.fragment.CategoryFragment;
+import com.b05studio.boxstore.view.fragment.HomeFragment;
+import com.b05studio.boxstore.view.fragment.MypageFragment;
+import com.b05studio.boxstore.view.fragment.NotificationFragment;
+import com.b05studio.boxstore.view.fragment.SellFragment;
 
 import java.lang.reflect.Field;
 
@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
  * Created by joyeongje on 2017. 9. 28..
  */
 
-public class BoxstoreMenuActivity extends AppCompatActivity{
+public class BoxstoreMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity{
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
 
-      BottomNavigationViewHelper bottomnavigationViewHelper = new BottomNavigationViewHelper();
+        BottomNavigationViewHelper bottomnavigationViewHelper = new BottomNavigationViewHelper();
         bottomnavigationViewHelper.removeShiftMode(bottomNavigationView);
 
         bottomNavigationView.setOnNavigationItemSelectedListener
@@ -46,19 +46,19 @@ public class BoxstoreMenuActivity extends AppCompatActivity{
                         Fragment selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
-                                selectedFragment = homeFragment.newInstance();
+                                selectedFragment = HomeFragment.newInstance();
                                 break;
                             case R.id.navigation_category:
-                                selectedFragment = categoryFragment.newInstance();
+                                selectedFragment = CategoryFragment.newInstance();
                                 break;
                             case R.id.navigation_sell:
-                                selectedFragment = sellFragment.newInstance();
+                                BaseUtil.moveActivity(BoxstoreMenuActivity.this, SellActivity.class);
                                 break;
                             case R.id.navigation_notifications:
-                                selectedFragment = notificationFragment.newInstance();
+                                selectedFragment = NotificationFragment.newInstance();
                                 break;
                             case R.id.navigation_mypage:
-                                selectedFragment = mypageFragment.newInstance();
+                                selectedFragment = MypageFragment.newInstance();
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -70,14 +70,14 @@ public class BoxstoreMenuActivity extends AppCompatActivity{
 
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, homeFragment.newInstance());
+        transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
         transaction.commit();
-
 
 
         //Used to select an item programmatically
 
     }
+
     class BottomNavigationViewHelper {
         public void removeShiftMode(BottomNavigationView view) {
             BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);

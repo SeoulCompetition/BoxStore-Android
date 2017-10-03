@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.b05studio.boxstore.MainActivity">
 
+
+
     <ImageView
         android:id="@+id/truiton_image"
         android:layout_width="300dp"

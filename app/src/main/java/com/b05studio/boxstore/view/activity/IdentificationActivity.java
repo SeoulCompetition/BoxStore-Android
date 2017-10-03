@@ -209,7 +209,6 @@ public class IdentificationActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = task.getResult().getUser();
-                            // TODO: 2017-10-01 서버에 유저정보 등록하기
 
                             BaseUtil.moveActivity(IdentificationActivity.this,BoxstoreMenuActivity.class);
 

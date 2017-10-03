@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F1F1F1"
     tools:context="com.b05studio.boxstore.view.activity.DetailProductActivity"
     tools:ignore="MissingPrefix">
 
@@ -45,7 +46,9 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#F1F1F1"
+            >
 
             <View
                 android:id="@+id/detailProductTitlebar"
@@ -55,7 +58,8 @@
                 android:background="#4B65A7"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <ImageButton
                 android:id="@+id/detailProductBackButton"
@@ -67,7 +71,6 @@
                 app:layout_constraintBottom_toBottomOf="@+id/detailProductTitlebar"
                 app:layout_constraintLeft_toLeftOf="@+id/detailProductTitlebar"
                 app:layout_constraintTop_toTopOf="@+id/detailProductTitlebar"
-
                 />
 
             <TextView
@@ -89,20 +92,21 @@
                 android:id="@+id/detailProductImageListView"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
-                android:layout_marginTop="16dp"
-                android:background="#ffffff"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailProductTitlebar" />
+                app:layout_constraintTop_toBottomOf="@+id/detailProductTitlebar"
+                android:layout_marginTop="16dp"
+                android:background="#ffffff"
+                />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/detailProductViewPager"
                 android:layout_width="0dp"
                 android:layout_height="250dp"
-                android:background="#000000"
                 app:layout_constraintLeft_toLeftOf="@+id/detailProductImageListView"
                 app:layout_constraintRight_toRightOf="@+id/detailProductImageListView"
-                app:layout_constraintTop_toTopOf="@+id/detailProductImageListView" />
+                app:layout_constraintTop_toTopOf="@+id/detailProductImageListView"
+                />
 
             <com.rd.PageIndicatorView
                 android:id="@+id/pageIndicatorView"
@@ -112,7 +116,11 @@
                 app:layout_constraintLeft_toLeftOf="@+id/detailProductImageListView"
                 app:layout_constraintRight_toRightOf="@+id/detailProductImageListView"
                 app:layout_constraintTop_toBottomOf="@+id/detailProductViewPager"
-                attrs:piv_viewPager="@+id/detailProductViewPager" />
+                attrs:piv_viewPager="@+id/detailProductViewPager"
+                app:piv_selectedColor="#4B65A7"
+                app:piv_unselectedColor="#F1F1F1"
+                app:piv_radius="4dp"
+                />
 
             <View
                 android:id="@+id/detailProductBasicInfoView"

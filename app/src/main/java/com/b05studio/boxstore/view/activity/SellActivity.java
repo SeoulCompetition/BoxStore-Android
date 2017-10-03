@@ -2,26 +2,16 @@ package com.b05studio.boxstore.view.activity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.b05studio.boxstore.R;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

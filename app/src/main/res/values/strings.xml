@@ -11,5 +11,41 @@
     <string name="facebook_app_id">1658637104187874</string>
     <string name="fb_login_protocol_scheme">fb1658637104187874</string>
 
+    <string-array name="line1_stations">
+
+    </string-array>
+
+    <string-array name="line2_stations">
+
+    </string-array>
+
+    <string-array name="line3_stations">
+
+    </string-array>
+
+    <string-array name="line4_stations">
+
+    </string-array>
+
+    <string-array name="line5_stations">
+
+    </string-array>
+
+    <string-array name="line6_stations">
+
+    </string-array>
+
+    <string-array name="line7_stations">
+
+    </string-array>
+
+    <string-array name="line8_stations">
+
+    </string-array>
+
+    <string-array name="line9_stations">
+
+    </string-array>
+
 
 </resources>

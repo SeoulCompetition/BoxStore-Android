@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:attrs="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.b05studio.boxstore.view.activity.DetailProductActivity"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:weightSum="5"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:src="@drawable/ic_detail_product_scrap_button"
+            android:background="@null"
+            android:scaleType="fitXY"
+             />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:src="@drawable/ic_detail_product_request_button"
+            android:background="@null"
+            android:scaleType="fitXY"
+            />
+    </LinearLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttonsLayout"
+        android:background="#F1F1F1"
+        android:fillViewport="true">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/detailProductTitlebar"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="0dp"
+                android:background="#4B65A7"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/detailProductBackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@null"
+                android:src="@drawable/ic_back_button"
+                app:layout_constraintBottom_toBottomOf="@+id/detailProductTitlebar"
+                app:layout_constraintLeft_toLeftOf="@+id/detailProductTitlebar"
+                app:layout_constraintTop_toTopOf="@+id/detailProductTitlebar"
+
+                />
+
+            <TextView
+                android:id="@+id/detailProductNameTitleTextview"
+                fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/detailProductTitlebar"
+                app:layout_constraintLeft_toLeftOf="@+id/detailProductTitlebar"
+                app:layout_constraintRight_toRightOf="@+id/detailProductTitlebar"
+                app:layout_constraintTop_toTopOf="@+id/detailProductTitlebar"
+                tools:text="슈프림 X 노스페이스 아노락"
+                android:text="슈프림 X 노스페이스 아노락"
+                android:textColor="#ffffff"
+                android:includeFontPadding="false"
+                />
+
+            <View
+                android:id="@+id/detailProductImageListView"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="16dp"
+                android:background="#ffffff"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailProductTitlebar" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/detailProductViewPager"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:background="#000000"
+                app:layout_constraintLeft_toLeftOf="@+id/detailProductImageListView"
+                app:layout_constraintRight_toRightOf="@+id/detailProductImageListView"
+                app:layout_constraintTop_toTopOf="@+id/detailProductImageListView" />
+
+            <com.rd.PageIndicatorView
+                android:id="@+id/pageIndicatorView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/detailProductImageListView"
+                app:layout_constraintLeft_toLeftOf="@+id/detailProductImageListView"
+                app:layout_constraintRight_toRightOf="@+id/detailProductImageListView"
+                app:layout_constraintTop_toBottomOf="@+id/detailProductViewPager"
+                attrs:piv_viewPager="@+id/detailProductViewPager" />
+
+            <View
+                android:id="@+id/detailProductBasicInfoView"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="4dp"
+                android:background="#ffffff"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailProductImageListView" />
+
+            <TextView
+                android:id="@+id/detailProductNameTextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="슈프림 X 노스페이스 아노락"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                app:layout_constraintLeft_toLeftOf="@+id/detailProductBasicInfoView"
+                app:layout_constraintTop_toTopOf="@+id/detailProductBasicInfoView"
+                tools:text="슈프림 X 노스페이스 아노락"
+                fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+                android:includeFontPadding="false"
+                />
+
+            <TextView
+                android:id="@+id/detailProductPriceTextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="950,0000 원"
+                android:textColor="#4B65A7"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@+id/detailProductBasicInfoView"
+                app:layout_constraintTop_toBottomOf="@+id/detailProductNameTextview"
+                tools:text="950,0000 원"
+                fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+                android:includeFontPadding="false"
+                />
+
+            <ImageView
+                android:id="@+id/detailProductStateImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="18dp"
+                android:src="@drawable/ic_detail_product_state"
+                app:layout_constraintRight_toRightOf="@+id/detailProductBasicInfoView"
+                app:layout_constraintTop_toTopOf="@+id/detailProductBasicInfoView"
+                />
+
+            <TextView
+                android:id="@+id/detailProductStateTextView"
+                fontPath="fonts/NOTOSANSKR-THIN-WINDOWS.OTF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="미개봉"
+                android:textSize="10sp"
+                android:textColor="#4B65A7"
+                app:layout_constraintBottom_toBottomOf="@+id/detailProductStateImageView"
+                app:layout_constraintLeft_toLeftOf="@+id/detailProductStateImageView"
+                app:layout_constraintRight_toRightOf="@+id/detailProductStateImageView"
+                app:layout_constraintTop_toTopOf="@+id/detailProductStateImageView"
+                android:includeFontPadding="false"
+                />
+
+            <TextView
+                android:id="@+id/detailPrductDescriptionTextView"
+                fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:lineSpacingExtra="12dp"
+                android:text="슈프림 X 노스페이스 아노락 팝니다.\n
+M 사이즈에 미개봉 상태입니다.\n
+미개봉 상태이기 때문에 하자는 전혀 없습니다.\n
+샀던 그대로 패키징해서 드립니다."
+                android:textColor="#010101"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/detailProductBasicInfoView"
+                app:layout_constraintLeft_toLeftOf="@+id/detailProductBasicInfoView"
+                app:layout_constraintRight_toRightOf="@+id/detailProductBasicInfoView"
+                app:layout_constraintTop_toBottomOf="@+id/detailProductPriceTextview"
+                android:includeFontPadding="false"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

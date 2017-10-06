@@ -3,6 +3,7 @@ package com.b05studio.boxstore.view.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.IInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,9 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.application.BoxStoreApplication;
+import com.b05studio.boxstore.model.BoxstoreUser;
+import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.util.BaseUtil;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -33,6 +37,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
@@ -42,6 +47,10 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.HTTP;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends AppCompatActivity implements
@@ -75,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     @OnClick(R.id.loginIdPasswrodSubmitButton)
     public void onClickIdAndPasswordLoginButton() {
-        signInWithEmailAndPassword(idEditText.getText().toString(), passwordEditText.getText().toString());
+        firebaseAuthWithEmailAndPassword(idEditText.getText().toString(), passwordEditText.getText().toString());
     }
 
     @OnClick(R.id.loginFacebookButton)
@@ -123,7 +132,7 @@ public class LoginActivity extends AppCompatActivity implements
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // 로그인 성공.
-                signInWithFacebook(loginResult.getAccessToken());
+                firebaseAuthWithFacebook(loginResult.getAccessToken());
                 Log.d("Facebook Login", "SUCCESS");
             }
 
@@ -141,30 +150,37 @@ public class LoginActivity extends AppCompatActivity implements
         });
     }
 
-    private void signInWithEmailAndPassword(String email, String password) {
+    private void signInWithGoogle() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void firebaseAuthWithEmailAndPassword(String email, String password) {
+        showProgressDialog();
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // TODO: 2017-10-01 일단은 바로 연결되게, 하지만 나중에 서버에서 재검증 필요.
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-                                    finish();
+                                    Log.d(TAG, "signInWithCredential:success");
+                                    checkRegisterEmailLoginUser();
+
                                 } else {
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
                                     Toast.makeText(LoginActivity.this, "회원정보를 다시 확인해주세요.",
                                             Toast.LENGTH_SHORT).show();
                                 }
+                                hideProgressDialog();
 
                             }
                         }
                 );
     }
 
-    private void signInWithFacebook(AccessToken token) {
+    private void firebaseAuthWithFacebook(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
-        // TODO: 2017-09-19 여기에 사용자 정보저장
+        showProgressDialog();
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -172,11 +188,7 @@ public class LoginActivity extends AppCompatActivity implements
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            // 사진정보는 들고오네 ㅇㅇ
-                            // 서버에 가지고 있는 정보 없을시 회원가입 안된것이므로 절로 이동시켜야됨.
-                            startActivity(new Intent(LoginActivity.this, IdentificationActivity.class));
-                            finish();
+                            checkRegisterSNSLoginUser();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -185,14 +197,10 @@ public class LoginActivity extends AppCompatActivity implements
                                     Toast.LENGTH_SHORT).show();
 
                         }
+
+                        hideProgressDialog();
                     }
                 });
-    }
-
-    private void signInWithGoogle() {
-        // TODO: 2017-10-01 작성해야댐
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     // [START auth_with_google]
@@ -210,10 +218,7 @@ public class LoginActivity extends AppCompatActivity implements
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            // TODO: 2017-10-04 서버로부터 폰번호 인증 있을때 넘어가기. 
-                            startActivity(new Intent(LoginActivity.this, IdentificationActivity.class));
-                            finish();
+                            checkRegisterSNSLoginUser();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -230,8 +235,83 @@ public class LoginActivity extends AppCompatActivity implements
                 });
     }
 
-    private void checkRegisterUser(String uid) {
-        // TODO: 2017-10-04 서버로 부터 검증작업.
+    private void checkRegisterEmailLoginUser() {
+        final FirebaseUser user = mAuth.getCurrentUser();
+        final String uid = user.getUid();
+        BoxStoreHttpService boxStoreHttpService = BoxStoreApplication.getRetrofit().create(BoxStoreHttpService.class);
+        Call<BoxstoreUser> boxstoreUserCall = boxStoreHttpService.getUserData(uid);
+
+        boxstoreUserCall.enqueue(new Callback<BoxstoreUser>() {
+            @Override
+            public void onResponse(Call<BoxstoreUser> call, Response<BoxstoreUser> response) {
+                BoxstoreUser boxstoreUser = response.body();
+                if(response.code() == RESULT_OK) {
+                    BoxStoreApplication.setCurrentUser(boxstoreUser);
+                    BaseUtil.moveActivity(LoginActivity.this, BoxstoreMenuActivity.class);
+                    finish();
+
+                } else {
+                    BoxStoreApplication.getCurrentUser().setuId(uid);
+                    BaseUtil.moveActivity(LoginActivity.this, SignUpActivity.class);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BoxstoreUser> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+    }
+
+    private void checkRegisterSNSLoginUser() {
+        final FirebaseUser user = mAuth.getCurrentUser();
+        String uid = user.getUid();
+        BoxStoreHttpService boxStoreHttpService = BoxStoreApplication.getRetrofit().create(BoxStoreHttpService.class);
+        Call<BoxstoreUser> boxstoreUserCall = boxStoreHttpService.getUserData(uid);
+
+        boxstoreUserCall.enqueue(new Callback<BoxstoreUser>() {
+            @Override
+            public void onResponse(Call<BoxstoreUser> call, Response<BoxstoreUser> response) {
+                BoxstoreUser boxstoreUser = response.body();
+                if(response.code() == RESULT_OK) {
+                    BoxStoreApplication.setCurrentUser(boxstoreUser);
+                    BaseUtil.moveActivity(LoginActivity.this, BoxstoreMenuActivity.class);
+                    finish();
+
+                } else {
+                    getUserInfoByFirebaseAuth(user);
+                    BaseUtil.moveActivity(LoginActivity.this, IdentificationActivity.class);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BoxstoreUser> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+    }
+
+    private void getUserInfoByFirebaseAuth(FirebaseUser user) {
+
+        final BoxstoreUser currentUser = BoxStoreApplication.getCurrentUser();
+        currentUser.setName(user.getDisplayName());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setPhotoURL(user.getPhotoUrl().toString());
+        currentUser.setuId(user.getUid());
+        BoxStoreApplication.setCurrentUser(currentUser);
+//        user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<GetTokenResult> task) {
+//                currentUser.setUserToken(task.getResult().getToken());
+//
+//
+//            }
+//        });
+
     }
 
 

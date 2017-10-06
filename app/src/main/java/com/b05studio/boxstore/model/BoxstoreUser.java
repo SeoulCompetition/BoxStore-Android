@@ -1,5 +1,7 @@
 package com.b05studio.boxstore.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -8,22 +10,35 @@ import java.io.Serializable;
 
 public class BoxstoreUser implements Serializable {
 
+    @SerializedName("uid")
     private String uId;
+
+    @SerializedName("email")
     private String email;
+
+    @SerializedName("photoURL")
     private String photoURL;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("userToken")
     private String userToken;
+
+    @SerializedName("phoneNum")
+    private String phoneNum;
 
     public BoxstoreUser() {
 
     }
 
-    public BoxstoreUser(String uId, String email, String phothURL, String name, String userToken) {
+    public BoxstoreUser(String uId, String email, String phothURL, String name, String userToken, String phoneNum) {
         this.uId = uId;
         this.email = email;
         this.photoURL = phothURL;
         this.name = name;
         this.userToken = userToken;
+        this.phoneNum = phoneNum;
     }
 
     public String getuId() {
@@ -64,5 +79,13 @@ public class BoxstoreUser implements Serializable {
 
     public void setUserToken(String userToken) {
         this.userToken = userToken;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 }

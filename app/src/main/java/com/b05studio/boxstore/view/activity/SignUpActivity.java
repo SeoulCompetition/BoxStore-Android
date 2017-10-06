@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.util.BaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -102,8 +103,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void createEmailAndPassWordUser() {
-        String email = idEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
+        final String email = idEditText.getText().toString();
+        final String password = passwordEditText.getText().toString();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -112,6 +113,7 @@ public class SignUpActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            BoxStoreApplication.getCurrentUser().setEmail(email);
                             BaseUtil.moveActivity(SignUpActivity.this, IdentificationActivity.class);
                         } else {
                             // If sign in fails, display a message to the user.

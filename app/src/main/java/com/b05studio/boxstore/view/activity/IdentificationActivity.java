@@ -78,6 +78,7 @@ public class IdentificationActivity extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +150,8 @@ public class IdentificationActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
+
     }
 
     @Override
@@ -200,7 +202,8 @@ public class IdentificationActivity extends AppCompatActivity {
     }
 
     // 여기서 인증 정보를 마저 담아야제.
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+    private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -209,16 +212,16 @@ public class IdentificationActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = task.getResult().getUser();
-                            // TODO: 2017-10-04 서버에 폰인증되었다는 정보와 함께 회원가입.
+                            // TODO: 2017-10-04 서버에 폰인증되었다는 정보와 함께 회원가입.'
+                            // TODO: 2017-10-06 회원가입
+                            currentUser.linkWithCredential(credential);
                             BaseUtil.moveActivity(IdentificationActivity.this,BoxstoreMenuActivity.class);
                             finish();
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-
                                 authCodeEditText.setError("잘못된 인증번호입니다.");
-
                             }
 
                         }

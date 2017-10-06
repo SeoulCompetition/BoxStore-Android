@@ -19,8 +19,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class BoxStoreApplication extends Application {
 
     private static Retrofit retrofit = null;
-    private static final String BOXSTORE_BASIC_URL = "";
-    private static final BoxstoreUser currentUser = new BoxstoreUser();
+    private static final String BOXSTORE_BASIC_URL = "http://52.78.22.122:3000";
+    private static  BoxstoreUser currentUser = new BoxstoreUser();
 
     // 향후 retrofit 객체도 여기
 
@@ -50,5 +50,8 @@ public class BoxStoreApplication extends Application {
 
     public static BoxstoreUser getCurrentUser() {
         return currentUser;
+    }
+    public static  void setCurrentUser(BoxstoreUser boxstoreUser) {
+        currentUser = boxstoreUser;
     }
 }

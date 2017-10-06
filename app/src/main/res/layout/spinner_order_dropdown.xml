@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/spinnerText"
-        android:textSize="15sp"
+        android:textSize="9dp"
         android:textColor="#000"
         android:alpha="0.87"
         android:paddingLeft="13dp"

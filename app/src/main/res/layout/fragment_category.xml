@@ -4,10 +4,19 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
+
         android:id="@+id/category_toolbar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/seoul"></android.support.v7.widget.Toolbar>
+        android:layout_height="56dp"
+        android:background="@color/seoul">
+
+        <include
+
+            layout="@layout/layout_category_toolbar">
+
+        </include>
+
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/category_list"

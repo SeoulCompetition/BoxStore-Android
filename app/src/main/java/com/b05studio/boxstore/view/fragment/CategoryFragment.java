@@ -87,7 +87,7 @@ public class CategoryFragment extends Fragment {
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.category_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle("카테고리");
+
 //
         ButterKnife.bind(this,view);
         GridLayoutManager mGrid = new GridLayoutManager(getContext(),2);

@@ -1,9 +1,11 @@
 package com.b05studio.boxstore.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
@@ -46,6 +48,9 @@ public class StationActivity extends AppCompatActivity {
 
         adapterSpinner = new Spinner_Adapter(this,mNewList);
         Spinner spinner = (Spinner) findViewById(R.id.order_spinner);
+        Spinner category_spinner = (Spinner) findViewById(R.id.category_spinner);
+
+        category_spinner.setAdapter(adapterSpinner);
         spinner.setAdapter(adapterSpinner);
         ButterKnife.bind(this);
 
@@ -70,12 +75,21 @@ public class StationActivity extends AppCompatActivity {
         Station_Adapter mAdapter = new Station_Adapter(this,items);
         recyclerView.setAdapter(mAdapter);
 
-        /*
+        // TODO: 카테고리 클릭시 putExtra로 클릭한 카테고리 이름 전송
+        Intent intent = getIntent();
+        String categoryName = intent.getStringExtra("CATEGORY_NAME");
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.category_toolbar);
-        .setSupportActionBar(toolbar);
-        toolbar.setTitle("카테고리");
-//
-        ButterKnife.bind(this,view);
-*/
+        setSupportActionBar(toolbar);
+        // TODO: 백버튼 추가
+//        toolbar.setTitle(categoryName);
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+ //       getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+
+
     }
 }

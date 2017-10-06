@@ -28,36 +28,14 @@
                 app:contentInsetStart="0.0dip">
 
                 <include
-                    layout="@layout/layout_actionbar">
+                    layout="@layout/layout_category_toolbar">
                 </include>
 
             </android.support.v7.widget.Toolbar>
 
-            <LinearLayout
-                android:background="@color/seoul"
-                android:id="@+id/search"
-                android:layout_width="fill_parent"
-                android:layout_height="48dp"
-                android:paddingBottom="12.0dip"
-                android:paddingLeft="12.0dip"
-                android:paddingRight="12.0dip"
-                android:paddingTop="2.0dip">
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-
-                    android:drawablePadding="8.0dip"
-                    android:paddingBottom="8.0dip"
-                    android:paddingLeft="10.0dip"
-                    android:paddingRight="10.0dip"
-                    android:paddingTop="8.0dip"
-                    android:background="@drawable/bg_white_round2_box"
-                    android:textSize="@dimen/ts_body2"
-                    android:text="검색하기"
-                    android:gravity="center_horizontal"/>
-
-            </LinearLayout>
+            <include
+                layout="@layout/layout_search_view"
+                ></include>
 
         </LinearLayout>
 
@@ -82,6 +60,7 @@
                 app:srcCompat="@drawable/ic_sell_item" />
 
             <TextView
+                android:text="상품 1111 건"
                 android:id="@+id/item_quantity"
                 android:layout_width="53dp"
                 android:layout_height="12dp"
@@ -90,27 +69,37 @@
                 android:textSize="9dp" />
 
             <Spinner
+                android:layout_marginStart="100dp"
+                android:id="@+id/category_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_custom_spinner"
+                android:entries="@array/order">
+            </Spinner>
+
+            <Spinner
                 android:id="@+id/order_spinner"
                 android:layout_width="wrap_content"
-                android:layout_height="12dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="170dp"
-                android:entries="@array/order"></Spinner>
+                android:layout_marginStart="3dp"
+                android:background="@drawable/bg_custom_spinner"
+                android:entries="@array/order">
+
+            </Spinner>
+
+
 
         </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/activity_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/item_recycler"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
             android:layout_marginBottom="8dp"
             android:layout_marginTop="15dp"
@@ -122,8 +111,5 @@
             app:layout_constraintTop_toTopOf="parent">
 
         </android.support.v7.widget.RecyclerView>
-
-
-    </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

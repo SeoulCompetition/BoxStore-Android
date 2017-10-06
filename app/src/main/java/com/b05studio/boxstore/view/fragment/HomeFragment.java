@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
 
 
         mImageItemList = new ArrayList<>();
-        //mImageItemList.addAll(Utils.getThumbImageList());
+        mImageItemList.addAll(getThumbImageList());
 
         mPagerAdapter = new home_veiw1_Adapter(getChildFragmentManager(), mImageItemList);
 

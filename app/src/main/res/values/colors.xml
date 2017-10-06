@@ -6,6 +6,7 @@
     <color name="grey">#B6B6B6</color>
     <color name="white">#FFFFFF</color>
     <!--회색 시리즈-->
+    <color name="gray_bg">#F1F1F1</color>
     <color name="gray_100">#fff2f2f2</color>
     <color name="gray_20">#33d7d7d7</color>
     <color name="gray_200">#ffececec</color>

@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.util.BaseUtil;
@@ -21,17 +23,25 @@ import com.b05studio.boxstore.view.fragment.SellFragment;
 
 import java.lang.reflect.Field;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by joyeongje on 2017. 9. 28..
  */
 
 public class BoxstoreMenuActivity extends AppCompatActivity {
 
+    @BindView(R.id.app_bar_layout)
+    AppBarLayout appBarLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        ButterKnife.bind(this);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
@@ -45,10 +55,13 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         Fragment selectedFragment = null;
                         switch (item.getItemId()) {
+
                             case R.id.navigation_home:
+                                appBarLayout.setVisibility(View.VISIBLE);
                                 selectedFragment = HomeFragment.newInstance();
                                 break;
                             case R.id.navigation_category:
+                                appBarLayout.setVisibility(View.GONE);
                                 selectedFragment = CategoryFragment.newInstance();
                                 break;
                             case R.id.navigation_sell:
@@ -62,7 +75,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frame_layout, selectedFragment);
+                         transaction.replace(R.id.frame_layout, selectedFragment);
                         transaction.commit();
                         return true;
                     }

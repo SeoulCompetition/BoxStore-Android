@@ -29,16 +29,20 @@
         <activity android:name=".view.activity.IdentificationActivity" />
         <activity android:name=".view.activity.PhotoActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".view.activity.BoxstoreMenuActivity" />
-        <activity android:name=".view.activity.SellActivity" />
-        <activity
-            android:name=".view.activity.SplashActivity"
-            android:theme="@style/SplashTheme">
+        <activity android:name=".view.activity.BoxstoreMenuActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".view.activity.SellActivity" />
+        <activity
+            android:name=".view.activity.SplashActivity"
+            android:theme="@style/SplashTheme">
+
         </activity>
 
         <meta-data
@@ -60,6 +64,10 @@
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".view.activity.StationActivity">
+
         </activity>
 
         <service android:name=".fcm.MyFirebaseMessagingService">

@@ -1,22 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.b05studio.boxstore.MainActivity">
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/truiton_image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher"/>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/category_toolbar"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/truiton_image"
-        android:layout_centerHorizontal="true"
-        android:text="Fragment 2"
-        android:textSize="30sp"/>
+        android:background="@color/seoul"></android.support.v7.widget.Toolbar>
 
-</RelativeLayout>
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/category_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_300">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
+
+

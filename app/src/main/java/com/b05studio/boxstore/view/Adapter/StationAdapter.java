@@ -24,16 +24,16 @@ import butterknife.ButterKnife;
  * Created by seungwoo on 2017-10-02.
  */
 
-public class Station_Adapter extends RecyclerView.Adapter<Station_Adapter .ItemViewHolder>{
+public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ItemViewHolder>{
 
 
-    private static final String TAG = "Station_Adapter";
+    private static final String TAG = "StationAdapter";
     private List<Item> item_list;
     private Context context;
 
 
 
-    public Station_Adapter(Context context, List<Item> item_list) {
+    public StationAdapter(Context context, List<Item> item_list) {
         this.item_list = item_list;
         this.context = context;
     }
@@ -42,7 +42,7 @@ public class Station_Adapter extends RecyclerView.Adapter<Station_Adapter .ItemV
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.selling_item,viewGroup,false);
-        return new Station_Adapter.ItemViewHolder(view);
+        return new StationAdapter.ItemViewHolder(view);
     }
 
     @Override

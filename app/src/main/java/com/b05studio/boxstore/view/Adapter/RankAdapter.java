@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 /**
  * Created by PK on 9/20/2016.
  */
-public class Rank_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private boolean isHeader;
     private List<Subway_Rank> data;
     private Context context;
@@ -28,12 +28,12 @@ public class Rank_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public static final int VIEW_HEADER = 0;
     public static final int VIEW_ITEM = 1;
 
-    public Rank_Adapter(Context context, List<Subway_Rank> data, boolean isHeader){
+    public RankAdapter(Context context, List<Subway_Rank> data, boolean isHeader){
         this.context=context;
         this.data=data;
         this.isHeader=isHeader;
     }
-    public Rank_Adapter(List<Subway_Rank> data){
+    public RankAdapter(List<Subway_Rank> data){
         this.data = data;
     }
     @Override

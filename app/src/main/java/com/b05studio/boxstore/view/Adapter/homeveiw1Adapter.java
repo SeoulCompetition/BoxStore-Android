@@ -15,14 +15,14 @@ import java.util.List;
  * Created by seungwoo on 2017-09-27.
  */
 
-public class home_veiw1_Adapter extends FragmentStatePagerAdapter {
+public class homeveiw1Adapter extends FragmentStatePagerAdapter {
 
 
     private static final String TAG = "FramentStatePagerAdapter";
     private ArrayList<Item> mImageItemList;
     private FragmentManager mFragmentManager;
 
-    public home_veiw1_Adapter(FragmentManager fm, ArrayList<Item> imageItemList) {
+    public homeveiw1Adapter(FragmentManager fm, ArrayList<Item> imageItemList) {
         super(fm);
         this.mImageItemList = imageItemList;
         this.mFragmentManager = fm;

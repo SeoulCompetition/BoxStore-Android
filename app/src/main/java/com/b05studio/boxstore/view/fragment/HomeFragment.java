@@ -19,23 +19,21 @@ import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.model.StoreRank;
 import com.b05studio.boxstore.model.Subway_Rank;
 import com.b05studio.boxstore.util.DotIndicator;
-import com.b05studio.boxstore.view.Adapter.Rank_Adapter;
-import com.b05studio.boxstore.view.Adapter.home_veiw1_Adapter;
+import com.b05studio.boxstore.view.Adapter.RankAdapter;
+import com.b05studio.boxstore.view.Adapter.homeveiw1Adapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.internal.Utils;
-
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "FragmentStatPgrAdapFrag";
-    private home_veiw1_Adapter mPagerAdapter;
+    private homeveiw1Adapter mPagerAdapter;
     private ArrayList<Item> mImageItemList;
     ViewPager viewPager;
     DotIndicator viewIncicator;
     private RecyclerView mRankRecyclerview;
-    private Rank_Adapter rank_adapter;
+    private RankAdapter rank_adapter;
 
     public final static String[] imageThumbUrls = new String[] {
             "https://lh6.googleusercontent.com/-55osAWw3x0Q/URquUtcFr5I/AAAAAAAAAbs/rWlj1RUKrYI/s240-c/A%252520Photographer.jpg",
@@ -105,7 +103,7 @@ public class HomeFragment extends Fragment {
         mImageItemList = new ArrayList<>();
         mImageItemList.addAll(getThumbImageList());
 
-        mPagerAdapter = new home_veiw1_Adapter(getChildFragmentManager(), mImageItemList);
+        mPagerAdapter = new homeveiw1Adapter(getChildFragmentManager(), mImageItemList);
 
         viewPager = view.findViewById(R.id.home_vp_1);
         viewPager.setAdapter(mPagerAdapter);
@@ -121,7 +119,7 @@ public class HomeFragment extends Fragment {
         StoreRank storeRank = StoreRank.get(getActivity());
         List<Subway_Rank> stores = storeRank.getRanks();
 
-        rank_adapter = new Rank_Adapter(getActivity(),stores,true);
+        rank_adapter = new RankAdapter(getActivity(),stores,true);
         mRankRecyclerview.setAdapter(rank_adapter);
     }
 }

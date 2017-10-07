@@ -16,7 +16,7 @@ import java.util.List;
  * Created by seungwoo on 2017-10-04.
  */
 
-public class Spinner_Adapter extends BaseAdapter {
+public class SpinnerAdapter extends BaseAdapter {
 
 
     Context context;
@@ -24,7 +24,7 @@ public class Spinner_Adapter extends BaseAdapter {
     LayoutInflater inflater;
 
 
-    public Spinner_Adapter(Context context, List<String> data){
+    public SpinnerAdapter(Context context, List<String> data){
         this.context = context;
         this.data = data;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

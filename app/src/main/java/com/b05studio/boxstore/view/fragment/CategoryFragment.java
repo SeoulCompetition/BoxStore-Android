@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Category;
-import com.b05studio.boxstore.view.Adapter.Category_Adapter;
+import com.b05studio.boxstore.view.Adapter.CategoryAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class CategoryFragment extends Fragment {
             "Marshmallow ..."
     };
 
-    private static final String TAG = "Fragment_category";
+    private static final String TAG = "FragmentCategory";
     @BindView(R.id.category_list)
     RecyclerView recyclerView;
 
@@ -93,7 +93,7 @@ public class CategoryFragment extends Fragment {
         GridLayoutManager mGrid = new GridLayoutManager(getContext(),2);
         recyclerView.setLayoutManager(mGrid);
         recyclerView.setHasFixedSize(true);
-        Category_Adapter mAdapter = new Category_Adapter(getContext(),getTestData());
+        CategoryAdapter mAdapter = new CategoryAdapter(getContext(),getTestData());
         recyclerView.setAdapter(mAdapter);
 
         return view;

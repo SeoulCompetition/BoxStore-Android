@@ -32,10 +32,10 @@
 
             </android.support.v7.widget.Toolbar>
 
-          <include
-              android:id="@+id/search_view"
-             layout="@layout/layout_search_view">
-          </include>
+            <include
+                android:id="@+id/search_view"
+                layout="@layout/layout_search_view">
+            </include>
 
         </LinearLayout>
 

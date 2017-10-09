@@ -7,12 +7,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Item;
-import com.b05studio.boxstore.view.Adapter.Spinner_Adapter;
-import com.b05studio.boxstore.view.Adapter.Station_Adapter;
+import com.b05studio.boxstore.view.Adapter.SpinnerAdapter;
+import com.b05studio.boxstore.view.Adapter.StationAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +28,7 @@ public class StationActivity extends AppCompatActivity {
 
     @BindView(R.id.item_recycler)
     RecyclerView recyclerView;
-    SpinnerAdapter adapterSpinner;
+    android.widget.SpinnerAdapter adapterSpinner;
 
 
     private final String android_image_urls = "http://api.learn2crack.com/android/images/donut.png";
@@ -46,7 +45,7 @@ public class StationActivity extends AppCompatActivity {
 
         List<String> mNewList = new ArrayList<String>(Arrays.asList(str));
 
-        adapterSpinner = new Spinner_Adapter(this,mNewList);
+        adapterSpinner = new SpinnerAdapter(this,mNewList);
         Spinner spinner = (Spinner) findViewById(R.id.order_spinner);
         Spinner category_spinner = (Spinner) findViewById(R.id.category_spinner);
 
@@ -72,7 +71,7 @@ public class StationActivity extends AppCompatActivity {
         GridLayoutManager mGrid = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(mGrid);
         recyclerView.setHasFixedSize(true);
-        Station_Adapter mAdapter = new Station_Adapter(this,items);
+        StationAdapter mAdapter = new StationAdapter(this,items);
         recyclerView.setAdapter(mAdapter);
 
         // TODO: 카테고리 클릭시 putExtra로 클릭한 카테고리 이름 전송

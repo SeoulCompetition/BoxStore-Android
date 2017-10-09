@@ -25,14 +25,14 @@ import butterknife.ButterKnife;
  * Created by seungwoo on 2017-10-01.
  */
 
-public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.CategoryViewHolder>{
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>{
 
 
-    private static final String TAG = "Category_Adapter";
+    private static final String TAG = "CategoryAdapter";
     private List<Category> category_list;
     private Context context;
 
-    public Category_Adapter(Context context,List<Category> category_list) {
+    public CategoryAdapter(Context context, List<Category> category_list) {
         this.category_list = category_list;
         this.context = context;
     }

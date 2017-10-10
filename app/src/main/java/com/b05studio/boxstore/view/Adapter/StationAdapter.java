@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
 
 public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ItemViewHolder>{
 
-
     private static final String TAG = "StationAdapter";
     private List<Item> item_list;
     private Context context;

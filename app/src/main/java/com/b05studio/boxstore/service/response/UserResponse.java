@@ -5,4 +5,5 @@ package com.b05studio.boxstore.service.response;
  */
 
 public class UserResponse {
+
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.util.BaseUtil;
@@ -45,6 +46,9 @@ public class IdentificationActivity extends AppCompatActivity {
     // 전화번호 인증
     @OnClick(R.id.identifyRequestAuthCodeButton)
     public void onClickRequestAuthCodeButton() {
+
+        Toast.makeText(getApplicationContext(),"문자메시지로 전송된 인증번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+
         if (!validatePhoneNumber())
             return;
 

@@ -34,9 +34,7 @@ public class NotificationFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -49,7 +47,6 @@ public class NotificationFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-
         RecyclerView.LayoutManager notifyLayoutManager = new LinearLayoutManager(getContext());
         notifyRecyclerview.setLayoutManager(notifyLayoutManager);
         notifyRecyclerview.addItemDecoration(new SimpleDividerItemDecoration(getContext()));

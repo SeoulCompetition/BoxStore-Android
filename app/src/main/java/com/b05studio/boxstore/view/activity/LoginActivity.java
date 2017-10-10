@@ -256,6 +256,7 @@ public class LoginActivity extends AppCompatActivity implements
 
             @Override
             public void onFailure(Call<BoxstoreUser> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"서버 상태를 확인해주세요",Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });
@@ -286,6 +287,7 @@ public class LoginActivity extends AppCompatActivity implements
 
             @Override
             public void onFailure(Call<BoxstoreUser> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"서버 상태를 확인해주세요",Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });

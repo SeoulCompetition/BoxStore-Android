@@ -85,7 +85,7 @@ public class IdentificationActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected  void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identification);
@@ -95,6 +95,7 @@ public class IdentificationActivity extends AppCompatActivity {
             onRestoreInstanceState(savedInstanceState);
         }
 
+        // TODO: 2017-10-07 ResendCode 처리
 //        resendVerificationCode("01043019700",mResendToken);
 
         mAuth = FirebaseAuth.getInstance();

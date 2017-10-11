@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.application.BoxStoreApplication;
+import com.b05studio.boxstore.model.BoxstoreUser;
+import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.util.BaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
@@ -27,6 +31,10 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class IdentificationActivity extends AppCompatActivity {
@@ -111,6 +119,10 @@ public class IdentificationActivity extends AppCompatActivity {
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
                 // [END_EXCLUDE]
+
+                // login nono
+
+                // TODO: 2017. 10. 11. 여기서 로그인하지말고 사용해야됨
                 signInWithPhoneAuthCredential(credential);
 
             }
@@ -215,10 +227,45 @@ public class IdentificationActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = task.getResult().getUser();
+                            //FirebaseUser user = task.getResult().getUser();
                             // TODO: 2017-10-04 서버에 폰인증되었다는 정보와 함께 회원가입.'
                             // TODO: 2017-10-06 회원가입
-                            currentUser.linkWithCredential(credential);
+
+                            final String uid = currentUser.getUid();
+                            final String name = userNameEditText.getText().toString();
+                            final String email = currentUser.getEmail();
+                            final String photoUrl = currentUser.getPhotoUrl().toString();
+                            final String phoneNum = phoneEditText.getText().toString();
+                            currentUser.getIdToken(true)
+                                    .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                                        public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                            if (task.isSuccessful()) {
+                                                String idToken = task.getResult().getToken();
+                                                BoxstoreUser boxstoreUser = new BoxstoreUser(uid,email,photoUrl,name,idToken,phoneNum);
+                                                BoxStoreApplication.setCurrentUser(boxstoreUser);
+                                                Retrofit retrofit = BoxStoreApplication.getRetrofit();
+                                                BoxStoreHttpService httpService = retrofit.create(BoxStoreHttpService.class);
+                                                httpService.registerUser(boxstoreUser).enqueue(new Callback<String>() {
+                                                    @Override
+                                                    public void onResponse(Call<String> call, Response<String> response) {
+                                                        if(response.isSuccessful()) {
+                                                            Log.d("회원정보 업로드 : ", "SUCCESS");
+                                                        } else {
+                                                            Log.d("회원정보 업로드 : ", "Fail");
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<String> call, Throwable t) {
+                                                        Log.d("회원정보 업로드 : ", "Fail(서버상태확인)");
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+
+
+
                             BaseUtil.moveActivity(IdentificationActivity.this,BoxstoreMenuActivity.class);
                             finish();
                         } else {

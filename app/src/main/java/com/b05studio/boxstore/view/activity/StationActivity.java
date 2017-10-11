@@ -33,8 +33,6 @@ public class StationActivity extends AppCompatActivity {
 
     private final String android_image_urls = "http://api.learn2crack.com/android/images/donut.png";
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

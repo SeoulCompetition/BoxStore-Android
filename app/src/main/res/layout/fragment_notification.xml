@@ -1,22 +1,100 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.b05studio.boxstore.MainActivity">
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/truiton_image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/notificationToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/seoul">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <include layout="@layout/layout_notification_toolbar"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/truiton_image"
-        android:layout_centerHorizontal="true"
-        android:text="Fragment 4"
-        android:textSize="30sp"/>
+        android:background="#F1F1F1"
+        android:fillViewport="true"
+        tools:ignore="MissingPrefix">
 
-</RelativeLayout>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/notifyMynewsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="내 소식"
+                android:textColor="#B2B2B2"
+                android:textSize="10sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/notifyKeywordAlarmButton"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="16dp"
+                android:includeFontPadding="false"
+                android:background="#ffffff"
+                />
+
+            <View
+                android:id="@+id/notifyMynewsButtonBottomView"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="#4B65A7"
+                app:layout_constraintTop_toBottomOf="@+id/notifyKeywordAlarmButton"
+                app:layout_constraintLeft_toLeftOf="@+id/notifyMynewsButton"
+                app:layout_constraintRight_toRightOf="@+id/notifyMynewsButton"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+            <Button
+                android:id="@+id/notifyKeywordAlarmButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="키워드 알림"
+                android:textColor="#B2B2B2"
+                android:textSize="10sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/notifyMynewsButton"
+                android:layout_marginTop="16dp"
+                android:includeFontPadding="false"
+                android:background="#ffffff"
+                />
+
+            <View
+                android:id="@+id/notifyKeywordAlarmButtonBottomView"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="#4B65A7"
+                app:layout_constraintTop_toBottomOf="@+id/notifyKeywordAlarmButton"
+                app:layout_constraintLeft_toLeftOf="@+id/notifyKeywordAlarmButton"
+                app:layout_constraintRight_toRightOf="@+id/notifyKeywordAlarmButton"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/notificationRecyclerview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/notifyKeywordAlarmButtonBottomView"
+                android:layout_marginTop="2dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+               >
+
+            </android.support.v7.widget.RecyclerView>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

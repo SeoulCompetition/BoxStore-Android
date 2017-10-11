@@ -56,8 +56,6 @@ public class PhotoActivity extends AppCompatActivity {
             }
         };
 
-
-
         btn1 = (Button) findViewById(R.id.button);
         btn2 = (Button) findViewById(R.id.button2);
 

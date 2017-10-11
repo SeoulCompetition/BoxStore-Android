@@ -149,6 +149,157 @@
             fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
             />
 
+        <View
+            android:id="@+id/sellProductCategoryView"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:background="#ffffff"
+            app:layout_constraintTop_toBottomOf="@+id/sellProductNameView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="4dp"
+            />
+
+        <ImageView
+            android:id="@+id/sellProductCategoryImageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/sellProductCategoryView"
+            app:layout_constraintLeft_toLeftOf="@+id/sellProductCategoryView"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_sell_category"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="카테고리"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="@+id/sellProductCategoryImageview"
+            app:layout_constraintBottom_toBottomOf="@+id/sellProductCategoryImageview"
+            app:layout_constraintLeft_toRightOf="@+id/sellProductCategoryImageview"
+            android:layout_marginStart="4dp"
+            fontPath="fonts/NOTOSANSKR-MEDIUM.OTF"
+            />
+
+        <TextView
+            android:id="@+id/sellProductCategoryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="카테고리를 선택해주세요."
+            app:layout_constraintTop_toBottomOf="@+id/sellProductCategoryImageview"
+            app:layout_constraintLeft_toLeftOf="@+id/sellProductCategoryView"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="18dp"
+            android:textColor="#000000"
+            android:textSize="10sp"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            />
+
+        <ImageButton
+            android:id="@+id/sellProductCategoryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_sell_category_select"
+            app:layout_constraintTop_toTopOf="@+id/sellProductCategoryTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/sellProductCategoryTextView"
+            app:layout_constraintRight_toRightOf="@+id/sellProductCategoryView"
+            android:layout_marginEnd="18dp"
+            />
+
+        <View
+            android:id="@+id/sellProductStateView"
+            android:layout_width="0dp"
+            android:layout_height="260dp"
+            android:background="#ffffff"
+            app:layout_constraintTop_toBottomOf="@+id/sellProductCategoryView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="4dp"
+            />
+
+        <ImageView
+            android:id="@+id/sellProductStateImageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/sellProductStateView"
+            app:layout_constraintLeft_toLeftOf="@+id/sellProductStateView"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_sell_product_state"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상품 상태"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="@+id/sellProductStateImageview"
+            app:layout_constraintBottom_toBottomOf="@+id/sellProductStateImageview"
+            app:layout_constraintLeft_toRightOf="@+id/sellProductStateImageview"
+            android:layout_marginStart="4dp"
+            fontPath="fonts/NOTOSANSKR-MEDIUM.OTF"
+            />
+
+        <TextView
+            android:id="@+id/sellProductStateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개봉 및 사용상태"
+            app:layout_constraintTop_toBottomOf="@+id/sellProductStateImageview"
+            android:layout_marginTop="24dp"
+            app:layout_constraintLeft_toLeftOf="@+id/sellProductStateView"
+            android:layout_marginStart="18dp"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            />
+
+
+        <ImageButton
+            android:id="@+id/sellProductNoOpenStateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/sellProductStateTextView"
+            android:layout_marginTop="22dp"
+            app:layout_constraintLeft_toLeftOf="@+id/sellProductStateView"
+            app:layout_constraintEnd_toStartOf="@+id/sellProductNewStateButton"
+            android:src="@drawable/ic_sell_no_open_state"
+            android:background="@null"
+            android:tint="#546AA3"
+            />
+
+        <ImageButton
+            android:id="@+id/sellProductNewStateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/sellProductStateTextView"
+            android:layout_marginTop="22dp"
+            app:layout_constraintStart_toEndOf="@+id/sellProductNoOpenStateButton"
+            app:layout_constraintEnd_toStartOf="@+id/sellProductNotGoodStateButton"
+            android:src="@drawable/ic_sell_new_state"
+            android:background="@null"
+            android:tint="#546AA3"
+            />
+
+        <ImageButton
+            android:id="@+id/sellProductNotGoodStateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/sellProductStateTextView"
+            android:layout_marginTop="22dp"
+            app:layout_constraintStart_toEndOf="@+id/sellProductNewStateButton"
+            app:layout_constraintRight_toRightOf="@+id/sellProductStateView"
+            android:src="@drawable/ic_sell_not_good_state"
+            android:background="@null"
+            android:tint="#546AA3"
+            />
+
+
+
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.NestedScrollView>

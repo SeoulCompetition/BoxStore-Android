@@ -13,39 +13,39 @@
     <string name="loading">로딩 중입니다.</string>
 
     <string-array name="line1_stations">
-
+        <item>서울역</item>
     </string-array>
 
     <string-array name="line2_stations">
-
+        <item>강남</item>
     </string-array>
 
     <string-array name="line3_stations">
-
+        <item>고속터미널</item>
     </string-array>
 
     <string-array name="line4_stations">
-
+        <item>혜화</item>
     </string-array>
 
     <string-array name="line5_stations">
-
+        <item>여의나루</item>
     </string-array>
 
     <string-array name="line6_stations">
-
+        <item>이태원</item>
     </string-array>
 
     <string-array name="line7_stations">
-
+        <item>가산디지털단지</item>
     </string-array>
 
     <string-array name="line8_stations">
-
+        <item>천호</item>
     </string-array>
 
     <string-array name="line9_stations">
-
+        <item>노량진</item>
     </string-array>
 
 

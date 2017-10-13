@@ -19,7 +19,7 @@ import com.b05studio.boxstore.view.fragment.CategoryFragment;
 import com.b05studio.boxstore.view.fragment.HomeFragment;
 import com.b05studio.boxstore.view.fragment.MypageFragment;
 import com.b05studio.boxstore.view.fragment.NotificationFragment;
-import com.b05studio.boxstore.view.fragment.SellFragment;
+
 
 import java.lang.reflect.Field;
 
@@ -75,7 +75,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                         transaction.replace(R.id.frame_layout, selectedFragment);
+                        transaction.replace(R.id.frame_layout, selectedFragment);
                         transaction.commit();
                         return true;
                     }

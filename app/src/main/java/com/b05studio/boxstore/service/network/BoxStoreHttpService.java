@@ -23,4 +23,8 @@ public interface BoxStoreHttpService {
     @GET("/users")
     Call<BoxstoreUser> getUserData(@Query(value="uid", encoded = true) String uid);
 
+//    @Headers("Content-type: application/json; charset=utf-8")
+//    @GET("/categories")
+
+
 }

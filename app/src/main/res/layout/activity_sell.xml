@@ -297,9 +297,6 @@
             android:tint="#546AA3"
             />
 
-
-
-
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.NestedScrollView>

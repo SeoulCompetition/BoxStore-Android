@@ -10,8 +10,8 @@ import android.widget.Spinner;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Item;
-import com.b05studio.boxstore.view.Adapter.SpinnerAdapter;
-import com.b05studio.boxstore.view.Adapter.StationAdapter;
+import com.b05studio.boxstore.view.adapter.SpinnerAdapter;
+import com.b05studio.boxstore.view.adapter.StationAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

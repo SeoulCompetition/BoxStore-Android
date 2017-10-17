@@ -7,4 +7,6 @@ package com.b05studio.boxstore.constants;
 public class CategoryConstants {
 
 
+
+
 }

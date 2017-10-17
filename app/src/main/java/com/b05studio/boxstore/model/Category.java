@@ -1,35 +1,45 @@
 package com.b05studio.boxstore.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by seungwoo on 2017-10-01.
  */
 
 public class Category {
 
-    private String imageURL;
-    private String title;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("parent")
+    @Expose
+    private String parent;
+    @SerializedName("description")
+    @Expose
     private String description;
 
-    public Category(String imageURL,String title,String description) {
-        this.imageURL = imageURL;
-        this.title = title;
+
+    public Category(String name, String parent, String description) {
+        this.name = name;
+        this.parent = parent;
         this.description = description;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getName() {
+        return name;
     }
 
-    public void setImageURL(String imageURL) {
-        imageURL = imageURL;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getParent() {
+        return parent;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setParent(String parent) {
+        this.parent = parent;
     }
 
     public String getDescription() {

@@ -1,4 +1,4 @@
-package com.b05studio.boxstore.view.Adapter;
+package com.b05studio.boxstore.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

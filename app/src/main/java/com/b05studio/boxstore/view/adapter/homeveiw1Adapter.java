@@ -1,9 +1,8 @@
-package com.b05studio.boxstore.view.Adapter;
+package com.b05studio.boxstore.view.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.view.fragment.NewItem_Fragment;

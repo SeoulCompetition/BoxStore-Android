@@ -14,38 +14,51 @@
 
     <string-array name="line1_stations">
         <item>서울역</item>
+        <item>종로3가</item>
+        <item>시청</item>
     </string-array>
 
     <string-array name="line2_stations">
         <item>강남</item>
+        <item>홍대입구</item>
     </string-array>
 
     <string-array name="line3_stations">
-        <item>고속터미널</item>
+        <item>교대</item>
+        <item>양재</item>
     </string-array>
 
     <string-array name="line4_stations">
+        <item>서울역</item>
         <item>혜화</item>
+        <item>사당</item>
     </string-array>
 
     <string-array name="line5_stations">
-        <item>여의나루</item>
+        <item>여의도</item>
+        <item>동대문</item>
     </string-array>
 
     <string-array name="line6_stations">
-        <item>이태원</item>
+        <item>합정역</item>
+        <item>연신내</item>
     </string-array>
 
     <string-array name="line7_stations">
         <item>가산디지털단지</item>
+        <item>건대입구</item>
+        <item>노원</item>
     </string-array>
 
     <string-array name="line8_stations">
         <item>천호</item>
+        <item>잠실</item>
     </string-array>
 
     <string-array name="line9_stations">
         <item>노량진</item>
+        <item>고속터미널</item>
+        <item>당산</item>
     </string-array>
 
 

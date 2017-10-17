@@ -4,7 +4,6 @@ package com.b05studio.boxstore.view.fragment;
  * Created by seungwoo on 2017-09-25.
  */
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -58,17 +57,6 @@ public class NotificationFragment extends Fragment {
 
     public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder> {
 
-//        private ArrayList<Pattern> patterns;
-//        private Context context;
-//        private ArrayList<Pattern> copyPatterns = new ArrayList<>();
-//
-//        private PatternAdapter(ArrayList<Pattern> patterns, Context context) {
-//            this.patterns = patterns;
-//            this.context = context;
-//            copyPatterns.addAll(patterns);
-//        }
-
-        // TODO: 2017-10-11 recycler view 
         public NotifyAdapter() {
 
         }

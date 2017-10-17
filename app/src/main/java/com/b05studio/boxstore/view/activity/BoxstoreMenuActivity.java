@@ -86,8 +86,9 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
         transaction.commit();
 
-
         //Used to select an item programmatically
+
+
 
     }
 

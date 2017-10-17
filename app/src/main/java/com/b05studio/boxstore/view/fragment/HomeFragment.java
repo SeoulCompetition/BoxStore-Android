@@ -19,8 +19,8 @@ import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.model.StoreRank;
 import com.b05studio.boxstore.model.Subway_Rank;
 import com.b05studio.boxstore.util.DotIndicator;
-import com.b05studio.boxstore.view.Adapter.RankAdapter;
-import com.b05studio.boxstore.view.Adapter.homeveiw1Adapter;
+import com.b05studio.boxstore.view.adapter.RankAdapter;
+import com.b05studio.boxstore.view.adapter.homeveiw1Adapter;
 
 import java.util.ArrayList;
 import java.util.List;

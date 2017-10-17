@@ -13,6 +13,7 @@ import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.BoxstoreUser;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
+import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.b05studio.boxstore.util.BaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,9 +23,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.concurrent.TimeUnit;
 
@@ -90,7 +91,7 @@ public class IdentificationActivity extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+    private FirebaseUser currentFirebaseUser;
 
     @Override
     protected  void onCreate(Bundle savedInstanceState) {
@@ -167,7 +168,7 @@ public class IdentificationActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        currentUser = mAuth.getCurrentUser();
+        currentFirebaseUser = mAuth.getCurrentUser();
 
     }
 
@@ -220,54 +221,42 @@ public class IdentificationActivity extends AppCompatActivity {
 
     // 여기서 인증 정보를 마저 담아야제.
     private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
-
-        mAuth.signInWithCredential(credential)
+        mAuth.getCurrentUser().linkWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            //FirebaseUser user = task.getResult().getUser();
-                            // TODO: 2017-10-04 서버에 폰인증되었다는 정보와 함께 회원가입.'
-                            // TODO: 2017-10-06 회원가입
 
-                            final String uid = currentUser.getUid();
+                            BoxstoreUser currentUser = BoxStoreApplication.getCurrentUser();
+                            final String uid = currentUser.getuId();
                             final String name = userNameEditText.getText().toString();
                             final String email = currentUser.getEmail();
-                            final String photoUrl = currentUser.getPhotoUrl().toString();
+                            final String photoUrl = currentUser.getPhotoURL();
                             final String phoneNum = phoneEditText.getText().toString();
-                            currentUser.getIdToken(true)
-                                    .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                                        public void onComplete(@NonNull Task<GetTokenResult> task) {
-                                            if (task.isSuccessful()) {
-                                                String idToken = task.getResult().getToken();
-                                                BoxstoreUser boxstoreUser = new BoxstoreUser(uid,email,photoUrl,name,idToken,phoneNum);
-                                                BoxStoreApplication.setCurrentUser(boxstoreUser);
-                                                Retrofit retrofit = BoxStoreApplication.getRetrofit();
-                                                BoxStoreHttpService httpService = retrofit.create(BoxStoreHttpService.class);
-                                                httpService.registerUser(boxstoreUser).enqueue(new Callback<String>() {
-                                                    @Override
-                                                    public void onResponse(Call<String> call, Response<String> response) {
-                                                        if(response.isSuccessful()) {
-                                                            Log.d("회원정보 업로드 : ", "SUCCESS");
-                                                        } else {
-                                                            Log.d("회원정보 업로드 : ", "Fail");
-                                                        }
-                                                    }
+                            final String token = FirebaseInstanceId.getInstance().getToken();
 
-                                                    @Override
-                                                    public void onFailure(Call<String> call, Throwable t) {
-                                                        Log.d("회원정보 업로드 : ", "Fail(서버상태확인)");
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    });
+                            BoxstoreUser boxstoreUser = new BoxstoreUser(uid, email, photoUrl, name, token, phoneNum);
+                            BoxStoreApplication.setCurrentUser(boxstoreUser);
+                            Retrofit retrofit = BoxStoreApplication.getRetrofit();
+                            BoxStoreHttpService httpService = retrofit.create(BoxStoreHttpService.class);
+                            httpService.registerUser(boxstoreUser).enqueue(new Callback<BoxtorePostResponse>() {
+                                @Override
+                                public void onResponse(Call<BoxtorePostResponse> call, Response<BoxtorePostResponse> response) {
+                                    if (response.isSuccessful()) {
+                                        Log.d("회원정보 업로드 : ", "SUCCESS");
+                                    } else {
+                                        Log.d("회원정보 업로드 : ", "Fail");
+                                    }
+                                }
 
+                                @Override
+                                public void onFailure(Call<BoxtorePostResponse> call, Throwable t) {
+                                    Log.d("회원정보 업로드 : ", "Fail(서버상태확인)");
+                                }
+                            });
 
-
-                            BaseUtil.moveActivity(IdentificationActivity.this,BoxstoreMenuActivity.class);
+                            BaseUtil.moveActivity(IdentificationActivity.this, BoxstoreMenuActivity.class);
                             finish();
                         } else {
                             // Sign in failed, display a message and update the UI
@@ -279,6 +268,7 @@ public class IdentificationActivity extends AppCompatActivity {
                         }
                     }
                 });
+
     }
 
 

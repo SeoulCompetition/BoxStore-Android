@@ -8,7 +8,9 @@ import android.util.Log;
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.BoxstoreUser;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
+import com.b05studio.boxstore.service.response.UserGetResponse;
 import com.b05studio.boxstore.util.BaseUtil;
+import com.facebook.stetho.server.http.HttpStatus;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -60,16 +62,14 @@ public class SplashActivity extends AppCompatActivity {
         final FirebaseUser user = mAuth.getCurrentUser();
         final String uid = user.getUid();
         BoxStoreHttpService boxStoreHttpService = BoxStoreApplication.getRetrofit().create(BoxStoreHttpService.class);
-        Call<BoxstoreUser> boxstoreUserCall = boxStoreHttpService.getUserData(uid);
+        Call<UserGetResponse> boxstoreUserCall = boxStoreHttpService.getUserData(uid);
 
-        boxstoreUserCall.enqueue(new Callback<BoxstoreUser>() {
+        boxstoreUserCall.enqueue(new Callback<UserGetResponse>() {
             @Override
-            public void onResponse(Call<BoxstoreUser> call, Response<BoxstoreUser> response) {
-                BoxstoreUser boxstoreUser = response.body();
+            public void onResponse(Call<UserGetResponse> call, Response<UserGetResponse> response) {
                 Log.d("response.code",String.valueOf(response.code()));
-                if(response.code() == RESULT_OK) {
-                    Log.d("Usercall",call.toString());
-                    Log.d("Userresponse", response.toString());
+                if(response.code() == HttpStatus.HTTP_OK) {
+                    BoxstoreUser boxstoreUser = response.body().getUserInfo();
                     BoxStoreApplication.setCurrentUser(boxstoreUser);
                     BaseUtil.moveActivity(SplashActivity.this, BoxstoreMenuActivity.class);
                     finish();
@@ -81,7 +81,7 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<BoxstoreUser> call, Throwable t) {
+            public void onFailure(Call<UserGetResponse> call, Throwable t) {
                 t.printStackTrace();
             }
         });

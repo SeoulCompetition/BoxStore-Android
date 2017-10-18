@@ -16,6 +16,7 @@ import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.BoxstoreUser;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
+import com.b05studio.boxstore.service.response.UserGetResponse;
 import com.b05studio.boxstore.util.BaseUtil;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -23,6 +24,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.stetho.server.http.HttpStatus;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -236,13 +238,13 @@ public class LoginActivity extends AppCompatActivity implements
         final FirebaseUser user = mAuth.getCurrentUser();
         final String uid = user.getUid();
         BoxStoreHttpService boxStoreHttpService = BoxStoreApplication.getRetrofit().create(BoxStoreHttpService.class);
-        Call<BoxstoreUser> boxstoreUserCall = boxStoreHttpService.getUserData(uid);
+        Call<UserGetResponse> boxstoreUserCall = boxStoreHttpService.getUserData(uid);
 
-        boxstoreUserCall.enqueue(new Callback<BoxstoreUser>() {
+        boxstoreUserCall.enqueue(new Callback<UserGetResponse>() {
             @Override
-            public void onResponse(Call<BoxstoreUser> call, Response<BoxstoreUser> response) {
-                BoxstoreUser boxstoreUser = response.body();
-                if(response.code() == RESULT_OK) {
+            public void onResponse(Call<UserGetResponse> call, Response<UserGetResponse> response) {
+                if(response.code() == HttpStatus.HTTP_OK) {
+                    BoxstoreUser boxstoreUser = response.body().getUserInfo();
                     BoxStoreApplication.setCurrentUser(boxstoreUser);
                     BaseUtil.moveActivity(LoginActivity.this, BoxstoreMenuActivity.class);
                     finish();
@@ -255,7 +257,7 @@ public class LoginActivity extends AppCompatActivity implements
             }
 
             @Override
-            public void onFailure(Call<BoxstoreUser> call, Throwable t) {
+            public void onFailure(Call<UserGetResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),"서버 상태를 확인해주세요",Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
@@ -267,13 +269,13 @@ public class LoginActivity extends AppCompatActivity implements
         final FirebaseUser user = mAuth.getCurrentUser();
         String uid = user.getUid();
         BoxStoreHttpService boxStoreHttpService = BoxStoreApplication.getRetrofit().create(BoxStoreHttpService.class);
-        Call<BoxstoreUser> boxstoreUserCall = boxStoreHttpService.getUserData(uid);
+        Call<UserGetResponse> boxstoreUserCall = boxStoreHttpService.getUserData(uid);
 
-        boxstoreUserCall.enqueue(new Callback<BoxstoreUser>() {
+        boxstoreUserCall.enqueue(new Callback<UserGetResponse>() {
             @Override
-            public void onResponse(Call<BoxstoreUser> call, Response<BoxstoreUser> response) {
-                BoxstoreUser boxstoreUser = response.body();
-                if(response.code() == RESULT_OK) {
+            public void onResponse(Call<UserGetResponse> call, Response<UserGetResponse> response) {
+                if(response.code() == HttpStatus.HTTP_OK) {
+                    BoxstoreUser boxstoreUser = response.body().getUserInfo();
                     BoxStoreApplication.setCurrentUser(boxstoreUser);
                     BaseUtil.moveActivity(LoginActivity.this, BoxstoreMenuActivity.class);
                     finish();
@@ -286,7 +288,7 @@ public class LoginActivity extends AppCompatActivity implements
             }
 
             @Override
-            public void onFailure(Call<BoxstoreUser> call, Throwable t) {
+            public void onFailure(Call<UserGetResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),"서버 상태를 확인해주세요",Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }

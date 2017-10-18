@@ -47,9 +47,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
         final Category categoryObject = category_list.get(position);
-        holder.category_title.setText(categoryObject.getTitle());
+        holder.category_title.setText(categoryObject.getName());
         holder.category_ex.setText(categoryObject.getDescription());
-        Glide.with(context).load(categoryObject.getImageURL())
+        Glide.with(context).load(categoryObject.getImageUrl())
                 .placeholder(R.drawable.nana_image)
                 .into(holder.category_image);
         holder.setOnClickListener(new ItemClickListener() {
@@ -57,10 +57,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             public void onClick(View view, int position, boolean isLongClick) {
                 if(isLongClick) {
 
+
+
                 }
                 else {
                     Log.d(TAG,"onClick");
-                    Toast.makeText(context,categoryObject.getTitle(),Toast.LENGTH_SHORT)
+                    Toast.makeText(context,categoryObject.getName(),Toast.LENGTH_SHORT)
                     .show();
                     Intent intent = new Intent(context, StationActivity.class);
                     context.startActivity(intent);

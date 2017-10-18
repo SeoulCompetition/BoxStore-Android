@@ -1,5 +1,7 @@
 package com.b05studio.boxstore.model;
 
+import android.graphics.drawable.Drawable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -18,6 +20,8 @@ public class Category {
     @SerializedName("description")
     @Expose
     private String description;
+
+    private transient Drawable imageUrl;
 
 
     public Category(String name, String parent, String description) {
@@ -48,5 +52,13 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Drawable getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(Drawable imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

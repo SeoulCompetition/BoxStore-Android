@@ -12,16 +12,16 @@ import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Category;
+import com.b05studio.boxstore.view.activity.CategoryDetailActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
- * Created by seungwoo on 2017-10-01.
+ * Created by seungwoo and youngje on 2017-10-01.
  */
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
@@ -48,12 +48,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 // TODO: 2017-10-19 카테고리 상품 들어가게 구현  
-                Intent intent = new Intent();
+                Intent intent = new Intent(context, CategoryDetailActivity.class);
                 intent.putExtra("category",categoryObject.getName());
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.b05studio.boxstore.view.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -25,6 +26,7 @@ import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by joyeongje on 2017. 9. 28..
@@ -112,5 +114,10 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                 Log.e("ERROR ILLEGAL ALG", "Unable to change value of shift mode");
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

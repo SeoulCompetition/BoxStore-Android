@@ -5,50 +5,36 @@ package com.b05studio.boxstore.service.response;
  */
 
 import com.b05studio.boxstore.model.Category;
+import com.facebook.stetho.common.ArrayListAccumulator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryGetResponse {
-
-    @SerializedName("RESULT")
+    @SerializedName("result")
     @Expose
-    private String rESULT;
-
-    @SerializedName("DATA")
+    private String result;
+    @SerializedName("data")
     @Expose
-    private List<Category> categories = null;
+    private List<Category> data = null;
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public CategoryGetResponse() {
+    public String getResult() {
+        return result;
     }
 
-
-    public CategoryGetResponse(String rESULT, List<Category> categories) {
-        super();
-        this.rESULT = rESULT;
-        this.categories = categories;
+    public void setResult(String result) {
+        this.result = result;
     }
 
-    public String getRESULT() {
-        return rESULT;
+    public List<Category> getData() {
+        return data;
     }
 
-    public void setRESULT(String rESULT) {
-        this.rESULT = rESULT;
+    public void setData(List<Category> data) {
+        this.data = data;
     }
-
-    public List<Category> getDATA() {
-        return categories;
-    }
-
-    public void setDATA(List<Category> categories) {
-        this.categories = categories;
-    }
-
 }
+
 

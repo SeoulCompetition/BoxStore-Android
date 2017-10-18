@@ -21,7 +21,7 @@ public class Category {
     @Expose
     private String description;
 
-    private transient Drawable imageUrl;
+    private transient int imageUrl;
 
 
     public Category(String name, String parent, String description) {
@@ -54,11 +54,11 @@ public class Category {
         this.description = description;
     }
 
-    public Drawable getImageUrl() {
+    public int getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(Drawable imageUrl) {
+    public void setImageUrl(int imageUrl) {
         this.imageUrl = imageUrl;
     }
 }

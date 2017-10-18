@@ -4,6 +4,7 @@ package com.b05studio.boxstore.view.fragment;
  * Created by seungwoo on 2017-09-25.
  */
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
 import com.b05studio.boxstore.view.adapter.CategoryAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CategoryFragment extends Fragment {
 
@@ -89,22 +92,31 @@ public class CategoryFragment extends Fragment {
             switch (categories.get(i).getName()) {
                 // TODO: 2017. 10. 18. 마저처리
                 case "패션의류":
+                    categories.get(i).setImageUrl(R.drawable.ic_category_fashion_clothes);
                     break;
                 case "패션잡화":
+                    categories.get(i).setImageUrl(R.drawable.ic_category_fashion_things);
                     break;
                 case "뷰티/미용":
+                    categories.get(i).setImageUrl(R.drawable.ic_category_beautify);
                     break;
                 case "가전/디지털":
+                    categories.get(i).setImageUrl(R.drawable.ic_category_electronic);
                     break;
                 case "레져/스포츠":
+                    categories.get(i).setImageUrl(R.drawable.ic_category_sport);
                     break;
                 case "생활/문구":
+                    categories.get(i).setImageUrl(R.drawable.ic_category_life);
                     break;
                 case "유아/출산":
+                    categories.get(i).setImageUrl(R.drawable.ic_category_baby);
                     break;
                 case "반려동물 용품":
+                    categories.get(i).setImageUrl(R.drawable.ic_category_pet);
                     break;
                 case "도서/티켓/음반":
+                    categories.get(i).setImageUrl(R.drawable.ic_category_book);
                     break;
             }
         }
@@ -118,10 +130,9 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onResponse(Call<CategoryGetResponse> call, Response<CategoryGetResponse> response) {
                 if(response.isSuccessful()) {
-                    categories = response.body().getDATA();
+                    categories = response.body().getData();
                     setImageDrawableByCategoryName();
                     setAdapterToRecyclerView();
-
                 } else {
 
                 }
@@ -132,8 +143,9 @@ public class CategoryFragment extends Fragment {
 
             }
         });
-
-
     }
+
+
+
 
 }

@@ -63,9 +63,6 @@ public class StationActivity extends AppCompatActivity {
         items.add(new Item(android_image_urls,"Android",android_image_urls,"Sell Box","10000"));
         items.add(new Item(android_image_urls,"Android",android_image_urls,"Sell Box","10000"));
 
-
-
-
         GridLayoutManager mGrid = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(mGrid);
         recyclerView.setHasFixedSize(true);

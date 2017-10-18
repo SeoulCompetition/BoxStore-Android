@@ -8,7 +8,6 @@
         android:layout_width="fill_parent"
         android:layout_height="56dp"
         android:background="@color/seoul">
-
         <include
             layout="@layout/layout_category_toolbar">
         </include>
@@ -19,7 +18,7 @@
         android:id="@+id/category_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_300">
+        android:background="#F1F1F1">
 
     </android.support.v7.widget.RecyclerView>
 

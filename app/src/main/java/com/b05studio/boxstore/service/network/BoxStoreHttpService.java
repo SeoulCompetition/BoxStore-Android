@@ -29,7 +29,6 @@ public interface BoxStoreHttpService {
     //Call<BoxstoreUser> getUserData(@Query(value="uid", encoded = true) String uid);
 
     @Headers("Content-type: application/json; charset=utf-8")
-    @FormUrlEncoded
     @GET("/categories/{keyword}")
     Call<CategoryGetResponse> getCategoryInfo(@Path(value="keyword", encoded = true) String keyword);
 

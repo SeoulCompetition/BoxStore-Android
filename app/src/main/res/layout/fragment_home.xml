@@ -126,7 +126,6 @@
             android:layout_marginTop="4dp"
             android:background="#ffffff"
             >
-
         </android.support.v7.widget.RecyclerView>
 
 

@@ -16,17 +16,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.Category;
+import com.b05studio.boxstore.service.network.BoxStoreHttpService;
+import com.b05studio.boxstore.service.response.CategoryGetResponse;
+import com.b05studio.boxstore.view.adapter.CategoryAdapter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class CategoryFragment extends Fragment {
 
     private static final String TAG = "FragmentCategory";
-    private ArrayList<Category> categories;
+    private List<Category> categories;
+
+    CategoryAdapter mAdapter;
 
     @BindView(R.id.category_list)
     RecyclerView recyclerView;
@@ -36,8 +46,7 @@ public class CategoryFragment extends Fragment {
     }
 
     public static CategoryFragment newInstance() {
-        CategoryFragment fragment_category = new CategoryFragment();
-        return fragment_category;
+        return new CategoryFragment();
     }
 
     @Override
@@ -68,23 +77,63 @@ public class CategoryFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setHasFixedSize(true);
-       // CategoryAdapter mAdapter = new CategoryAdapter(getContext(), getTestData());
-        //recyclerView.setAdapter(mAdapter);
+    }
+
+    private void setAdapterToRecyclerView() {
+        mAdapter = new CategoryAdapter(getContext(), categories);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    private void setImageDrawableByCategoryName() {
+        for(int i = 0 ; i < categories.size() ; i++) {
+            switch (categories.get(i).getName()) {
+                // TODO: 2017. 10. 18. 마저처리
+                case "패션의류":
+                    break;
+                case "패션잡화":
+                    break;
+                case "뷰티/미용":
+                    break;
+                case "가전/디지털":
+                    break;
+                case "레져/스포츠":
+                    break;
+                case "생활/문구":
+                    break;
+                case "유아/출산":
+                    break;
+                case "반려동물 용품":
+                    break;
+                case "도서/티켓/음반":
+                    break;
+            }
+        }
     }
 
     private void getCategoryList() {
-        categories = new ArrayList<>();
 
-        // TODO: 2017. 10. 12. 이미지 적용
+        Retrofit retrofit = BoxStoreApplication.getRetrofit();
+        Call<CategoryGetResponse> categoryGetResponseCall = retrofit.create(BoxStoreHttpService.class).getCategoryInfo("카테고리");
+        categoryGetResponseCall.enqueue(new Callback<CategoryGetResponse>() {
+            @Override
+            public void onResponse(Call<CategoryGetResponse> call, Response<CategoryGetResponse> response) {
+                if(response.isSuccessful()) {
+                    categories = response.body().getDATA();
+                    setImageDrawableByCategoryName();
+                    setAdapterToRecyclerView();
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryGetResponse> call, Throwable t) {
+
+            }
+        });
+
 
     }
 
-
-//    public List<Category> getTestData() {
-////        List<Category> category = new ArrayList<Category>();
-////        for (int i = 0; i < android_version_names.length; i++) {
-////            category.add(new Category(android_image_urls[i], android_version_names[i], android_version_names_description[i]));
-////        }
-////        return category;
-//    }
 }

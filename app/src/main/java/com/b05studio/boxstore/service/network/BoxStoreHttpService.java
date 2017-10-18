@@ -31,7 +31,7 @@ public interface BoxStoreHttpService {
     @Headers("Content-type: application/json; charset=utf-8")
     @FormUrlEncoded
     @GET("/categories/{keyword}")
-    Call<CategoryGetResponse> getCategoryInfo(String keyword);
+    Call<CategoryGetResponse> getCategoryInfo(@Path(value="keyword", encoded = true) String keyword);
 
 
 //    @Headers("Content-type: application/json; charset=utf-8")

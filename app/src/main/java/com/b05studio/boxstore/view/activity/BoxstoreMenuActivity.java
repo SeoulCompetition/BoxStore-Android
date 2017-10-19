@@ -39,7 +39,6 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,11 +89,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
         transaction.commit();
 
-        //Used to select an item programmatically
-
     }
-
-
 
 
     class BottomNavigationViewHelper {

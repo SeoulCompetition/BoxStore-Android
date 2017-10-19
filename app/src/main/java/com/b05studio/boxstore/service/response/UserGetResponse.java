@@ -5,21 +5,21 @@ package com.b05studio.boxstore.service.response;
  */
 
 
-import com.b05studio.boxstore.model.BoxstoreUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserGetResponse {
 
-    @SerializedName("RESULT")
+    @SerializedName("result")
     @Expose
-    private String rESULT;
+    private String result;
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("user_info")
+    @SerializedName("userInfo")
     @Expose
-    private BoxstoreUser userInfo;
+    private UserInfo userInfo;
 
     /**
      * No args constructor for use in serialization
@@ -31,22 +31,22 @@ public class UserGetResponse {
     /**
      *
      * @param message
+     * @param result
      * @param userInfo
-     * @param rESULT
      */
-    public UserGetResponse(String rESULT, String message, BoxstoreUser userInfo) {
+    public UserGetResponse(String result, String message, UserInfo userInfo) {
         super();
-        this.rESULT = rESULT;
+        this.result = result;
         this.message = message;
         this.userInfo = userInfo;
     }
 
-    public String getRESULT() {
-        return rESULT;
+    public String getResult() {
+        return result;
     }
 
-    public void setRESULT(String rESULT) {
-        this.rESULT = rESULT;
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public String getMessage() {
@@ -57,11 +57,11 @@ public class UserGetResponse {
         this.message = message;
     }
 
-    public BoxstoreUser getUserInfo() {
+    public UserInfo getUserInfo() {
         return userInfo;
     }
 
-    public void setUserInfo(BoxstoreUser userInfo) {
+    public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
     }
 

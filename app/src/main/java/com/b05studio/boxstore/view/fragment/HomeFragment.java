@@ -4,8 +4,10 @@ package com.b05studio.boxstore.view.fragment;
  * Created by seungwoo on 2017-09-25.
  */
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,9 +16,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Item;
+import com.b05studio.boxstore.model.Station;
 import com.b05studio.boxstore.model.StoreRank;
 import com.b05studio.boxstore.model.Subway_Rank;
 import com.b05studio.boxstore.util.DotIndicator;
@@ -36,6 +40,7 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView.Adapter stationAdapter;
     private RecyclerView.LayoutManager stationLayoutManager;
+    private List<Station> stations = new ArrayList<>();
 
     private static final String TAG = "FragmentStatPgrAdapFrag";
     private homeveiw1Adapter mPagerAdapter;
@@ -140,10 +145,79 @@ public class HomeFragment extends Fragment {
     private void initStationRecyclerView() {
 
         stationLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-//        stationAdapter = new HorizonStationAdapter();
+        stationAdapter = new HorizonStationAdapter(stations);
 
         stationHorizonRecyclerView.setAdapter(stationAdapter);
         stationHorizonRecyclerView.setLayoutManager(stationLayoutManager);
+    }
+
+    private void getStationInformation() {
 
     }
+
+    public class HorizonStationAdapter extends RecyclerView.Adapter<HorizonStationAdapter.StationViewHolder> {
+
+        private int selectedIndex = 0;
+        private List<Station> stations = new ArrayList<>();
+
+        public HorizonStationAdapter(List<Station> stations) {
+            this.stations = stations;
+        }
+
+        public class StationViewHolder extends RecyclerView.ViewHolder {
+
+            @BindView(R.id.stationCardContainer)
+            ConstraintLayout stationContainer;
+
+            @BindView(R.id.stationName)
+            TextView stationName;
+
+            @BindView(R.id.stationBottomView)
+            View stationBottomView;
+
+            public StationViewHolder(View itemView) {
+                super(itemView);
+                ButterKnife.bind(this,itemView);
+            }
+
+        }
+
+        @Override
+        public StationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_station, null);
+            return new StationViewHolder(view);
+
+        }
+
+        @Override
+        public void onBindViewHolder(StationViewHolder holder, final int position) {
+
+            holder.stationName.setText("");
+
+            if(selectedIndex == position) {
+                holder.stationName.setTextColor(Color.parseColor("#4B65A7"));
+                holder.stationBottomView.setBackgroundColor(Color.parseColor("#4B65A7"));
+            } else {
+                holder.stationName.setTextColor(Color.parseColor("#B2B2B2"));
+                holder.stationBottomView.setBackgroundColor(Color.parseColor("#B2B2B2"));
+            }
+
+            holder.stationContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectedIndex = position;
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return stations.size();
+        }
+
+
+    }
+
+
 }

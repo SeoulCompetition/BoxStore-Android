@@ -22,7 +22,7 @@ public class SellActivity extends AppCompatActivity {
     Bitmap[] arrayBitmap = new Bitmap[8];
 
     @BindView(R.id.sellRecyclerview)
-    RecyclerView recyclerView;
+    RecyclerView sellImageRecyclerview;
 
     RecyclerView.Adapter recyclerViewAdapter;
     RecyclerView.LayoutManager recyclerViewLayoutManager;
@@ -43,10 +43,10 @@ public class SellActivity extends AppCompatActivity {
 
     private void initImageRecyclerView() {
         recyclerViewLayoutManager = new GridLayoutManager(this,4);
-        recyclerView.setLayoutManager(recyclerViewLayoutManager);
+        sellImageRecyclerview.setLayoutManager(recyclerViewLayoutManager);
 
         recyclerViewAdapter = new ImageAdapter(getApplicationContext());
-        recyclerView.setAdapter(recyclerViewAdapter);
+        sellImageRecyclerview.setAdapter(recyclerViewAdapter);
 
     }
 
@@ -91,7 +91,4 @@ public class SellActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
 }

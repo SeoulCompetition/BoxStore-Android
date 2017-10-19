@@ -5,7 +5,7 @@ package com.b05studio.boxstore.service.response;
  */
 
 
-import com.google.firebase.auth.UserInfo;
+import com.b05studio.boxstore.model.BoxstoreUser;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -19,7 +19,7 @@ public class UserGetResponse {
     private String message;
     @SerializedName("userInfo")
     @Expose
-    private UserInfo userInfo;
+    private BoxstoreUser userInfo;
 
     /**
      * No args constructor for use in serialization
@@ -34,7 +34,7 @@ public class UserGetResponse {
      * @param result
      * @param userInfo
      */
-    public UserGetResponse(String result, String message, UserInfo userInfo) {
+    public UserGetResponse(String result, String message, BoxstoreUser userInfo) {
         super();
         this.result = result;
         this.message = message;
@@ -57,11 +57,11 @@ public class UserGetResponse {
         this.message = message;
     }
 
-    public UserInfo getUserInfo() {
+    public BoxstoreUser getUserInfo() {
         return userInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
+    public void setUserInfo(BoxstoreUser userInfo) {
         this.userInfo = userInfo;
     }
 

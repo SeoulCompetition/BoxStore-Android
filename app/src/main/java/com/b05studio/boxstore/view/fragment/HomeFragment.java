@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.model.StoreRank;
@@ -25,7 +26,16 @@ import com.b05studio.boxstore.view.adapter.homeveiw1Adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class HomeFragment extends Fragment {
+
+    @BindView(R.id.boxStoreMenuStationHorizonScrollReyclerView)
+    RecyclerView stationHorizonRecyclerView;
+
+    private RecyclerView.Adapter stationAdapter;
+    private RecyclerView.LayoutManager stationLayoutManager;
 
     private static final String TAG = "FragmentStatPgrAdapFrag";
     private homeveiw1Adapter mPagerAdapter;
@@ -89,9 +99,11 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, view);
+
         mRankRecyclerview = (RecyclerView) view.findViewById(R.id.home_view_2);
         mRankRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRankRecyclerview.setHasFixedSize(true);//뭔 기는ㅇ???
+        mRankRecyclerview.setHasFixedSize(true);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
                 LinearLayoutManager.VERTICAL);
@@ -113,13 +125,25 @@ public class HomeFragment extends Fragment {
         //viewIncicator.setViewPager(viewPager);
 
         updateUI();
+        initStationRecyclerView();
         return view;
     }
+
     private void updateUI() {
         StoreRank storeRank = StoreRank.get(getActivity());
         List<Subway_Rank> stores = storeRank.getRanks();
 
         rank_adapter = new RankAdapter(getActivity(),stores,true);
         mRankRecyclerview.setAdapter(rank_adapter);
+    }
+
+    private void initStationRecyclerView() {
+
+        stationLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        stationAdapter = new HorizonStationAdapter();
+
+        stationHorizonRecyclerView.setAdapter(stationAdapter);
+        stationHorizonRecyclerView.setLayoutManager(stationLayoutManager);
+
     }
 }

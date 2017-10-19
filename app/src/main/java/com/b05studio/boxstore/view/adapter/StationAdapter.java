@@ -31,7 +31,6 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ItemView
     private Context context;
 
 
-
     public StationAdapter(Context context, List<Item> item_list) {
         this.item_list = item_list;
         this.context = context;

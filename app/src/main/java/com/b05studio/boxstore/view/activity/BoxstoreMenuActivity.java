@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,11 +38,12 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         ButterKnife.bind(this);
 
@@ -90,9 +92,10 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
 
         //Used to select an item programmatically
 
-
-
     }
+
+
+
 
     class BottomNavigationViewHelper {
         public void removeShiftMode(BottomNavigationView view) {
@@ -115,6 +118,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
             }
         }
     }
+
 
     @Override
     protected void attachBaseContext(Context newBase) {

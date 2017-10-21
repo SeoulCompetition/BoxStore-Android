@@ -86,18 +86,6 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                                 transaction.commit();
                                 break;
                         }
-<<<<<<< HEAD
-                        if(item.getItemId() != R.id.navigation_sell)
-                        {
-                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.frame_layout, selectedFragment);
-                            transaction.commit();
-
-                        }
-=======
-
-
->>>>>>> 8cf517359bb8ee1b3fdd6de5ab2a1bf19468b21b
                         return true;
                     }
                 });

@@ -39,7 +39,6 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,26 +57,36 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         Fragment selectedFragment = null;
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         switch (item.getItemId()) {
 
                             case R.id.navigation_home:
                                 appBarLayout.setVisibility(View.VISIBLE);
                                 selectedFragment = HomeFragment.newInstance();
+                                transaction.replace(R.id.frame_layout, selectedFragment);
+                                transaction.commit();
                                 break;
                             case R.id.navigation_category:
                                 appBarLayout.setVisibility(View.GONE);
                                 selectedFragment = CategoryFragment.newInstance();
+                                transaction.replace(R.id.frame_layout, selectedFragment);
+                                transaction.commit();
                                 break;
                             case R.id.navigation_sell:
                                 BaseUtil.moveActivity(BoxstoreMenuActivity.this, SellActivity.class);
                                 break;
                             case R.id.navigation_notifications:
                                 selectedFragment = NotificationFragment.newInstance();
+                                transaction.replace(R.id.frame_layout, selectedFragment);
+                                transaction.commit();
                                 break;
                             case R.id.navigation_mypage:
                                 selectedFragment = MypageFragment.newInstance();
+                                transaction.replace(R.id.frame_layout, selectedFragment);
+                                transaction.commit();
                                 break;
                         }
+<<<<<<< HEAD
                         if(item.getItemId() != R.id.navigation_sell)
                         {
                             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -85,6 +94,10 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                             transaction.commit();
 
                         }
+=======
+
+
+>>>>>>> 8cf517359bb8ee1b3fdd6de5ab2a1bf19468b21b
                         return true;
                     }
                 });
@@ -94,11 +107,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
         transaction.commit();
 
-        //Used to select an item programmatically
-
     }
-
-
 
 
     class BottomNavigationViewHelper {

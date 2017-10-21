@@ -1,17 +1,40 @@
 package com.b05studio.boxstore.view.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.b05studio.boxstore.R;
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.camera.CameraModule;
+import com.esafirm.imagepicker.features.camera.ImmediateCameraModule;
+import com.esafirm.imagepicker.features.camera.OnImageReadyListener;
+import com.esafirm.imagepicker.model.Image;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,8 +47,19 @@ public class SellActivity extends AppCompatActivity {
     @BindView(R.id.sellRecyclerview)
     RecyclerView sellImageRecyclerview;
 
+    private CameraModule cameraModule;
+
+    private static final int RC_CODE_PICKER = 2000;
+    private static final int RC_CAMERA = 3000;
+
+    int selectedPos = 9;
+
     RecyclerView.Adapter recyclerViewAdapter;
     RecyclerView.LayoutManager recyclerViewLayoutManager;
+
+    private ArrayList<Image> images = new ArrayList<>();
+    private ArrayList<String> imagePath = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +88,14 @@ public class SellActivity extends AppCompatActivity {
 
         private Context context;
 
+        private List<String> imagesPath;
+
         private ImageAdapter(Context context) {
             this.context = context;
+        }
+
+        private ImageAdapter(List<String> imagePathList) {
+            imagesPath = imagePathList;
         }
 
         @Override
@@ -65,14 +105,30 @@ public class SellActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(ImageAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(final ImageAdapter.ViewHolder holder, final int position) {
             final Bitmap bitmap = arrayBitmap[position];
             holder.addImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO: 2017-10-03 여기에 갤러리 불러와서 다시넣는 작업 해야됨.
+                    final Activity activity = SellActivity.this;
+                    final String[] permissions = new String[]{Manifest.permission.CAMERA};
+                    if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(activity, permissions, RC_CAMERA);
+                    } else {
+                        captureImage();
+                    }
+                    selectedPos = holder.getAdapterPosition();
                 }
             });
+            if(imagePath.size() > 0 && imagePath.size() > position){
+                //holder.addImageButton.setImageURI(Uri.parse(imagesPath.get(position)));
+                ChangeBitmap(imagesPath.get(position),holder.addImageButton);
+            }
+        }
+
+        private void captureImage() {
+            startActivityForResult(
+                    getCameraModule().getCameraIntent(SellActivity.this), RC_CAMERA);
         }
 
         @Override
@@ -91,4 +147,83 @@ public class SellActivity extends AppCompatActivity {
             }
         }
     }
+    @Override
+    protected void onActivityResult(int requestCode, final int resultCode, Intent data) {
+        if (requestCode == RC_CODE_PICKER && resultCode == RESULT_OK && data != null) {
+            images = (ArrayList<Image>) ImagePicker.getImages(data);
+            //printImages(images);
+            return;
+        }
+        if (requestCode == RC_CAMERA && resultCode == RESULT_OK) {
+            getCameraModule().getImage(this, data, new OnImageReadyListener() {
+                @Override
+                public void onImageReady(List<Image> resultImages) {
+                    images = (ArrayList<Image>) resultImages;
+                    imagePath.add(resultImages.get(0).getPath());
+                    //printImages(images);
+                }
+            });
+        }
+        recyclerViewAdapter = new ImageAdapter(imagePath);
+        sellImageRecyclerview.swapAdapter(recyclerViewAdapter,false);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private ImmediateCameraModule getCameraModule() {
+        if (cameraModule == null) {
+            cameraModule = new ImmediateCameraModule();
+        }
+        return (ImmediateCameraModule) cameraModule;
+    }
+
+    public int exifOrientationToDegrees(int exifOrientation) {
+        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            return 90;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            return 180;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            return 270;
+        }
+        return 0;
+    }
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+
+    }
+
+    public Bitmap rotate(Bitmap src, float degree) {
+
+        // Matrix 객체 생성
+        Matrix matrix = new Matrix();
+        // 회전 각도 셋팅
+        matrix.postRotate(degree);
+        // 이미지와 Matrix 를 셋팅해서 Bitmap 객체 생성
+        return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
+                src.getHeight(), matrix, true);
+    }
+
+    private void ChangeBitmap(String path,ImageButton imageView) {
+
+        //Uri imgUri = data.getData();
+       // String imagePath = getRealPathFromURI(imgUri); // path 경로
+        path = path.replace("file:/","");
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+        int exifDegree = exifOrientationToDegrees(exifOrientation);
+
+        Bitmap bitmap = BitmapFactory.decodeFile(path);//경로를 통해 비트맵으로 전환
+        imageView.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
+
+    }
+
 }

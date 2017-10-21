@@ -71,25 +71,25 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
 
-            switch (requestCode) {
+                switch (requestCode) {
 
-                case GALLERY_CODE:
-                    sendPicture(data); //갤러리에서 가져오기
-                    break;
-                case CAMERA_CODE:
-                    sendPicture(data); //카메라에서 가져오기
-                    break;
+                    case GALLERY_CODE:
+                        sendPicture(data); //갤러리에서 가져오기
+                        break;
+                    case CAMERA_CODE:
+                        sendPicture(data); //카메라에서 가져오기
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
+
             }
-
-        }
     }
 
     private void sendPicture(Intent data) {

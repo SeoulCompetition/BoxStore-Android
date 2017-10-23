@@ -86,7 +86,6 @@ public class SellActivity extends AppCompatActivity {
 
         recyclerViewAdapter = new ImageAdapter(getApplicationContext());
         sellImageRecyclerview.setAdapter(recyclerViewAdapter);
-
     }
 
     public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
@@ -135,8 +134,8 @@ public class SellActivity extends AppCompatActivity {
         }
 
         private void captureImage() {
-            startActivityForResult(
-                    getCameraModule().getCameraIntent(SellActivity.this), RC_CAMERA);
+            Intent intent = getCameraModule().getCameraIntent(SellActivity.this);
+            startActivityForResult(intent, RC_CAMERA);
         }
 
         @Override

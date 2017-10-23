@@ -38,7 +38,6 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

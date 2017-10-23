@@ -23,7 +23,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.afollestad.materialcamera.MaterialCamera;
 import com.b05studio.boxstore.R;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.camera.CameraModule;
@@ -51,6 +53,9 @@ public class SellActivity extends AppCompatActivity {
 
     private static final int RC_CODE_PICKER = 2000;
     private static final int RC_CAMERA = 3000;
+
+    private final static int CAMERA_RQ = 6969;
+
 
     int selectedPos = 9;
 
@@ -114,14 +119,17 @@ public class SellActivity extends AppCompatActivity {
                     final String[] permissions = new String[]{Manifest.permission.CAMERA};
                     if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(activity, permissions, RC_CAMERA);
+                        Log.d("Permission!!!!!!","PERMIDOJFOSIJFIOSDJOI");
                     } else {
-                        captureImage();
+                       new MaterialCamera(SellActivity.this)
+                               .stillShot() // launches the Camera in stillshot mode
+                               .start(CAMERA_RQ);
                     }
                     selectedPos = holder.getAdapterPosition();
                 }
             });
             if(imagePath.size() > 0 && imagePath.size() > position){
-                //holder.addImageButton.setImageURI(Uri.parse(imagesPath.get(position)));
+                holder.addImageButton.setImageURI(Uri.parse(imagesPath.get(position)));
                 ChangeBitmap(imagesPath.get(position),holder.addImageButton);
             }
         }
@@ -148,6 +156,29 @@ public class SellActivity extends AppCompatActivity {
         }
     }
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Received recording or error from MaterialCamera
+        if (requestCode == CAMERA_RQ) {
+
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Saved to: " + data.getDataString(), Toast.LENGTH_LONG).show();
+                imagePath.add(data.getDataString());
+
+            } else if(data != null) {
+                Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
+                e.printStackTrace();
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                imagePath.add(data.getDataString());
+            }
+            recyclerViewAdapter = new ImageAdapter(imagePath);
+            sellImageRecyclerview.swapAdapter(recyclerViewAdapter,false);
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+    /*
+    @Override
     protected void onActivityResult(int requestCode, final int resultCode, Intent data) {
         if (requestCode == RC_CODE_PICKER && resultCode == RESULT_OK && data != null) {
             images = (ArrayList<Image>) ImagePicker.getImages(data);
@@ -167,7 +198,7 @@ public class SellActivity extends AppCompatActivity {
         recyclerViewAdapter = new ImageAdapter(imagePath);
         sellImageRecyclerview.swapAdapter(recyclerViewAdapter,false);
         super.onActivityResult(requestCode, resultCode, data);
-    }
+    }*/
 
     private ImmediateCameraModule getCameraModule() {
         if (cameraModule == null) {

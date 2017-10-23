@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -33,17 +34,14 @@
         <activity
             android:name=".view.activity.SplashActivity"
             android:theme="@style/SplashTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.SellActivity" >
-
-        </activity>
-        <activity android:name=".view.activity.BoxstoreMenuActivity"></activity>
+        <activity android:name=".view.activity.SellActivity"></activity>
+        <activity android:name=".view.activity.BoxstoreMenuActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -65,7 +63,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.StationActivity"></activity>
+        <activity android:name=".view.activity.StationActivity" />
 
         <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
@@ -79,7 +77,15 @@
         </service>
 
         <activity android:name=".view.activity.DetailProductActivity" />
-        <activity android:name=".view.activity.CategoryDetailActivity"></activity>
+        <activity android:name=".view.activity.CategoryDetailActivity" />
+        <activity android:name=".view.activity.KeywordActivity"></activity>
+        <activity android:name=".view.activity.KeywordAddActivity"></activity>
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity2"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
     </application>
 
 </manifest>

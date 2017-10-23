@@ -161,7 +161,6 @@ public class HomeFragment extends Fragment {
             String stationName = i + "호선";
             stations.add(stationName);
         }
-
         stationLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         stationAdapter = new HorizonStationAdapter(stations);
 
@@ -170,7 +169,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void initStationSubRecyclerView() {
-
         subStationLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         subStationAdapter = new HorizonStationSubAdapter();
         getStationInformation(stations.get(0));

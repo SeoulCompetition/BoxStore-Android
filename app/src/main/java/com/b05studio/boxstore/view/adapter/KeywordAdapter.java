@@ -70,7 +70,11 @@ public class KeywordAdapter extends RecyclerView.Adapter<KeywordAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return mkeywordList.size();
+        if(mkeywordList == null){
+            return 0;
+        }else{
+            return mkeywordList.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

@@ -17,6 +17,7 @@
             android:id="@+id/home_view_1"
             android:layout_width="0dp"
             android:layout_height="253dp"
+            android:gravity="center_vertical"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +38,8 @@
                     android:layout_marginLeft="4dp"
                     android:text="영통역 신규상품"
                     android:layout_width="91dp"
-                    android:layout_height="19dp" />
+                    android:maxLines="1"
+                    android:layout_height="wrap_content" />
 
 
             </LinearLayout>
@@ -91,8 +93,9 @@
             <TextView
                 android:id="@+id/headr"
                 android:layout_width="91dp"
-                android:layout_height="16dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:maxLines="1"
                 android:text="거래량이많은역"
                 android:textSize="12dp" />
 

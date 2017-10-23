@@ -25,7 +25,6 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Subway_Rank> data;
     private Context context;
 
-    public static final int VIEW_HEADER = 0;
     public static final int VIEW_ITEM = 1;
 
     public RankAdapter(Context context, List<Subway_Rank> data, boolean isHeader){
@@ -38,22 +37,13 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType==VIEW_HEADER) {
-            return new headView(LayoutInflater.from(context).inflate(R.layout.ranking_item, parent, false));
-        }
-        else {
             return new itemView(LayoutInflater.from(context).inflate(R.layout.ranking_item, parent, false));
-        }
     }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof headView){
-        // ((headView) holder).header.setText("This is Header");
-            Log.d("Item View","Binding Item header at "+position);
-        }
-        else if(holder instanceof itemView){
-            Subway_Rank subway_rank = data.get(position-1);
+        if(holder instanceof itemView){
+            Subway_Rank subway_rank = data.get(position);
             ((itemView) holder).bindRank(subway_rank);
             Log.d("Item View","Binding Item "+position);
         }
@@ -66,9 +56,6 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemCount() {
         int itemCount=data.size();
         //if header is required then increase the number of count by one
-        if(isHeader){
-            itemCount=itemCount+1;
-        }
         return itemCount;
     }
     public Subway_Rank getName(int position){
@@ -79,10 +66,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
     @Override
     public int getItemViewType(int position) {
-        if (isHeader && isHeader(position))
-            return VIEW_HEADER;
-
-        else return VIEW_ITEM;
+       return VIEW_ITEM;
     }
     private boolean isFooter(int position) {
         return position==getItemCount()-1;
@@ -117,7 +101,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         public void bindRank(Subway_Rank msubway_rank) {
             mSubway_rank = msubway_rank;
-            subway_rank.setText(String.valueOf(getAdapterPosition()));
+            subway_rank.setText(String.valueOf(getAdapterPosition()+1));
             subway_title.setText(mSubway_rank.getSubway_station());
             subway_volume.setText(String.valueOf(mSubway_rank.getSubway_volume()));
             btn_move_to_stationPage.setImageResource(R.drawable.ic_recycler_right);

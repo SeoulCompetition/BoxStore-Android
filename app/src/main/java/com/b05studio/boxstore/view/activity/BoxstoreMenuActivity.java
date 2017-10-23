@@ -1,6 +1,7 @@
 package com.b05studio.boxstore.view.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -27,6 +28,7 @@ import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -37,6 +39,13 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
 
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
+
+    @OnClick(R.id.moveToKeywordActivityBtn)
+    public void moveToKeyword(){
+        // 따로 받을건 없는걸로
+        Intent intent = new Intent(BoxstoreMenuActivity.this,KeywordActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +127,6 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
             }
         }
     }
-
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

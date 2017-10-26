@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -23,15 +24,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.view.fragment.HomeFragment;
+import com.bumptech.glide.Glide;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.camera.CameraModule;
 import com.esafirm.imagepicker.features.camera.ImmediateCameraModule;
 import com.esafirm.imagepicker.features.camera.OnImageReadyListener;
 import com.esafirm.imagepicker.model.Image;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,7 +76,6 @@ public class SellActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell);
         ButterKnife.bind(this);
-
         initImageRecyclerView();
     }
 
@@ -227,7 +231,6 @@ public class SellActivity extends AppCompatActivity {
     }
 
     public Bitmap rotate(Bitmap src, float degree) {
-
         // Matrix 객체 생성
         Matrix matrix = new Matrix();
         // 회전 각도 셋팅
@@ -241,7 +244,7 @@ public class SellActivity extends AppCompatActivity {
 
         //Uri imgUri = data.getData();
        // String imagePath = getRealPathFromURI(imgUri); // path 경로
-        path = path.replace("file:/","");
+       // path = path.replace("file:/","");
         ExifInterface exif = null;
         try {
             exif = new ExifInterface(path);
@@ -251,8 +254,10 @@ public class SellActivity extends AppCompatActivity {
         int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
         int exifDegree = exifOrientationToDegrees(exifOrientation);
 
-        Bitmap bitmap = BitmapFactory.decodeFile(path);//경로를 통해 비트맵으로 전환
-        imageView.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
+        Picasso.with(getApplicationContext()).load(path).into(imageView);
+
+//        Bitmap bitmap = BitmapFactory.decodeFile(path);//경로를 통해 비트맵으로 전환
+//        imageView.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
 
     }
 

@@ -13,8 +13,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.util.BaseUtil;
@@ -39,6 +41,8 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
 
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
+    @BindView(R.id.app_bar_linear_layout)
+    LinearLayout linearLayout;
 
     @OnClick(R.id.moveToKeywordActivityBtn)
     public void moveToKeyword(){
@@ -57,6 +61,16 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
 
+        BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+        View v = bottomNavigationMenuView.getChildAt(3);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+        View badge = LayoutInflater.from(this)
+                .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
+
+        itemView.addView(badge);
+
+
         BottomNavigationViewHelper bottomnavigationViewHelper = new BottomNavigationViewHelper();
         bottomnavigationViewHelper.removeShiftMode(bottomNavigationView);
 
@@ -69,13 +83,13 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
 
                             case R.id.navigation_home:
-                                appBarLayout.setVisibility(View.VISIBLE);
+                                linearLayout.setVisibility(View.VISIBLE);
                                 selectedFragment = HomeFragment.newInstance();
                                 transaction.replace(R.id.frame_layout, selectedFragment);
                                 transaction.commit();
                                 break;
                             case R.id.navigation_category:
-                                appBarLayout.setVisibility(View.GONE);
+                                linearLayout.setVisibility(View.GONE);
                                 selectedFragment = CategoryFragment.newInstance();
                                 transaction.replace(R.id.frame_layout, selectedFragment);
                                 transaction.commit();
@@ -84,11 +98,13 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                                 BaseUtil.moveActivity(BoxstoreMenuActivity.this, SellActivity.class);
                                 break;
                             case R.id.navigation_notifications:
+                                linearLayout.setVisibility(View.GONE);
                                 selectedFragment = NotificationFragment.newInstance();
                                 transaction.replace(R.id.frame_layout, selectedFragment);
                                 transaction.commit();
                                 break;
                             case R.id.navigation_mypage:
+                                linearLayout.setVisibility(View.GONE);
                                 selectedFragment = MypageFragment.newInstance();
                                 transaction.replace(R.id.frame_layout, selectedFragment);
                                 transaction.commit();

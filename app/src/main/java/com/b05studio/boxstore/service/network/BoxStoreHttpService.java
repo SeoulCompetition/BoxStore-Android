@@ -1,16 +1,23 @@
 package com.b05studio.boxstore.service.network;
 
 import com.b05studio.boxstore.model.BoxstoreUser;
+import com.b05studio.boxstore.model.Product;
 import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
 import com.b05studio.boxstore.service.response.UserGetResponse;
 
+import java.util.ArrayList;
+
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 /**
@@ -32,6 +39,9 @@ public interface BoxStoreHttpService {
     @GET("/categories/{keyword}")
     Call<CategoryGetResponse> getCategoryInfo(@Path(value="keyword", encoded = true) String keyword);
 
+    @Multipart
+    @POST("/stuffs")
+    Call<BoxtorePostResponse> uplodeProduct(@Body Product product);
 
 //    @Headers("Content-type: application/json; charset=utf-8")
 //    @GET("/categories")

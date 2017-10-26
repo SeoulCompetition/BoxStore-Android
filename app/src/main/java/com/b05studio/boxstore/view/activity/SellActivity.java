@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,18 +26,41 @@ import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.application.BoxStoreApplication;
+import com.b05studio.boxstore.model.Product;
+import com.b05studio.boxstore.service.network.BoxStoreHttpService;
+import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.bumptech.glide.Glide;
 import com.esafirm.imagepicker.features.camera.CameraModule;
 import com.esafirm.imagepicker.features.camera.ImmediateCameraModule;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import id.zelory.compressor.Compressor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static android.R.attr.data;
 
 public class SellActivity extends AppCompatActivity {
 
@@ -64,21 +88,24 @@ public class SellActivity extends AppCompatActivity {
     @BindView(R.id.sellProductNoOpenStateButton) ImageButton noOpenStateButton;
     @BindView(R.id.sellProductNewStateButton) ImageButton newStateButton;
     @BindView(R.id.sellProductNotGoodStateButton) ImageButton notgoodStateButton;
-
+    private String productState = "";
     @OnClick({R.id.sellProductNoOpenStateButton,R.id.sellProductNewStateButton,R.id.sellProductNotGoodStateButton})
     public void onSelectProductState(ImageButton view) {
         switch (view.getId()) {
             case R.id.sellProductNoOpenStateButton:
+                productState = "미개봉";
                 noOpenStateButton.setImageResource(R.drawable.ic_sell_no_open_state_check);
                 newStateButton.setImageResource(R.drawable.ic_sell_new_state);
                 notgoodStateButton.setImageResource(R.drawable.ic_sell_not_good_state);
                 break;
             case R.id.sellProductNewStateButton:
+                productState = "중고상품";
                 noOpenStateButton.setImageResource(R.drawable.ic_sell_no_open_state);
                 newStateButton.setImageResource(R.drawable.ic_sell_new_state_check);
                 notgoodStateButton.setImageResource(R.drawable.ic_sell_not_good_state);
                 break;
             case R.id.sellProductNotGoodStateButton:
+                productState = "하자있음";
                 noOpenStateButton.setImageResource(R.drawable.ic_sell_no_open_state);
                 newStateButton.setImageResource(R.drawable.ic_sell_new_state);
                 notgoodStateButton.setImageResource(R.drawable.ic_sell_not_good_state_check);
@@ -89,7 +116,7 @@ public class SellActivity extends AppCompatActivity {
     @BindView(R.id.sellProductTypeChange) Button typeSellButton;
     @BindView(R.id.sellProductTypeDevide) Button typeDivideButton;
     @BindView(R.id.sellProductTypeSell) Button typeChangeButton;
-
+    private String postType = "";
     @OnClick({R.id.sellProductTypeChange,R.id.sellProductTypeDevide,R.id.sellProductTypeSell})
     public void onSelectProductType(Button view) {
         switch (view.getId()) {
@@ -100,6 +127,7 @@ public class SellActivity extends AppCompatActivity {
                 typeSellButton.setTextColor(Color.parseColor("#ffffff"));
                 typeDivideButton.setTextColor(Color.parseColor("#4B65A7"));
                 typeChangeButton.setTextColor(Color.parseColor("#4B65A7"));
+                postType = "판매";
                 break;
             case R.id.sellProductTypeDevide:
                 typeSellButton.setBackgroundResource(R.drawable.button_click);
@@ -108,6 +136,7 @@ public class SellActivity extends AppCompatActivity {
                 typeSellButton.setTextColor(Color.parseColor("#4B65A7"));
                 typeDivideButton.setTextColor(Color.parseColor("#ffffff"));
                 typeChangeButton.setTextColor(Color.parseColor("#4B65A7"));
+                postType = "나눔";
                 break;
             case R.id.sellProductTypeSell:
                 typeSellButton.setBackgroundResource(R.drawable.button_click);
@@ -116,6 +145,7 @@ public class SellActivity extends AppCompatActivity {
                 typeSellButton.setTextColor(Color.parseColor("#4B65A7"));
                 typeDivideButton.setTextColor(Color.parseColor("#4B65A7"));
                 typeChangeButton.setTextColor(Color.parseColor("#ffffff"));
+                postType = "교환";
                 break;
         }
     }
@@ -128,6 +158,105 @@ public class SellActivity extends AppCompatActivity {
 
     @BindView(R.id.sellProductStationEditText)
     EditText sellProductStationEditText;
+
+    @OnClick(R.id.sellProductRegistButton)
+    public void registProductButton() {
+        String productName = productNameEditText.getText().toString();
+        if(productName.length() == 0) {
+            printErrorMessage("상품이름");
+            return ;
+        }
+
+        String category = productCategoryTextView.getText().toString();
+        if(category.length() == 0) {
+            printErrorMessage("카테고리");
+            return ;
+        }
+
+        String state = productState;
+        if(state.length() == 0) {
+            printErrorMessage("상태");
+            return ;
+        }
+
+        String type  = postType;
+        if(type.length() == 0) {
+            printErrorMessage("거래 유형");
+            return ;
+        }
+
+        String detailText = productDetailEditText.getText().toString();
+        if(detailText.length() == 0) {
+            printErrorMessage("상세 정보");
+            return ;
+        }
+
+        String price = productPriceEditText.getText().toString();
+        if(price.length() == 0) {
+            printErrorMessage("가격 설정");
+            return ;
+        }
+
+        String station =  sellProductStationEditText.getText().toString();
+        if(station.length() == 0) {
+            printErrorMessage("선호 거래역");
+            return ;
+        }
+
+        UUID uuid = UUID.randomUUID();
+        final String productionId = uuid.toString();
+
+        Product product = new Product(BoxStoreApplication.getCurrentUser().getuId(),productName,category,state,type,detailText,price,station,productionId);
+
+        Retrofit retrofit = BoxStoreApplication.getRetrofit();
+        Call<BoxtorePostResponse> responseBodyCall = retrofit.create(BoxStoreHttpService.class).uplodeProduct(product);
+        responseBodyCall.enqueue(new Callback<BoxtorePostResponse>() {
+            @Override
+            public void onResponse(Call<BoxtorePostResponse> call, Response<BoxtorePostResponse> response) {
+                // 상품을 먼저올림.
+                upLoadImageAsync(productionId);
+            }
+
+            @Override
+            public void onFailure(Call<BoxtorePostResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+//        ArrayList<MultipartBody.Part> images = new ArrayList<>();
+//        for (int i = 0 ; i < imagePath.size() ; i++) {
+//            File file = new File(imagePath.get(i));
+//            RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), file);
+//            images.add(MultipartBody.Part.createFormData("productPhotoList", file.getName(), surveyBody));
+//        }
+
+      
+    }
+
+    private void upLoadImageAsync(String productId) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReference("product");
+
+        for (int i = 0 ; i < imagePath.size() ; i++) {
+            try {
+                File compressedFile = new Compressor(this).compressToFile(new File(imagePath.get(i)));
+                storageReference.putFile(Uri.fromFile(compressedFile)).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        String downLoadUrlLink = taskSnapshot.getDownloadUrl().toString();
+                        // TODO: 2017-10-27 downloadLink 랑 url 업로드. 
+                    }
+                });
+            } catch (Exception e) {
+
+            }
+        }
+    }
 
     private CameraModule cameraModule;
 
@@ -265,7 +394,7 @@ public class SellActivity extends AppCompatActivity {
         return (ImmediateCameraModule) cameraModule;
     }
 
-
-
-
+    private void printErrorMessage(String name) {
+        Toast.makeText(getApplicationContext(),name + "란을 확인해주세요.",Toast.LENGTH_SHORT).show();
+    }
 }

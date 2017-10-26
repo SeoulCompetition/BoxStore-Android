@@ -9,9 +9,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class BoxtorePostResponse {
 
-    @SerializedName("RESULT")
+    @SerializedName("result")
     @Expose
-    private String rESULT;
+    private String result;
     @SerializedName("message")
     @Expose
     private String message;
@@ -26,21 +26,14 @@ public class BoxtorePostResponse {
     /**
      *
      * @param message
-     * @param rESULT
+     * @param result
      */
-    public BoxtorePostResponse(String rESULT, String message) {
+    public BoxtorePostResponse(String result, String message) {
         super();
-        this.rESULT = rESULT;
+        this.result = result;
         this.message = message;
     }
 
-    public String getRESULT() {
-        return rESULT;
-    }
-
-    public void setRESULT(String rESULT) {
-        this.rESULT = rESULT;
-    }
 
     public String getMessage() {
         return message;
@@ -50,4 +43,12 @@ public class BoxtorePostResponse {
         this.message = message;
     }
 
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
 }

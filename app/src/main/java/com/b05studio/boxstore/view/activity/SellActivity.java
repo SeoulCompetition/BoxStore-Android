@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
 import com.b05studio.boxstore.R;
+import com.bumptech.glide.Glide;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.camera.CameraModule;
 import com.esafirm.imagepicker.features.camera.ImmediateCameraModule;
@@ -128,8 +129,12 @@ public class SellActivity extends AppCompatActivity {
                 }
             });
             if(imagePath.size() > 0 && imagePath.size() > position){
-                holder.addImageButton.setImageURI(Uri.parse(imagesPath.get(position)));
-                ChangeBitmap(imagesPath.get(position),holder.addImageButton);
+                                Glide.with(getApplicationContext()).
+                        load(Uri.parse(imagesPath.get(position))).
+                        placeholder(R.drawable.nana_image).
+                        into(holder.addImageButton);
+                //holder.addImageButton.setImageURI(Uri.parse(imagesPath.get(position)));
+                //ChangeBitmap(imagesPath.get(position),holder.addImageButton);
             }
         }
 

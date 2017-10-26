@@ -5,15 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,29 +17,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
 import com.b05studio.boxstore.R;
-import com.b05studio.boxstore.view.fragment.HomeFragment;
 import com.bumptech.glide.Glide;
-import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.camera.CameraModule;
 import com.esafirm.imagepicker.features.camera.ImmediateCameraModule;
-import com.esafirm.imagepicker.features.camera.OnImageReadyListener;
-import com.esafirm.imagepicker.model.Image;
-import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SellActivity extends AppCompatActivity {
@@ -54,6 +45,90 @@ public class SellActivity extends AppCompatActivity {
     @BindView(R.id.sellRecyclerview)
     RecyclerView sellImageRecyclerview;
 
+    @OnClick(R.id.sellBackButton)
+    public void onClickBackButton() {
+        finish();
+    }
+
+    @BindView(R.id.sellProductNameEditText)
+    EditText productNameEditText;
+
+    @BindView(R.id.sellProductCategoryTextView)
+    TextView productCategoryTextView;
+
+    @OnClick(R.id.sellProductCategoryTextView)
+    public void onClickCategoryButton() {
+
+    }
+
+    @BindView(R.id.sellProductNoOpenStateButton) ImageButton noOpenStateButton;
+    @BindView(R.id.sellProductNewStateButton) ImageButton newStateButton;
+    @BindView(R.id.sellProductNotGoodStateButton) ImageButton notgoodStateButton;
+
+    @OnClick({R.id.sellProductNoOpenStateButton,R.id.sellProductNewStateButton,R.id.sellProductNotGoodStateButton})
+    public void onSelectProductState(ImageButton view) {
+        switch (view.getId()) {
+            case R.id.sellProductNoOpenStateButton:
+                noOpenStateButton.setImageResource(R.drawable.ic_sell_no_open_state_check);
+                newStateButton.setImageResource(R.drawable.ic_sell_new_state);
+                notgoodStateButton.setImageResource(R.drawable.ic_sell_not_good_state);
+                break;
+            case R.id.sellProductNewStateButton:
+                noOpenStateButton.setImageResource(R.drawable.ic_sell_no_open_state);
+                newStateButton.setImageResource(R.drawable.ic_sell_new_state_check);
+                notgoodStateButton.setImageResource(R.drawable.ic_sell_not_good_state);
+                break;
+            case R.id.sellProductNotGoodStateButton:
+                noOpenStateButton.setImageResource(R.drawable.ic_sell_no_open_state);
+                newStateButton.setImageResource(R.drawable.ic_sell_new_state);
+                notgoodStateButton.setImageResource(R.drawable.ic_sell_not_good_state_check);
+                break;
+        }
+    }
+
+    @BindView(R.id.sellProductTypeChange) Button typeSellButton;
+    @BindView(R.id.sellProductTypeDevide) Button typeDivideButton;
+    @BindView(R.id.sellProductTypeSell) Button typeChangeButton;
+
+    @OnClick({R.id.sellProductTypeChange,R.id.sellProductTypeDevide,R.id.sellProductTypeSell})
+    public void onSelectProductType(Button view) {
+        switch (view.getId()) {
+            case R.id.sellProductTypeChange:
+                typeSellButton.setBackgroundResource(R.drawable.button_unclick);
+                typeDivideButton.setBackgroundResource(R.drawable.button_click);
+                typeChangeButton.setBackgroundResource(R.drawable.button_click);
+                typeSellButton.setTextColor(Color.parseColor("#ffffff"));
+                typeDivideButton.setTextColor(Color.parseColor("#4B65A7"));
+                typeChangeButton.setTextColor(Color.parseColor("#4B65A7"));
+                break;
+            case R.id.sellProductTypeDevide:
+                typeSellButton.setBackgroundResource(R.drawable.button_click);
+                typeDivideButton.setBackgroundResource(R.drawable.button_unclick);
+                typeChangeButton.setBackgroundResource(R.drawable.button_click);
+                typeSellButton.setTextColor(Color.parseColor("#4B65A7"));
+                typeDivideButton.setTextColor(Color.parseColor("#ffffff"));
+                typeChangeButton.setTextColor(Color.parseColor("#4B65A7"));
+                break;
+            case R.id.sellProductTypeSell:
+                typeSellButton.setBackgroundResource(R.drawable.button_click);
+                typeDivideButton.setBackgroundResource(R.drawable.button_click);
+                typeChangeButton.setBackgroundResource(R.drawable.button_unclick);
+                typeSellButton.setTextColor(Color.parseColor("#4B65A7"));
+                typeDivideButton.setTextColor(Color.parseColor("#4B65A7"));
+                typeChangeButton.setTextColor(Color.parseColor("#ffffff"));
+                break;
+        }
+    }
+
+    @BindView(R.id.sellProductDetailEditText)
+    EditText productDetailEditText;
+
+    @BindView(R.id.sellProductPriceEdittext)
+    EditText productPriceEditText;
+
+    @BindView(R.id.sellProductStationEditText)
+    EditText sellProductStationEditText;
+
     private CameraModule cameraModule;
 
     private static final int RC_CODE_PICKER = 2000;
@@ -61,13 +136,11 @@ public class SellActivity extends AppCompatActivity {
 
     private final static int CAMERA_RQ = 6969;
 
-
     int selectedPos = 9;
 
     RecyclerView.Adapter recyclerViewAdapter;
     RecyclerView.LayoutManager recyclerViewLayoutManager;
 
-    private ArrayList<Image> images = new ArrayList<>();
     private ArrayList<String> imagePath = new ArrayList<>();
 
 
@@ -132,8 +205,12 @@ public class SellActivity extends AppCompatActivity {
                 }
             });
             if(imagePath.size() > 0 && imagePath.size() > position){
-                holder.addImageButton.setImageURI(Uri.parse(imagesPath.get(position)));
-                ChangeBitmap(imagesPath.get(position),holder.addImageButton);
+                                Glide.with(getApplicationContext()).
+                        load(Uri.parse(imagesPath.get(position))).
+                        placeholder(R.drawable.nana_image).
+                        into(holder.addImageButton);
+                //holder.addImageButton.setImageURI(Uri.parse(imagesPath.get(position)));
+                //ChangeBitmap(imagesPath.get(position),holder.addImageButton);
             }
         }
 
@@ -180,28 +257,6 @@ public class SellActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, final int resultCode, Intent data) {
-        if (requestCode == RC_CODE_PICKER && resultCode == RESULT_OK && data != null) {
-            images = (ArrayList<Image>) ImagePicker.getImages(data);
-            //printImages(images);
-            return;
-        }
-        if (requestCode == RC_CAMERA && resultCode == RESULT_OK) {
-            getCameraModule().getImage(this, data, new OnImageReadyListener() {
-                @Override
-                public void onImageReady(List<Image> resultImages) {
-                    images = (ArrayList<Image>) resultImages;
-                    imagePath.add(resultImages.get(0).getPath());
-                    //printImages(images);
-                }
-            });
-        }
-        recyclerViewAdapter = new ImageAdapter(imagePath);
-        sellImageRecyclerview.swapAdapter(recyclerViewAdapter,false);
-        super.onActivityResult(requestCode, resultCode, data);
-    }*/
 
     private ImmediateCameraModule getCameraModule() {
         if (cameraModule == null) {
@@ -210,55 +265,7 @@ public class SellActivity extends AppCompatActivity {
         return (ImmediateCameraModule) cameraModule;
     }
 
-    public int exifOrientationToDegrees(int exifOrientation) {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-    }
 
-    public String getRealPathFromURI(Uri contentUri) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
 
-    }
-
-    public Bitmap rotate(Bitmap src, float degree) {
-        // Matrix 객체 생성
-        Matrix matrix = new Matrix();
-        // 회전 각도 셋팅
-        matrix.postRotate(degree);
-        // 이미지와 Matrix 를 셋팅해서 Bitmap 객체 생성
-        return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
-                src.getHeight(), matrix, true);
-    }
-
-    private void ChangeBitmap(String path,ImageButton imageView) {
-
-        //Uri imgUri = data.getData();
-       // String imagePath = getRealPathFromURI(imgUri); // path 경로
-       // path = path.replace("file:/","");
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-        int exifDegree = exifOrientationToDegrees(exifOrientation);
-
-        Picasso.with(getApplicationContext()).load(path).into(imageView);
-
-//        Bitmap bitmap = BitmapFactory.decodeFile(path);//경로를 통해 비트맵으로 전환
-//        imageView.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
-
-    }
 
 }

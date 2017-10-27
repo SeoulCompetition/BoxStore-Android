@@ -7,8 +7,10 @@ import com.b05studio.boxstore.service.response.CategoryGetResponse;
 import com.b05studio.boxstore.service.response.UserGetResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -39,9 +41,12 @@ public interface BoxStoreHttpService {
     @GET("/categories/{keyword}")
     Call<CategoryGetResponse> getCategoryInfo(@Path(value="keyword", encoded = true) String keyword);
 
+    @POST("/stuffs")
+    Call<BoxtorePostResponse> uplodeProduct(@Part Product product);
+
     @Multipart
     @POST("/stuffs")
-    Call<BoxtorePostResponse> uplodeProduct(@Body Product product);
+    Call<BoxtorePostResponse> uplodeProductImages(@Part List<MultipartBody.Part> files, @Part("productId") RequestBody productId);
 
 //    @Headers("Content-type: application/json; charset=utf-8")
 //    @GET("/categories")

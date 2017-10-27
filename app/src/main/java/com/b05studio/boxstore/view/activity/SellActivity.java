@@ -30,6 +30,7 @@ import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.Product;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.service.response.BoxtorePostResponse;
+import com.b05studio.boxstore.util.FileUtils;
 import com.bumptech.glide.Glide;
 import com.esafirm.imagepicker.features.camera.CameraModule;
 import com.esafirm.imagepicker.features.camera.ImmediateCameraModule;
@@ -207,14 +208,31 @@ public class SellActivity extends AppCompatActivity {
         final String productionId = uuid.toString();
 
         Product product = new Product(BoxStoreApplication.getCurrentUser().getuId(),productName,category,state,type,detailText,price,station,productionId);
+        List<MultipartBody.Part> parts = new ArrayList<>();
+
+        for(int i = 0 ; i < imagePath.size() ; i++) {
+            parts.add(prepareFilePart("photo",Uri.parse(imagePath.get(i))));
+        }
 
         Retrofit retrofit = BoxStoreApplication.getRetrofit();
-        Call<BoxtorePostResponse> responseBodyCall = retrofit.create(BoxStoreHttpService.class).uplodeProduct(product);
-        responseBodyCall.enqueue(new Callback<BoxtorePostResponse>() {
+        Call<BoxtorePostResponse> responseProductBodyCall = retrofit.create(BoxStoreHttpService.class).uplodeProduct(product);
+        responseProductBodyCall.enqueue(new Callback<BoxtorePostResponse>() {
             @Override
             public void onResponse(Call<BoxtorePostResponse> call, Response<BoxtorePostResponse> response) {
                 // 상품을 먼저올림.
-                upLoadImageAsync(productionId);
+            }
+
+            @Override
+            public void onFailure(Call<BoxtorePostResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+        Call<BoxtorePostResponse> responseProductImagesBodyCall = retrofit.create(BoxStoreHttpService.class).uplodeProductImages(parts, createPartFromString(uuid.toString()));
+        responseProductImagesBodyCall.enqueue(new Callback<BoxtorePostResponse>() {
+            @Override
+            public void onResponse(Call<BoxtorePostResponse> call, Response<BoxtorePostResponse> response) {
+                // 상품을 먼저올림.
             }
 
             @Override
@@ -229,34 +247,55 @@ public class SellActivity extends AppCompatActivity {
 //            RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"), file);
 //            images.add(MultipartBody.Part.createFormData("productPhotoList", file.getName(), surveyBody));
 //        }
-
-      
     }
 
-    private void upLoadImageAsync(String productId) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReference("product");
-
-        for (int i = 0 ; i < imagePath.size() ; i++) {
-            try {
-                File compressedFile = new Compressor(this).compressToFile(new File(imagePath.get(i)));
-                storageReference.putFile(Uri.fromFile(compressedFile)).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        String downLoadUrlLink = taskSnapshot.getDownloadUrl().toString();
-                        // TODO: 2017-10-27 downloadLink 랑 url 업로드. 
-                    }
-                });
-            } catch (Exception e) {
-
-            }
-        }
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                okhttp3.MultipartBody.FORM, descriptionString);
     }
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
+        // use the FileUtils to get the actual file by uri
+        File file = FileUtils.getFile(this, fileUri);
+
+        // create RequestBody instance from file
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse(getContentResolver().getType(fileUri)),
+                        file
+                );
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+//    private void upLoadImageAsync(String productId) {
+//        FirebaseStorage storage = FirebaseStorage.getInstance();
+//        StorageReference storageReference = storage.getReference("product");
+//
+//        for (int i = 0 ; i < imagePath.size() ; i++) {
+//            try {
+//                File compressedFile = new Compressor(this).compressToFile(new File(imagePath.get(i)));
+//                storageReference.putFile(Uri.fromFile(compressedFile)).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        String downLoadUrlLink = taskSnapshot.getDownloadUrl().toString();
+//                        // TODO: 2017-10-27 downloadLink 랑 url 업로드.
+//                    }
+//                });
+//            } catch (Exception e) {
+//
+//            }
+//        }
+//    }
 
     private CameraModule cameraModule;
 

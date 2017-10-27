@@ -45,22 +45,22 @@
             android:id="@+id/mainNewStaionProductViewPager"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            app:layout_constraintRight_toRightOf="@+id/mainNewStationIcon"
-            app:layout_constraintLeft_toRightOf="@+id/mainNewStationIcon"
-            app:layout_constraintTop_toBottomOf="@+id/mainNewStationIcon"
             android:layout_marginTop="12dp"
-            />
-        
+            android:background="#000000"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainNewStationIcon" />
+
+
         <com.b05studio.boxstore.util.DotIndicator
             android:id="@+id/mainNewStaionProductViewPagerIndicator"
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:layout_marginBottom="10dp"
             android:background="@color/gray_20"
-            app:layout_constraintRight_toRightOf="@+id/mainNewStationIcon"
-            app:layout_constraintLeft_toRightOf="@+id/mainNewStationIcon"
-            app:layout_constraintBottom_toBottomOf="@+id/mainNewStationIcon"
-            />
+            app:layout_constraintBottom_toBottomOf="@+id/mainNewProductView"
+            app:layout_constraintLeft_toRightOf="@+id/mainNewProductView"
+            app:layout_constraintRight_toRightOf="@+id/mainNewProductView" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/boxStoreMenuStationHorizonScrollReyclerView"
@@ -69,23 +69,103 @@
             android:layout_marginTop="4dp"
             android:background="#ffffff"
             android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/mainNewProductView"
+            app:layout_constraintRight_toRightOf="@+id/mainNewProductView"
             app:layout_constraintTop_toBottomOf="@+id/mainNewProductView">
 
         </android.support.v7.widget.RecyclerView>
+
+        <View
+            android:id="@+id/mainProductSubStationView"
+            android:layout_width="0dp"
+            android:layout_height="310dp"
+            android:background="#ffffff"
+            android:layout_marginTop="4dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/boxStoreMenuStationHorizonScrollReyclerView"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/boxStoreMenuStationSubHorizonScrollRecyclerView"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginTop="4dp"
             android:background="#ffffff"
             android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="@+id/mainProductSubStationView"
+            app:layout_constraintRight_toRightOf="@+id/mainProductSubStationView"
+            app:layout_constraintTop_toTopOf="@+id/mainProductSubStationView"
+           />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/mainStaionProductViewPager"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/boxStoreMenuStationSubHorizonScrollRecyclerView"
+            android:layout_marginTop="10dp"
+            />
+
+        <com.b05studio.boxstore.util.DotIndicator
+            android:id="@+id/mainStaionProductViewPagerIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@color/gray_20"
+            app:layout_constraintBottom_toBottomOf="@+id/mainProductSubStationView"
+            app:layout_constraintLeft_toRightOf="@+id/mainProductSubStationView"
+            app:layout_constraintRight_toRightOf="@+id/mainProductSubStationView"
+            />
+
+        <View
+            android:id="@+id/mainStationRankView"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="4dp"
+            android:background="#ffffff"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/boxStoreMenuStationHorizonScrollReyclerView">
+            app:layout_constraintTop_toBottomOf="@+id/mainProductSubStationView"
+            />
+
+        <ImageView
+            android:id="@+id/btn_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/mainStationRankView"
+            app:layout_constraintTop_toTopOf="@+id/mainStationRankView"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_recycler_refresh" />
+
+        <TextView
+            android:id="@+id/headr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="거래량이 많은 역"
+            android:textSize="12dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_refresh"
+            app:layout_constraintLeft_toRightOf="@+id/btn_refresh"
+            app:layout_constraintTop_toTopOf="@+id/btn_refresh"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mainRankRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/mainStationRankView"
+            app:layout_constraintTop_toBottomOf="@+id/headr"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="4dp">
         </android.support.v7.widget.RecyclerView>
+
+
 
     </android.support.constraint.ConstraintLayout>
 

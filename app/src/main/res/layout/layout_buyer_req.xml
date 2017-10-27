@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/message_view"
+        android:layout_width="215dp"
+        android:layout_height="155dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_seller_chat_box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+    </View>
+
+    <TextView
+        android:layout_width="171dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="18dp"
+        android:text="심다혜 님께서 '아더에리 후드집업 그레이' 상품에 대한 거래 승인을 요청하셨습니다."
+        app:layout_constraintLeft_toLeftOf="@+id/message_view"
+        app:layout_constraintRight_toRightOf="@+id/message_view"
+        app:layout_constraintTop_toTopOf="@+id/message_view"
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+        android:id="@+id/textView" />
+
+    <View
+        android:background="#000000"
+        android:layout_width="170dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/message_view"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/message_view"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/message_view"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintVertical_bias="0.107" />
+
+    <View
+        android:id="@+id/clickview"
+        android:layout_width="170dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/message_view"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintLeft_toLeftOf="@+id/message_view"
+        app:layout_constraintRight_toRightOf="@+id/message_view"
+        app:layout_constraintStart_toStartOf="@+id/message_view" />
+
+    <ImageView
+        android:id="@+id/boxicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_chat_box"
+        app:layout_constraintBottom_toBottomOf="@+id/clickview"
+        app:layout_constraintLeft_toLeftOf="@+id/clickview"
+        app:layout_constraintTop_toTopOf="@+id/clickview" />
+
+    <TextView
+        android:id="@+id/showContent"
+        android:text="내용보기"
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/boxicon"
+        android:layout_marginLeft="12.5dp"
+        app:layout_constraintTop_toTopOf="@+id/clickview"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/clickview"
+        android:layout_marginBottom="8dp" />
+
+    <ImageView
+        android:src="@drawable/ic_chat_right"
+        android:id="@+id/right_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/clickview"
+        app:layout_constraintBottom_toBottomOf="@+id/clickview"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toTopOf="@+id/clickview"
+        android:layout_marginTop="8dp" />
+
+
+
+</android.support.constraint.ConstraintLayout>

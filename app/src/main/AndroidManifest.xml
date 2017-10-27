@@ -40,7 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.SellActivity"></activity>
+        <activity android:name=".view.activity.SellActivity" />
         <activity android:name=".view.activity.BoxstoreMenuActivity" />
 
         <meta-data
@@ -78,14 +78,15 @@
 
         <activity android:name=".view.activity.DetailProductActivity" />
         <activity android:name=".view.activity.CategoryDetailActivity" />
-        <activity android:name=".view.activity.KeywordActivity"></activity>
-        <activity android:name=".view.activity.KeywordAddActivity"></activity>
+        <activity android:name=".view.activity.KeywordActivity" />
+        <activity android:name=".view.activity.KeywordAddActivity" />
         <activity
             android:name="com.afollestad.materialcamera.CaptureActivity"
             android:theme="@style/MaterialCamera.CaptureActivity" />
         <activity
             android:name="com.afollestad.materialcamera.CaptureActivity2"
             android:theme="@style/MaterialCamera.CaptureActivity" />
+        <activity android:name=".view.activity.CategorySelectActivity"></activity>
     </application>
 
 </manifest>

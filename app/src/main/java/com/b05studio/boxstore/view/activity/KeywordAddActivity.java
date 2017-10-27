@@ -17,7 +17,7 @@ import butterknife.OnClick;
  * Created by seungwoo on 2017-10-23.
  */
 
-public class KeywordAddActivity extends AppCompatActivity{
+public class  KeywordAddActivity extends AppCompatActivity{
 
 
     @BindView(R.id.edit_keyword)

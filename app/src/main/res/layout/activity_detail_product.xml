@@ -80,6 +80,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/detailProductTitlebar"
                 app:layout_constraintRight_toRightOf="@+id/detailProductTitlebar"
                 app:layout_constraintTop_toTopOf="@+id/detailProductTitlebar"
+
                 tools:text="슈프림 X 노스페이스 아노락" />
 
             <View

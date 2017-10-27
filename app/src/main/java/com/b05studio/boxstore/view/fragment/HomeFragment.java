@@ -119,29 +119,29 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
 
-        mRankRecyclerview = (RecyclerView) view.findViewById(R.id.home_view_2);
-        mRankRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRankRecyclerview.setHasFixedSize(true);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-                LinearLayoutManager.VERTICAL);
-        dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.line_divider));
-
-        mRankRecyclerview.addItemDecoration(dividerItemDecoration);
+//        mRankRecyclerview = (RecyclerView) view.findViewById(R.id.home_view_2);
+//        mRankRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        mRankRecyclerview.setHasFixedSize(true);
+//
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+//                LinearLayoutManager.VERTICAL);
+//        dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.line_divider));
+//
+//        mRankRecyclerview.addItemDecoration(dividerItemDecoration);
 
         mImageItemList = new ArrayList<>();
         mImageItemList.addAll(getThumbImageList());
 
         mPagerAdapter = new homeveiw1Adapter(getChildFragmentManager(), mImageItemList);
 
-        viewPager = view.findViewById(R.id.home_vp_1);
+        viewPager = view.findViewById(R.id.mainNewStaionProductViewPager);
         viewPager.setAdapter(mPagerAdapter);
         viewPager.setCurrentItem(0);
 
         // viewIncicator = view.findViewById(R.id.viewIncicator);
         //viewIncicator.setViewPager(viewPager);
 
-        updateUI();
+     //   updateUI();
         initStationRecyclerView();
         initStationSubRecyclerView();
         return view;

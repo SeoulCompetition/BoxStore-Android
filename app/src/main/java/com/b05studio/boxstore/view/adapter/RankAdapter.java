@@ -78,7 +78,7 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         protected TextView header;
         public headView(View v) {
             super(v);
-            header = (TextView) v.findViewById(R.id.headr);
+//            header = (TextView) v.findViewById(R.id.headr);
         }
     }
     public class itemView extends RecyclerView.ViewHolder {

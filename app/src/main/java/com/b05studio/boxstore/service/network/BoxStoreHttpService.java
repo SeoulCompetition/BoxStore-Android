@@ -45,7 +45,7 @@ public interface BoxStoreHttpService {
     Call<BoxtorePostResponse> uplodeProduct(@Part Product product);
 
     @Multipart
-    @POST("/stuffs")
+    @POST("/stuffs/images")
     Call<BoxtorePostResponse> uplodeProductImages(@Part List<MultipartBody.Part> files, @Part("productId") RequestBody productId);
 
 //    @Headers("Content-type: application/json; charset=utf-8")

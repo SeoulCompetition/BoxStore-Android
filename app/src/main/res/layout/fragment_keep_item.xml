@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F1F1F1"
+    android:fillViewport="true"
+    tools:ignore="MissingPrefix">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/registerView"
+            android:layout_width="match_parent"
+            android:layout_height="221dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </View>
+
+        <ImageView
+            android:id="@+id/camera_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_keep_camera"
+            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/registerView"
+            app:layout_constraintTop_toTopOf="@+id/registerView" />
+
+        <TextView
+            android:id="@+id/textView3"
+            fontPath="fonts/NOTOSANSKR-MEDIUM.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="232dp"
+            android:layout_marginTop="14dp"
+            android:text="영수증 사진 등록하기"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/camera_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/registerView"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageButton
+            android:id="@+id/bill_photo_btn"
+            android:layout_width="340dp"
+            android:layout_height="165dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/gray_bg"
+            android:src="@drawable/ic_image_add"
+            app:layout_constraintBottom_toBottomOf="@+id/registerView"
+            app:layout_constraintEnd_toEndOf="@+id/registerView"
+            app:layout_constraintStart_toStartOf="@+id/registerView" />
+
+
+        <View
+            android:id="@+id/tradeStationNameView"
+            android:layout_width="0dp"
+            android:layout_height="153dp"
+            android:layout_marginTop="4dp"
+            android:background="#ffffff"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerView" />
+
+        <ImageView
+            android:id="@+id/tradeStationNameImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_newitem_pin"
+            app:layout_constraintLeft_toLeftOf="@+id/tradeStationNameView"
+            app:layout_constraintTop_toTopOf="@+id/tradeStationNameView" />
+
+        <TextView
+            fontPath="fonts/NOTOSANSKR-MEDIUM.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:includeFontPadding="false"
+            android:text="거래역"
+            android:textColor="#000000"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tradeStationNameImageView"
+            app:layout_constraintLeft_toRightOf="@+id/tradeStationNameImageView"
+            app:layout_constraintTop_toTopOf="@+id/tradeStationNameImageView" />
+
+        <EditText
+            android:id="@+id/sellProductNameEditText"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="38dp"
+            android:background="@drawable/bg_sell_edittext"
+            android:hint="거래역을 입력하세요"
+            android:includeFontPadding="false"
+            android:paddingStart="16dp"
+            android:textSize="10sp"
+            app:layout_constraintLeft_toLeftOf="@+id/tradeStationNameView"
+            app:layout_constraintRight_toRightOf="@+id/tradeStationNameView"
+            app:layout_constraintTop_toTopOf="@+id/tradeStationNameView" />
+
+        <ImageView
+            android:id="@+id/keepNoticeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_keep_notice"
+            app:layout_constraintStart_toStartOf="@+id/tradeStationNameImageView"
+            app:layout_constraintTop_toBottomOf="@+id/sellProductNameEditText" />
+
+        <TextView
+            android:id="@+id/keepNoticeText"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="보관함 사용시 유의사항"
+            android:textColor="@color/seoul"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/keepNoticeImage"
+            app:layout_constraintLeft_toRightOf="@id/keepNoticeImage"
+            app:layout_constraintTop_toTopOf="@id/keepNoticeImage" />
+
+
+        <ImageView
+            android:id="@+id/seeStoreLocationImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_keep_location"
+            app:layout_constraintStart_toStartOf="@+id/keepNoticeImage"
+            app:layout_constraintTop_toBottomOf="@+id/keepNoticeText" />
+
+        <TextView
+            android:id="@+id/seeStoreLocationText"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4.5dp"
+            android:text="보관함 위치 보기"
+            android:textColor="@color/seoul"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/seeStoreLocationImage"
+            app:layout_constraintLeft_toRightOf="@id/seeStoreLocationImage"
+            app:layout_constraintTop_toTopOf="@id/seeStoreLocationImage" />
+
+
+        <View
+            android:id="@+id/storeNumberAndLockerPassword"
+            android:layout_width="0dp"
+            android:layout_height="85dp"
+            android:layout_marginTop="4dp"
+            android:background="#ffffff"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tradeStationNameView" />
+
+        <ImageView
+            android:id="@+id/locker_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_keep_locker"
+            app:layout_constraintLeft_toLeftOf="@+id/storeNumberAndLockerPassword"
+            app:layout_constraintTop_toTopOf="@+id/storeNumberAndLockerPassword" />
+
+        <TextView
+            android:id="@+id/sellProductStationTitle"
+            fontPath="fonts/NOTOSANSKR-MEDIUM.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:includeFontPadding="false"
+            android:text="보관함 번호 및 비밀번호"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/locker_image"
+            app:layout_constraintLeft_toRightOf="@+id/locker_image"
+            app:layout_constraintTop_toTopOf="@+id/locker_image" />
+
+        <EditText
+            android:id="@+id/locker_number"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="152dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_sell_edittext"
+            android:hint="보관함 번호를 입력하세요"
+            android:includeFontPadding="false"
+            android:paddingStart="7.5dp"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/storeNumberAndLockerPassword"
+            app:layout_constraintTop_toBottomOf="@+id/locker_image">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/locker_password"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="152dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_sell_edittext"
+            android:hint="보관함 비밀번호를 입력하세요"
+            android:includeFontPadding="false"
+            android:paddingStart="7.5dp"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/locker_number"
+            app:layout_constraintEnd_toEndOf="@+id/storeNumberAndLockerPassword"
+            app:layout_constraintTop_toTopOf="@+id/locker_number">
+
+        </EditText>
+
+        <View
+            android:id="@+id/etcMessageView"
+            android:layout_width="0dp"
+            android:layout_height="135dp"
+            android:layout_marginTop="4dp"
+            android:background="#ffffff"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/storeNumberAndLockerPassword" />
+
+        <ImageView
+            android:id="@+id/etcMessageImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_keep_messasge"
+            app:layout_constraintLeft_toLeftOf="@+id/etcMessageView"
+            app:layout_constraintTop_toTopOf="@+id/etcMessageView" />
+
+        <TextView
+            android:id="@+id/etcMessageText"
+            fontPath="fonts/NOTOSANSKR-MEDIUM.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:includeFontPadding="false"
+            android:text="기타 메세지"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/etcMessageImage"
+            app:layout_constraintLeft_toRightOf="@+id/etcMessageImage"
+            app:layout_constraintTop_toTopOf="@+id/etcMessageImage" />
+
+        <EditText
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="340dp"
+            android:layout_height="81dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_sell_edittext"
+            android:hint="기타 전하고 싶은 말을 입력해주세요"
+            android:includeFontPadding="false"
+            android:paddingStart="16dp"
+            android:textSize="10sp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/etcMessageView"
+            app:layout_constraintRight_toRightOf="@+id/etcMessageView"
+            app:layout_constraintStart_toStartOf="@+id/etcMessageView"
+            app:layout_constraintTop_toBottomOf="@+id/etcMessageText">
+
+        </EditText>
+
+        <Button
+            android:id="@+id/completeItemStoreBtn"
+            android:layout_width="330dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/next_button_style"
+            android:text="완료"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etcMessageView">
+
+        </Button>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -63,6 +63,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRankRecyclerview;
     private RankAdapter rank_adapter;
 
+    public static int selectedIndex = 0;
+
     public final static String[] imageThumbUrls = new String[] {
             "https://lh6.googleusercontent.com/-55osAWw3x0Q/URquUtcFr5I/AAAAAAAAAbs/rWlj1RUKrYI/s240-c/A%252520Photographer.jpg",
             "https://lh4.googleusercontent.com/--dq8niRp7W4/URquVgmXvgI/AAAAAAAAAbs/-gnuLQfNnBA/s240-c/A%252520Song%252520of%252520Ice%252520and%252520Fire.jpg",
@@ -144,7 +146,11 @@ public class HomeFragment extends Fragment {
      //   updateUI();
         initStationRecyclerView();
         initStationSubRecyclerView();
+        initStationRankSubReycyclerView();
         return view;
+    }
+
+    private void initStationRankSubReycyclerView() {
     }
 
     private void updateUI() {
@@ -177,6 +183,7 @@ public class HomeFragment extends Fragment {
     }
 
     static public void getStationInformation(String name) {
+        HomeFragment.selectedIndex = 0;
         switch (name) {
             case "1호선":
                 subStations = Arrays.asList("서울역","종로3가","시청");
@@ -209,11 +216,11 @@ public class HomeFragment extends Fragment {
         subStationAdapter.notifyDataSetChanged();
     }
 
-    public class HorizonStationSubAdapter extends RecyclerView.Adapter<HorizonStationSubAdapter.SubStationViewHolder> {
+    public class HorizonStationSubAdapter extends RecyclerView.Adapter<HorizonStationSubAdapter.ViewHolder> {
 
-        private int selectedIndex = 0;
 
-        public class SubStationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             @BindView(R.id.cardSubStationImageButton)
             ImageButton cardSubImageButton;
@@ -221,30 +228,33 @@ public class HomeFragment extends Fragment {
             @BindView(R.id.cardSubStationTextView)
             TextView cardSubTextView;
 
-            public SubStationViewHolder(View itemView) {
+            public ViewHolder(View itemView) {
                 super(itemView);
                 ButterKnife.bind(this, itemView);
                 itemView.setOnClickListener(this);
+                cardSubImageButton.setOnClickListener(this);
+                cardSubTextView.setOnClickListener(this);
             }
 
             @Override
             public void onClick(View view) {
+                Log.d("OnClick",String.valueOf(selectedIndex));
                 if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
                 notifyItemChanged(selectedIndex);
                 selectedIndex = getAdapterPosition();
                 notifyItemChanged(selectedIndex);
-                HomeFragment.getStationInformation(stations.get(selectedIndex));
+//                HomeFragment.getStationInformation(stations.get(selectedIndex));
                 // TODO: 2017-10-20 상점 정보 나오게하기
             }
                                                                                                                                     }
         @Override
-        public SubStationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_sub_station,parent, false);
-            return new HorizonStationSubAdapter.SubStationViewHolder(view);
+            return new HorizonStationSubAdapter.ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(SubStationViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, int position) {
             holder.cardSubTextView.setText(subStations.get(position));
 
             if(selectedIndex == position) {
@@ -260,7 +270,6 @@ public class HomeFragment extends Fragment {
         public int getItemCount() {
             return subStations.size();
         }
-
 
     }
 

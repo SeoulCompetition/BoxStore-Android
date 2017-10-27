@@ -4,7 +4,6 @@ package com.b05studio.boxstore.view.fragment;
  * Created by seungwoo on 2017-09-25.
  */
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,7 +22,6 @@ import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
 import com.b05studio.boxstore.view.adapter.CategoryAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,7 +30,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CategoryFragment extends Fragment {
 

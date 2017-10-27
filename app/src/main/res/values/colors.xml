@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="grey">#B6B6B6</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="fontgray">#929292</color>
     <!--회색 시리즈-->
     <color name="gray_chat">#E2E2E2</color>
     <color name="gray_bg">#F1F1F1</color>

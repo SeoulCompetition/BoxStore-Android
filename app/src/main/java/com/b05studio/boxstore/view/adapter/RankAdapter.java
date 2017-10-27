@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.model.Station;
 import com.b05studio.boxstore.model.Subway_Rank;
 
 import java.util.List;
@@ -22,17 +23,17 @@ import butterknife.ButterKnife;
  */
 public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private boolean isHeader;
-    private List<Subway_Rank> data;
+    private List<Station> data;
     private Context context;
 
     public static final int VIEW_ITEM = 1;
 
-    public RankAdapter(Context context, List<Subway_Rank> data, boolean isHeader){
+    public RankAdapter(Context context, List<Station> data, boolean isHeader){
         this.context=context;
         this.data=data;
         this.isHeader=isHeader;
     }
-    public RankAdapter(List<Subway_Rank> data){
+    public RankAdapter(List<Station> data){
         this.data = data;
     }
     @Override
@@ -43,22 +44,19 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if(holder instanceof itemView){
-            Subway_Rank subway_rank = data.get(position);
+            Station subway_rank = data.get(position);
             ((itemView) holder).bindRank(subway_rank);
             Log.d("Item View","Binding Item "+position);
         }
     }
 
-
-
     // to Check the number of item
     @Override
     public int getItemCount() {
         int itemCount=data.size();
-        //if header is required then increase the number of count by one
         return itemCount;
     }
-    public Subway_Rank getName(int position){
+    public Station getName(int position){
         if(isHeader){
             return data.get(position-1);
         }
@@ -68,23 +66,15 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemViewType(int position) {
        return VIEW_ITEM;
     }
+
     private boolean isFooter(int position) {
         return position==getItemCount()-1;
     }
-
     private boolean isHeader(int position) { return position == 0;  }
 
-    public class headView extends RecyclerView.ViewHolder {
-        protected TextView header;
-        public headView(View v) {
-            super(v);
-//            header = (TextView) v.findViewById(R.id.headr);
-        }
-    }
     public class itemView extends RecyclerView.ViewHolder {
 
-
-        protected Subway_Rank mSubway_rank;
+        protected Station subwayRank;
 
         @BindView(R.id.subway_rank)
         protected TextView subway_rank;
@@ -99,13 +89,12 @@ public class RankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(v);
             ButterKnife.bind(this,v);
         }
-        public void bindRank(Subway_Rank msubway_rank) {
-            mSubway_rank = msubway_rank;
+        public void bindRank(Station msubway_rank) {
+            subwayRank = msubway_rank;
             subway_rank.setText(String.valueOf(getAdapterPosition()+1));
-            subway_title.setText(mSubway_rank.getSubway_station());
-            subway_volume.setText(String.valueOf(mSubway_rank.getSubway_volume()));
+            subway_title.setText(subwayRank.getStationName());
+            subway_volume.setText(String.valueOf(subwayRank.getStuffCount()));
             btn_move_to_stationPage.setImageResource(R.drawable.ic_recycler_right);
-
         }
     }
 }

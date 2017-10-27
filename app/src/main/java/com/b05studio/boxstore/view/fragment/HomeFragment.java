@@ -23,10 +23,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.model.Station;
 import com.b05studio.boxstore.model.StoreRank;
 import com.b05studio.boxstore.model.Subway_Rank;
+import com.b05studio.boxstore.service.network.BoxStoreHttpService;
+import com.b05studio.boxstore.service.response.RankStationGetResponse;
 import com.b05studio.boxstore.util.DotIndicator;
 import com.b05studio.boxstore.view.adapter.HorizonStationAdapter;
 import com.b05studio.boxstore.view.adapter.RankAdapter;
@@ -38,6 +41,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
@@ -55,13 +62,15 @@ public class HomeFragment extends Fragment {
     private static RecyclerView.LayoutManager subStationLayoutManager;
     private static List<String> subStations = new ArrayList<>();
 
+    Retrofit homeFragmentRetrofit;
+
     private static final String TAG = "FragmentStatPgrAdapFrag";
     private homeveiw1Adapter mPagerAdapter;
     private ArrayList<Item> mImageItemList;
     ViewPager viewPager;
     DotIndicator viewIncicator;
     private RecyclerView mRankRecyclerview;
-    private RankAdapter rank_adapter;
+    private RankAdapter rankAdapter;
 
     public static int selectedIndex = 0;
 
@@ -115,6 +124,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        homeFragmentRetrofit = BoxStoreApplication.getRetrofit();
+
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -143,23 +155,12 @@ public class HomeFragment extends Fragment {
         // viewIncicator = view.findViewById(R.id.viewIncicator);
         //viewIncicator.setViewPager(viewPager);
 
-     //   updateUI();
         initStationRecyclerView();
         initStationSubRecyclerView();
         initStationRankSubReycyclerView();
         return view;
     }
 
-    private void initStationRankSubReycyclerView() {
-    }
-
-    private void updateUI() {
-        StoreRank storeRank = StoreRank.get(getActivity());
-        List<Subway_Rank> stores = storeRank.getRanks();
-
-        rank_adapter = new RankAdapter(getActivity(),stores,true);
-        mRankRecyclerview.setAdapter(rank_adapter);
-    }
 
     private void initStationRecyclerView() {
 
@@ -180,6 +181,33 @@ public class HomeFragment extends Fragment {
         getStationInformation(stations.get(0));
         stationSubHorizonReyclerView.setAdapter(subStationAdapter);
         stationSubHorizonReyclerView.setLayoutManager(subStationLayoutManager);
+    }
+
+    private void initStationRankSubReycyclerView() {
+        StoreRank storeRank = StoreRank.get(getActivity());
+        List<Subway_Rank> stores = storeRank.getRanks();
+
+
+        Call<RankStationGetResponse> rankStationGetResponseCall = homeFragmentRetrofit.create(BoxStoreHttpService.class).getStaionRankList();
+        rankStationGetResponseCall.enqueue(new Callback<RankStationGetResponse>() {
+            @Override
+            public void onResponse(Call<RankStationGetResponse> call, Response<RankStationGetResponse> response) {
+                RankStationGetResponse rankStationGetResponse = response.body();
+
+                if(response.isSuccessful()) {
+                    List<Station> stationRank = rankStationGetResponse.getStations();
+                    rankAdapter = new RankAdapter(getContext(),stationRank,true);
+                    mRankRecyclerview.setAdapter(rankAdapter);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RankStationGetResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 
     static public void getStationInformation(String name) {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.BoxstoreUser;
@@ -81,7 +82,9 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserGetResponse> call, Throwable t) {
+            public void onFailure(Call<UserGetResponse> call, Throwable t)
+            {
+                Toast.makeText(SplashActivity.this,"서버상태와 인터넷 연결상태를 확인해주세요.",Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });

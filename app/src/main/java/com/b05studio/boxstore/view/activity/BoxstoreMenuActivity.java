@@ -70,7 +70,6 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
 
         itemView.addView(badge);
 
-
         BottomNavigationViewHelper bottomnavigationViewHelper = new BottomNavigationViewHelper();
         bottomnavigationViewHelper.removeShiftMode(bottomNavigationView);
 

@@ -36,7 +36,6 @@ public class KeywordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_keyword);
         ButterKnife.bind(this);
 
-
         initRecyclerView();
     }
 

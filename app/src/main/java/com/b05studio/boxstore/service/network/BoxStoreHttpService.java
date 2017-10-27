@@ -4,6 +4,7 @@ import com.b05studio.boxstore.model.BoxstoreUser;
 import com.b05studio.boxstore.model.Product;
 import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
+import com.b05studio.boxstore.service.response.RankStationGetResponse;
 import com.b05studio.boxstore.service.response.UserGetResponse;
 
 import java.util.ArrayList;
@@ -47,6 +48,11 @@ public interface BoxStoreHttpService {
     @Multipart
     @POST("/stuffs/images")
     Call<BoxtorePostResponse> uplodeProductImages(@Part List<MultipartBody.Part> files, @Part("productId") RequestBody productId);
+
+    @Headers("Content-type: application/json; charset=utf-8")
+    @GET("/station/popular")
+    Call<RankStationGetResponse> getStaionRankList();
+
 
 //    @Headers("Content-type: application/json; charset=utf-8")
 //    @GET("/categories")

@@ -6,15 +6,17 @@ import java.util.List;
  * Created by joyeongje on 2017. 10. 19..
  */
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Station {
 
+    @SerializedName("stationName")
+    @Expose
     private String stationName;
-    private List<String> subStationList;
-
-    public Station(String stationName, List<String> subStationList) {
-        this.stationName = stationName;
-        this.subStationList = subStationList;
-    }
+    @SerializedName("stuffCount")
+    @Expose
+    private Integer stuffCount;
 
     public String getStationName() {
         return stationName;
@@ -24,11 +26,12 @@ public class Station {
         this.stationName = stationName;
     }
 
-    public List<String> getSubStationList() {
-        return subStationList;
+    public Integer getStuffCount() {
+        return stuffCount;
     }
 
-    public void setSubStationList(List<String> subStationList) {
-        this.subStationList = subStationList;
+    public void setStuffCount(Integer stuffCount) {
+        this.stuffCount = stuffCount;
     }
+
 }

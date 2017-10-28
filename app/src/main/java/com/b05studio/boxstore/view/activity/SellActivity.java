@@ -436,7 +436,7 @@ public class SellActivity extends AppCompatActivity {
         // Received recording or error from MaterialCamera
         if (requestCode == CAMERA_RQ) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Saved to: " + data.getDataString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Saved to: " + data.getDataString(), Toast.LENGTH_LONG).show();
                 imagePath.add(data.getData());
 
             } else if (data != null) {
@@ -451,7 +451,7 @@ public class SellActivity extends AppCompatActivity {
         } else if( requestCode == SELECT_CATEGORY_BUTTON) {
             String category = data.getStringExtra("category");
             productCategoryTextView.setText(category);
-//
+
         }
     }
 

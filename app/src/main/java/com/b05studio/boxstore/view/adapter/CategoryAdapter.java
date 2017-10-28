@@ -42,7 +42,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.categoryTitle.setText(categoryObject.getName());
         holder.categoryDescription.setText(categoryObject.getDescription());
         Glide.with(holder.categoryImage.getContext()).load(categoryObject.getImageUrl())
-                .placeholder(R.drawable.nana_image)
                 .into(holder.categoryImage);
         holder.categoryConstraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override

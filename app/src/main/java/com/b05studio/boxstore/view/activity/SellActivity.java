@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -65,6 +67,7 @@ import static android.R.attr.data;
 
 public class SellActivity extends AppCompatActivity {
 
+    private static final int SELECT_CATEGORY_BUTTON = 3001;
     Bitmap[] arrayBitmap = new Bitmap[8];
 
     @BindView(R.id.sellRecyclerview)
@@ -81,16 +84,21 @@ public class SellActivity extends AppCompatActivity {
     @BindView(R.id.sellProductCategoryTextView)
     TextView productCategoryTextView;
 
-    @OnClick(R.id.sellProductCategoryTextView)
+    @OnClick(R.id.sellProductCategoryView)
     public void onClickCategoryButton() {
-
+        Intent intent = new Intent(SellActivity.this, CategorySelectActivity.class);
+        startActivityForResult(intent,SELECT_CATEGORY_BUTTON);
     }
 
-    @BindView(R.id.sellProductNoOpenStateButton) ImageButton noOpenStateButton;
-    @BindView(R.id.sellProductNewStateButton) ImageButton newStateButton;
-    @BindView(R.id.sellProductNotGoodStateButton) ImageButton notgoodStateButton;
+    @BindView(R.id.sellProductNoOpenStateButton)
+    ImageButton noOpenStateButton;
+    @BindView(R.id.sellProductNewStateButton)
+    ImageButton newStateButton;
+    @BindView(R.id.sellProductNotGoodStateButton)
+    ImageButton notgoodStateButton;
     private String productState = "";
-    @OnClick({R.id.sellProductNoOpenStateButton,R.id.sellProductNewStateButton,R.id.sellProductNotGoodStateButton})
+
+    @OnClick({R.id.sellProductNoOpenStateButton, R.id.sellProductNewStateButton, R.id.sellProductNotGoodStateButton})
     public void onSelectProductState(ImageButton view) {
         switch (view.getId()) {
             case R.id.sellProductNoOpenStateButton:
@@ -114,11 +122,15 @@ public class SellActivity extends AppCompatActivity {
         }
     }
 
-    @BindView(R.id.sellProductTypeChange) Button typeSellButton;
-    @BindView(R.id.sellProductTypeDevide) Button typeDivideButton;
-    @BindView(R.id.sellProductTypeSell) Button typeChangeButton;
+    @BindView(R.id.sellProductTypeChange)
+    Button typeSellButton;
+    @BindView(R.id.sellProductTypeDevide)
+    Button typeDivideButton;
+    @BindView(R.id.sellProductTypeSell)
+    Button typeChangeButton;
     private String postType = "";
-    @OnClick({R.id.sellProductTypeChange,R.id.sellProductTypeDevide,R.id.sellProductTypeSell})
+
+    @OnClick({R.id.sellProductTypeChange, R.id.sellProductTypeDevide, R.id.sellProductTypeSell})
     public void onSelectProductType(Button view) {
         switch (view.getId()) {
             case R.id.sellProductTypeChange:
@@ -163,55 +175,56 @@ public class SellActivity extends AppCompatActivity {
     @OnClick(R.id.sellProductRegistButton)
     public void registProductButton() {
         String productName = productNameEditText.getText().toString();
-        if(productName.length() == 0) {
+        if (productName.length() == 0) {
             printErrorMessage("상품이름");
-            return ;
+            return;
         }
 
-        String category = productCategoryTextView.getText().toString();
-        if(category.length() == 0) {
-            printErrorMessage("카테고리");
-            return ;
-        }
+//        String category = productCategoryTextView.getText().toString();
+//        if(category.length() == 0) {
+//            printErrorMessage("카테고리");
+//            return ;
+//        }
+        String category = "컴퓨터";
 
         String state = productState;
-        if(state.length() == 0) {
+        if (state.length() == 0) {
             printErrorMessage("상태");
-            return ;
+            return;
         }
 
-        String type  = postType;
-        if(type.length() == 0) {
+        String type = postType;
+        if (type.length() == 0) {
             printErrorMessage("거래 유형");
-            return ;
+            return;
         }
 
         String detailText = productDetailEditText.getText().toString();
-        if(detailText.length() == 0) {
+        if (detailText.length() == 0) {
             printErrorMessage("상세 정보");
-            return ;
+            return;
         }
 
         String price = productPriceEditText.getText().toString();
-        if(price.length() == 0) {
+        if (price.length() == 0) {
             printErrorMessage("가격 설정");
-            return ;
+            return;
         }
 
-        String station =  sellProductStationEditText.getText().toString();
-        if(station.length() == 0) {
+        String station = sellProductStationEditText.getText().toString();
+        if (station.length() == 0) {
             printErrorMessage("선호 거래역");
-            return ;
+            return;
         }
 
         UUID uuid = UUID.randomUUID();
         final String productionId = uuid.toString();
 
-        Product product = new Product(BoxStoreApplication.getCurrentUser().getuId(),productName,category,state,type,detailText,price,station,productionId);
+        Product product = new Product(BoxStoreApplication.getCurrentUser().getuId(), productName, category, state, type, detailText, price, station, productionId);
         List<MultipartBody.Part> parts = new ArrayList<>();
 
-        for(int i = 0 ; i < imagePath.size() ; i++) {
-            parts.add(prepareFilePart("photo",Uri.parse(imagePath.get(i))));
+        for (int i = 0; i < imagePath.size(); i++) {
+            parts.add(prepareFilePart("photo", imagePath.get(i)));
         }
 
         Retrofit retrofit = BoxStoreApplication.getRetrofit();
@@ -228,7 +241,7 @@ public class SellActivity extends AppCompatActivity {
             }
         });
 
-        Call<BoxtorePostResponse> responseProductImagesBodyCall = retrofit.create(BoxStoreHttpService.class).uplodeProductImages(parts, createPartFromString(uuid.toString()));
+        Call<BoxtorePostResponse> responseProductImagesBodyCall = retrofit.create(BoxStoreHttpService.class).uplodeProductImages(parts, uuid.toString());
         responseProductImagesBodyCall.enqueue(new Callback<BoxtorePostResponse>() {
             @Override
             public void onResponse(Call<BoxtorePostResponse> call, Response<BoxtorePostResponse> response) {
@@ -249,6 +262,15 @@ public class SellActivity extends AppCompatActivity {
 //        }
     }
 
+    public static String getMimeType(String url) {
+        String type = null;
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        }
+        return type;
+    }
+
     @NonNull
     private RequestBody createPartFromString(String descriptionString) {
         return RequestBody.create(
@@ -262,9 +284,11 @@ public class SellActivity extends AppCompatActivity {
         File file = FileUtils.getFile(this, fileUri);
 
         // create RequestBody instance from file
+        // file://
+        // content://
         RequestBody requestFile =
                 RequestBody.create(
-                        MediaType.parse(getContentResolver().getType(fileUri)),
+                        MediaType.parse("image/*"),
                         file
                 );
 
@@ -309,7 +333,7 @@ public class SellActivity extends AppCompatActivity {
     RecyclerView.Adapter recyclerViewAdapter;
     RecyclerView.LayoutManager recyclerViewLayoutManager;
 
-    private ArrayList<String> imagePath = new ArrayList<>();
+    private ArrayList<Uri> imagePath = new ArrayList<>();
 
 
     @Override
@@ -326,7 +350,7 @@ public class SellActivity extends AppCompatActivity {
     }
 
     private void initImageRecyclerView() {
-        recyclerViewLayoutManager = new GridLayoutManager(this,4);
+        recyclerViewLayoutManager = new GridLayoutManager(this, 4);
         sellImageRecyclerview.setLayoutManager(recyclerViewLayoutManager);
 
         recyclerViewAdapter = new ImageAdapter(getApplicationContext());
@@ -337,13 +361,13 @@ public class SellActivity extends AppCompatActivity {
 
         private Context context;
 
-        private List<String> imagesPath;
+        private List<Uri> imagesPath;
 
         private ImageAdapter(Context context) {
             this.context = context;
         }
 
-        private ImageAdapter(List<String> imagePathList) {
+        private ImageAdapter(List<Uri> imagePathList) {
             imagesPath = imagePathList;
         }
 
@@ -363,20 +387,21 @@ public class SellActivity extends AppCompatActivity {
                     final String[] permissions = new String[]{Manifest.permission.CAMERA};
                     if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(activity, permissions, RC_CAMERA);
-                        Log.d("Permission!!!!!!","PERMIDOJFOSIJFIOSDJOI");
+                        Log.d("Permission!!!!!!", "PERMIDOJFOSIJFIOSDJOI");
                     } else {
-                       new MaterialCamera(SellActivity.this)
-                               .stillShot() // launches the Camera in stillshot mode
-                               .start(CAMERA_RQ);
+                        new MaterialCamera(SellActivity.this)
+                                .stillShot() // launches the Camera in stillshot mode
+                                .start(CAMERA_RQ);
                     }
                     selectedPos = holder.getAdapterPosition();
                 }
             });
-            if(imagePath.size() > 0 && imagePath.size() > position){
-                                Glide.with(getApplicationContext()).
-                        load(Uri.parse(imagesPath.get(position))).
-                        placeholder(R.drawable.nana_image).
-                        into(holder.addImageButton);
+            if (imagePath.size() > 0 && imagePath.size() > position) {
+                Glide.with(getApplicationContext())
+                        .load(imagesPath.get(position))
+                        .into(holder.addImageButton);
+
+
                 //holder.addImageButton.setImageURI(Uri.parse(imagesPath.get(position)));
                 //ChangeBitmap(imagesPath.get(position),holder.addImageButton);
             }
@@ -403,26 +428,30 @@ public class SellActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Received recording or error from MaterialCamera
         if (requestCode == CAMERA_RQ) {
-
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Saved to: " + data.getDataString(), Toast.LENGTH_LONG).show();
-                imagePath.add(data.getDataString());
+                imagePath.add(data.getData());
 
-            } else if(data != null) {
+            } else if (data != null) {
                 Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
                 e.printStackTrace();
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-                imagePath.add(data.getDataString());
+                imagePath.add(data.getData());
             }
             recyclerViewAdapter = new ImageAdapter(imagePath);
-            sellImageRecyclerview.swapAdapter(recyclerViewAdapter,false);
+            sellImageRecyclerview.swapAdapter(recyclerViewAdapter, false);
             super.onActivityResult(requestCode, resultCode, data);
+        } else if( requestCode == SELECT_CATEGORY_BUTTON) {
+            String category = data.getStringExtra("category");
+            productCategoryTextView.setText(category);
+//
         }
     }
 
@@ -434,6 +463,12 @@ public class SellActivity extends AppCompatActivity {
     }
 
     private void printErrorMessage(String name) {
-        Toast.makeText(getApplicationContext(),name + "란을 확인해주세요.",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), name + "란을 확인해주세요.", Toast.LENGTH_SHORT).show();
     }
+
+
+
+
+
+
 }

@@ -4,13 +4,10 @@ package com.b05studio.boxstore.view.fragment;
  * Created by seungwoo on 2017-09-25.
  */
 
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.ArraySet;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,8 +23,6 @@ import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.model.Station;
-import com.b05studio.boxstore.model.StoreRank;
-import com.b05studio.boxstore.model.Subway_Rank;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.service.response.RankStationGetResponse;
 import com.b05studio.boxstore.util.DotIndicator;
@@ -133,15 +128,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
 
-//        mRankRecyclerview = (RecyclerView) view.findViewById(R.id.home_view_2);
-//        mRankRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mRankRecyclerview.setHasFixedSize(true);
-//
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-//                LinearLayoutManager.VERTICAL);
-//        dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.line_divider));
-//
-//        mRankRecyclerview.addItemDecoration(dividerItemDecoration);
+        mRankRecyclerview = (RecyclerView) view.findViewById(R.id.mainRankRecyclerView);
 
         mImageItemList = new ArrayList<>();
         mImageItemList.addAll(getThumbImageList());
@@ -184,8 +171,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void initStationRankSubReycyclerView() {
-        StoreRank storeRank = StoreRank.get(getActivity());
-        List<Subway_Rank> stores = storeRank.getRanks();
+
+        mRankRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRankRecyclerview.setHasFixedSize(true);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+                LinearLayoutManager.VERTICAL);
+        dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.line_divider));
+
+        mRankRecyclerview.addItemDecoration(dividerItemDecoration);
 
 
         Call<RankStationGetResponse> rankStationGetResponseCall = homeFragmentRetrofit.create(BoxStoreHttpService.class).getStaionRankList();
@@ -272,7 +266,6 @@ public class HomeFragment extends Fragment {
                 selectedIndex = getAdapterPosition();
                 notifyItemChanged(selectedIndex);
 //                HomeFragment.getStationInformation(stations.get(selectedIndex));
-                // TODO: 2017-10-20 상점 정보 나오게하기
             }
                                                                                                                                     }
         @Override

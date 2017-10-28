@@ -42,12 +42,13 @@ public interface BoxStoreHttpService {
     @GET("/categories/{keyword}")
     Call<CategoryGetResponse> getCategoryInfo(@Path(value="keyword", encoded = true) String keyword);
 
+    @Headers("Content-type: application/json; charset=utf-8")
     @POST("/stuffs")
-    Call<BoxtorePostResponse> uplodeProduct(@Part Product product);
+    Call<BoxtorePostResponse> uplodeProduct(@Body Product product);
 
     @Multipart
-    @POST("/stuffs/images")
-    Call<BoxtorePostResponse> uplodeProductImages(@Part List<MultipartBody.Part> files, @Part("productId") RequestBody productId);
+    @POST("/stuffs/images/{stuffId}")
+    Call<BoxtorePostResponse> uplodeProductImages(@Part List<MultipartBody.Part> files, @Path("stuffId") String stuffId);
 
     @Headers("Content-type: application/json; charset=utf-8")
     @GET("/station/popular")

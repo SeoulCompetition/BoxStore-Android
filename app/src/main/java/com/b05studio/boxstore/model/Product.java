@@ -14,9 +14,9 @@ public class Product {
     private String stuffInfo;
     private String price;
     private String stationName;
-    private String productionId;
+    private String _id;
 
-    public Product(String sellerId, String stuffName, String category, String productState, String postType, String stuffInfo, String price, String stationName,String productionId) {
+    public Product(String sellerId, String stuffName, String category, String productState, String postType, String stuffInfo, String price, String stationName,String _id) {
         this.sellerId = sellerId;
         this.stuffName = stuffName;
         this.category = category;
@@ -25,7 +25,7 @@ public class Product {
         this.stuffInfo = stuffInfo;
         this.price = price;
         this.stationName = stationName;
-        this.productionId = productionId;
+        this._id = _id;
     }
 
     public String getSellerId() {
@@ -92,12 +92,11 @@ public class Product {
         this.postType = postType;
     }
 
-
-    public String getProductionId() {
-        return productionId;
+    public String get_id() {
+        return _id;
     }
 
-    public void setProductionId(String productionId) {
-        this.productionId = productionId;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }

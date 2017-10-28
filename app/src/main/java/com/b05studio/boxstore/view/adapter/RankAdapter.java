@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Station;
-import com.b05studio.boxstore.model.Subway_Rank;
 
 import java.util.List;
 

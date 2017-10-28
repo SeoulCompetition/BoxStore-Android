@@ -52,17 +52,14 @@ public class NewItem_Fragment extends Fragment {
         //Glide 사용 출력
         Glide.with(getActivity())
                 .load(dummyItem.get(0).getItemURL())
-                .placeholder(R.drawable.nana_image)
                 .into(item_view1);
 
         Glide.with(getActivity())
                 .load(dummyItem.get(1).getItemURL())
-                .placeholder(R.drawable.nana_image)
                 .into(item_view2);
 
         Glide.with(getActivity())
                 .load(dummyItem.get(2).getItemURL())
-                .placeholder(R.drawable.nana_image)
                 .into(item_view3);
         //ImageLoaderUtil.downloadImage(dummyItem.getImageUrl(), imageView);
         Log.i(TAG, "****PagerFragment onCreateView()#" + title);

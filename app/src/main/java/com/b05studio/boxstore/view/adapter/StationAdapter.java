@@ -49,11 +49,9 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ItemView
         Item ItemObject = item_list.get(position);
         Glide.with(context)
                 .load(ItemObject.getUserProfileURL())
-                .placeholder(R.drawable.nana_image)
                 .into(holder.profile_image);
         Glide.with(context)
                 .load(ItemObject.getItemURL())
-                .placeholder(R.drawable.nana_image)
                 .into(holder.item_image);
         holder.item_title.setText(ItemObject.getItemTitle());
         holder.item_price.setText(ItemObject.getItemPrice());

@@ -1,5 +1,6 @@
 package com.b05studio.boxstore.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -122,6 +123,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
 
 
     class BottomNavigationViewHelper {
+        @SuppressLint("RestrictedApi")
         public void removeShiftMode(BottomNavigationView view) {
             BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
             try {

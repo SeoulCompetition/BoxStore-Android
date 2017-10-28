@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    tools:context="com.b05studio.boxstore.view.activity.ChatActivity">
+
+
+    <View
+        android:id="@+id/chatTitleBar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:background="#4B65A7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/chatBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:src="@drawable/ic_back_button"
+        app:layout_constraintBottom_toBottomOf="@+id/chatTitleBar"
+        app:layout_constraintLeft_toLeftOf="@+id/chatTitleBar"
+        app:layout_constraintTop_toTopOf="@+id/chatTitleBar" />
+
+    <TextView
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="이종구"
+        android:textColor="#ffffff"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/chatTitleBar"
+        app:layout_constraintLeft_toLeftOf="@+id/chatTitleBar"
+        app:layout_constraintRight_toRightOf="@+id/chatTitleBar"
+        app:layout_constraintTop_toTopOf="@+id/chatTitleBar" />
+
+    <View
+        android:id="@+id/itemInfoView"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chatTitleBar">
+
+    </View>
+
+    <ImageView
+        android:id="@+id/itemInfoImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="11dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_category_pet"
+        app:layout_constraintBottom_toBottomOf="@id/itemInfoView"
+        app:layout_constraintLeft_toLeftOf="@id/itemInfoView"
+        app:layout_constraintTop_toTopOf="@id/itemInfoView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/itemInfoName"
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:text="후드 집업 그레이"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/itemInfoImage"
+        app:layout_constraintTop_toTopOf="@+id/itemInfoView" />
+
+    <TextView
+        android:id="@+id/itemInfoPrice"
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/seoul"
+        android:text="100,000원"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/itemInfoImage"
+        app:layout_constraintTop_toBottomOf="@+id/itemInfoName" />
+
+    <FrameLayout
+        android:id="@+id/chat_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemInfoView">
+
+    </FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -35,5 +35,14 @@
         <item name="android:background">@drawable/ic_recycler_more</item>
     </style>
 
+    <!--CustomRating bar. -->
+
+
+
+    -<style parent="@android:style/Widget.RatingBar" name="customRatingBar">
+
+    <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
+
+</style>
 
 </resources>

@@ -46,20 +46,17 @@
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_marginTop="12dp"
-            android:background="#000000"
-            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mainNewStationIcon" />
 
-
-        <com.b05studio.boxstore.util.DotIndicator
+        <com.rd.PageIndicatorView
             android:id="@+id/mainNewStaionProductViewPagerIndicator"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/gray_20"
             app:layout_constraintBottom_toBottomOf="@+id/mainNewProductView"
-            app:layout_constraintLeft_toRightOf="@+id/mainNewProductView"
+            app:layout_constraintLeft_toLeftOf="@+id/mainNewProductView"
             app:layout_constraintRight_toRightOf="@+id/mainNewProductView" />
 
         <android.support.v7.widget.RecyclerView
@@ -107,14 +104,13 @@
             android:layout_marginTop="10dp"
             />
 
-        <com.b05studio.boxstore.util.DotIndicator
+        <com.rd.PageIndicatorView
             android:id="@+id/mainStaionProductViewPagerIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:background="@color/gray_20"
             app:layout_constraintBottom_toBottomOf="@+id/mainProductSubStationView"
-            app:layout_constraintLeft_toRightOf="@+id/mainProductSubStationView"
+            app:layout_constraintLeft_toLeftOf="@+id/mainProductSubStationView"
             app:layout_constraintRight_toRightOf="@+id/mainProductSubStationView"
             />
 
@@ -123,10 +119,13 @@
             android:layout_width="0dp"
             android:layout_height="180dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:background="#ffffff"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mainProductSubStationView"
+            app:layout_constraintBottom_toBottomOf="parent"
+
             />
 
         <ImageView

@@ -58,7 +58,8 @@ public interface BoxStoreHttpService {
     Call<StuffGetResponse> getStuffListByStationName(@Path(value="stationName", encoded = true) String stationName);
 
     // 최근 등록된 상품 열람
-
+    @GET("/stuffs")
+    Call<StuffGetResponse> getLatelyProductList();
 
 
 

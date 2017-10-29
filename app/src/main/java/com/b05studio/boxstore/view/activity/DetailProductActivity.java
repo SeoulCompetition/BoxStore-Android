@@ -1,21 +1,20 @@
 package com.b05studio.boxstore.view.activity;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.b05studio.boxstore.R;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DetailProductActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.detailProductScrapButton)
-
-    @BindView(R.id.detailProductSellButton)
+//    @BindView(R.id.detailProductScrapButton)
+//
+//    @BindView(R.id.detailProductSellButton)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -87,10 +87,10 @@ public class CategorySelectActivity extends AppCompatActivity {
     private void setImageDrawableByCategoryName() {
         for(int i = 0 ; i < categories.size() ; i++) {
             switch (categories.get(i).getName()) {
-                case "여성의류":
+                case "여성 의류":
                     categories.get(i).setImageUrl(R.drawable.mini_girl);
                     break;
-                case "남성의류":
+                case "남성 의류":
                     categories.get(i).setImageUrl(R.drawable.mini_man);
                     break;
                 case "패션/잡화":

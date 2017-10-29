@@ -1,10 +1,9 @@
 
 package com.b05studio.boxstore.model;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class SellerId {
 
@@ -32,36 +31,6 @@ public class SellerId {
     @SerializedName("name")
     @Expose
     private String name;
-
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public SellerId() {
-    }
-
-    /**
-     * 
-     * @param joinDate
-     * @param uid
-     * @param phoneNum
-     * @param keywords
-     * @param photoURL
-     * @param email
-     * @param userToken
-     * @param name
-     */
-    public SellerId(String uid, List<Object> keywords, String photoURL, String userToken, String email, String joinDate, String phoneNum, String name) {
-        super();
-        this.uid = uid;
-        this.keywords = keywords;
-        this.photoURL = photoURL;
-        this.userToken = userToken;
-        this.email = email;
-        this.joinDate = joinDate;
-        this.phoneNum = phoneNum;
-        this.name = name;
-    }
 
     public String getUid() {
         return uid;

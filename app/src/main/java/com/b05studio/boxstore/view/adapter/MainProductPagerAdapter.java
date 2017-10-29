@@ -4,9 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.model.Stuff;
-import com.b05studio.boxstore.view.fragment.NewItem_Fragment;
+import com.b05studio.boxstore.view.fragment.MainStuffFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,95 +14,32 @@ import java.util.List;
  * Created by seungwoo on 2017-09-27.
  */
 
-public class MainProductPagerAdapter extends FragmentStatePagerAdapter {
-
+public class MainProductPagerAdapter extends FragmentStatePagerAdapter  {
 
     private static final String TAG = "FramentStatePagerAdapter";
+    public List<Stuff> stuffs = new ArrayList<>();
 
-    // TODO: 2017. 10. 29.  여기에 정보 넣어놓을테니 뷰페이저 만들어주세요. model 패키지에 스터프 무슨정보있는지 다있다는
-    private ArrayList<Stuff> stuffArrayList;
+    int pageNum;
+    int productCount = 0;
+    int count = 1;
 
-    private ArrayList<Item> mImageItemList;
-    private FragmentManager mFragmentManager;
 
-    public MainProductPagerAdapter(FragmentManager fm, ArrayList<Stuff> stuffArrayList) {
+    public MainProductPagerAdapter(FragmentManager fm, List<Stuff> stuffs) {
         super(fm);
-        this.stuffArrayList = stuffArrayList;
-        this.mFragmentManager = fm;
+        this.stuffs = stuffs;
+        pageNum = stuffs.size() / 3 + 1;
     }
 
     @Override
     public Fragment getItem(int position) {
+        productCount = count != pageNum ? 3 : stuffs.size() % 3;
+        count++;
 
-        //We are doing this only for checking the total number of fragments in the fragment manager.
-        List<Fragment> fragmentsList= mFragmentManager.getFragments();
-        int size = 0;
-        if(fragmentsList != null) {
-            size = fragmentsList.size();
-        }
-        List<Item> dummyItemList  = new ArrayList<Item>();
-             if(3*position < getCount()) {
-                 Item dummyItem = mImageItemList.get(3 * position);
-                    dummyItemList.add(dummyItem);
-             }
-            else{
-                 Item dummyItem = new Item("No","title","price");
-            dummyItemList.add(dummyItem);
-             }
-            if((3*position)+1 < getCount()){
-                Item dummyItem1 = mImageItemList.get((3*position)+1);
-                dummyItemList.add(dummyItem1);
-            }
-            else{
-                Item dummyItem1 = new Item("No","title","price");
-                dummyItemList.add(dummyItem1);
-            }
-            if((3*position) +2 < getCount()) {
-                Item dummyItem2 = mImageItemList.get((3*position) + 2);
-                dummyItemList.add(dummyItem2);
-            }
-            else{
-                Item dummyItem2 = new Item("No","title","price");
-                dummyItemList.add(dummyItem2);
-            }
-            position++;
-            position++;
-        //Create a new instance of the fragment and return it.
-        NewItem_Fragment sampleFragment = (NewItem_Fragment) NewItem_Fragment.getInstance(/*dummyItem.getImageUrl(), dummyItem.getImageTitle()*/);
-        //We will not pass the data through bundle because it will not gets updated by calling notifyDataSetChanged()  method. We will do it through getter and setter.
-        sampleFragment.setDummyItem(dummyItemList);
-        return sampleFragment;
-    }
-
-    @Override
-    public int getItemPosition(Object object) {
-
-        List<Fragment> fragmentsList= mFragmentManager.getFragments();
-        NewItem_Fragment fragment = (NewItem_Fragment)object;
-        List<Item> dummyItem = fragment.getDummyItem();
-        int position = mImageItemList.indexOf(dummyItem.get(0));
-
-        /*_____________________________________________*/
-        /*Only for logging purpose*/
-        int size = fragmentsList.size();
-        Item dummyItemNew = null;
-        if(position>=0){
-            dummyItemNew = mImageItemList.get(position);
-        }
-        /*_____________________________________________*/
-
-
-        if (position >= 0) {
-            // The current data matches the data in this active fragment, so let it be as it is.
-            return position;
-        } else {
-            // Returning POSITION_NONE means the current data does not matches the data this fragment is showing right now.  Returning POSITION_NONE constant will force the fragment to redraw its view layout all over again and show new data.
-            return POSITION_NONE;
-        }
+        return new MainStuffFragment(stuffs.subList(position * 3,position * 3 + productCount));
     }
 
     @Override
     public int getCount() {
-        return stuffArrayList.size();
+        return stuffs.size() / 3 + 1;
     }
 }

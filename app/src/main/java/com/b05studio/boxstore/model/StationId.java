@@ -10,22 +10,6 @@ public class StationId {
     @Expose
     private String stationName;
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public StationId() {
-    }
-
-    /**
-     * 
-     * @param stationName
-     */
-    public StationId(String stationName) {
-        super();
-        this.stationName = stationName;
-    }
-
     public String getStationName() {
         return stationName;
     }

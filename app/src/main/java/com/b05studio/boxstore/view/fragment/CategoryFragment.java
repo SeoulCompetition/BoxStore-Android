@@ -88,10 +88,10 @@ public class CategoryFragment extends Fragment {
         for(int i = 0 ; i < categories.size() ; i++) {
             switch (categories.get(i).getName()) {
                 // TODO: 2017. 10. 18. 마저처리
-                case "여성의류":
+                case "여성 의류":
                     categories.get(i).setImageUrl(R.drawable.ic_category_girl);
                     break;
-                case "남성의류":
+                case "남성 의류":
                     categories.get(i).setImageUrl(R.drawable.ic_category_man);
                     break;
                 case "패션잡화":

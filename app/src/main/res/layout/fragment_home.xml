@@ -101,7 +101,7 @@
             android:id="@+id/mainStaionProductViewPager"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/boxStoreMenuStationSubHorizonScrollRecyclerView"
             android:layout_marginTop="10dp"

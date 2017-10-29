@@ -142,7 +142,6 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         mRankRecyclerview = (RecyclerView) view.findViewById(R.id.mainRankRecyclerView);
-
         mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), stuffArrayListByStaionName);
 
 
@@ -193,13 +192,12 @@ public class HomeFragment extends Fragment {
 
     private void initGetStationRegistProduct() {
         // TODO: 2017. 10. 29. 역이름 으로 요청하는거 만들기
-        getStuffListByStaionName("홍대입구/1");
+        getStuffListByStaionName("홍대입구");
     }
 
     private void getStuffListByStaionName(String name) {
        // boxtoreMenuStationViewPager
        // boxtoreMenuStationViewPagerIndicator
-
         Retrofit retrofit = BoxStoreApplication.getRetrofit();
         Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(name);
         stuffGetResponseCall.enqueue(new Callback<StuffGetResponse>() {
@@ -208,9 +206,8 @@ public class HomeFragment extends Fragment {
                 if(response.isSuccessful()) {
                     List<Stuff> stuffs = response.body().getStuffs();
                     if (stuffs.size() != 0) {
-                        stuffArrayListByStaionName.addAll(stuffs);
+                        mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(),stuffs);
                         boxtoreMenuStationViewPager.setAdapter(mainProductStationPagerAdapter);
-                        boxtoreMenuStationViewPager.setCurrentItem(0);
                         boxtoreMenuStationViewPagerIndicator.setViewPager(boxtoreMenuStationViewPager);
                     }
                     mainProductStationPagerAdapter.notifyDataSetChanged();

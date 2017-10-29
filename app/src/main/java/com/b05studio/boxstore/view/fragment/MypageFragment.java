@@ -15,6 +15,10 @@ import com.b05studio.boxstore.R;
 public class MypageFragment extends Fragment {
 
 
+    //빈 생성자
+    public MypageFragment(){
+
+    }
     public static MypageFragment newInstance(){
         MypageFragment mypageFragment = new MypageFragment();
         return mypageFragment;
@@ -25,6 +29,8 @@ public class MypageFragment extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mypage, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_mypage, container, false);
+        return view;
     }
 }

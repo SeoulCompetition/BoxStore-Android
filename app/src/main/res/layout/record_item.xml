@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/settingsView"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userRecordRecyclerview">
+    </View>
+
+    <ImageView
+        android:id="@+id/settingsImage"
+        android:src="@drawable/ic_settings_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        app:layout_constraintBottom_toBottomOf="@id/settingsView"
+        app:layout_constraintLeft_toLeftOf="@id/settingsView"
+        app:layout_constraintTop_toTopOf="@id/settingsView"/>
+
+    <TextView
+        android:id="@+id/settingsText"
+        android:text="설정"
+        android:textSize="12sp"
+        fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/settingsImage"
+        app:layout_constraintLeft_toRightOf="@id/settingsImage"
+        app:layout_constraintTop_toTopOf="@id/settingsImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/settingsRightArrow"
+        app:layout_constraintBottom_toBottomOf="@id/settingsView"
+        app:layout_constraintEnd_toEndOf="@id/settingsView"
+        app:layout_constraintTop_toTopOf="@id/settingsView"
+        android:src="@drawable/ic_recycler_right"
+        android:layout_marginEnd="14.2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -2,10 +2,9 @@ package com.b05studio.boxstore.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.Category;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
-import com.b05studio.boxstore.view.adapter.CategoryAdapter;
 import com.bumptech.glide.Glide;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -28,22 +26,42 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+
+
 public class CategorySelectActivity extends AppCompatActivity {
 
     private static final String TAG = "CategorySelectActivity";
     private List<Category> categories = new ArrayList<>();
+
 
     @BindView(R.id.categorySelectRecyclerView)
     RecyclerView categorySelectRecyclerView;
 
     private RecyclerView.LayoutManager categorySelectLayoutManager;
     private RecyclerView.Adapter categorySelectAdapter;
+
+    @OnClick(R.id.categorySelectBackButton)
+    public void onClickBackButton() {
+        Intent intent = new Intent();
+        intent.putExtra("category","카테고리를 선택해주세요.");
+        setResult(3001, intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("category","카테고리를 선택해주세요.");
+        setResult(3001, intent);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

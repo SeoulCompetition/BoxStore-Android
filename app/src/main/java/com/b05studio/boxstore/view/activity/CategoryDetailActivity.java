@@ -13,5 +13,4 @@ public class CategoryDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category_detail);
     }
 
-
 }

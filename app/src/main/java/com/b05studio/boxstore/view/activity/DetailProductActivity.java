@@ -6,14 +6,22 @@ import android.os.Bundle;
 
 import com.b05studio.boxstore.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DetailProductActivity extends AppCompatActivity {
+
+
+    @BindView(R.id.detailProductScrapButton)
+
+    @BindView(R.id.detailProductSellButton)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
+        ButterKnife.bind(this);
     }
 
     @Override

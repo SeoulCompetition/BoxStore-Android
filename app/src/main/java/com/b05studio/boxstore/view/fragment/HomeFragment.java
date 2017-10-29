@@ -26,11 +26,10 @@ import com.b05studio.boxstore.model.Station;
 import com.b05studio.boxstore.model.Stuff;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.service.response.RankStationGetResponse;
-import com.b05studio.boxstore.service.response.StuffGetResponse;
 import com.b05studio.boxstore.util.DotIndicator;
 import com.b05studio.boxstore.view.adapter.HorizonStationAdapter;
-import com.b05studio.boxstore.view.adapter.RankAdapter;
 import com.b05studio.boxstore.view.adapter.MainProductPagerAdapter;
+import com.b05studio.boxstore.view.adapter.RankAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -200,29 +199,29 @@ public class HomeFragment extends Fragment {
        // boxtoreMenuStationViewPager
        // boxtoreMenuStationViewPagerIndicator
 
-        Retrofit retrofit = BoxStoreApplication.getRetrofit();
-        Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(name);
-        stuffGetResponseCall.enqueue(new Callback<StuffGetResponse>() {
-            @Override
-            public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
-                if(response.isSuccessful()) {
-                    List<Stuff> stuffs = response.body().getStuffs();
-                    if (stuffs.size() != 0) {
-                        stuffArrayListByStaionName.addAll(stuffs);
-                        boxtoreMenuStationViewPager.setAdapter(mainProductStationPagerAdapter);
-                        boxtoreMenuStationViewPager.setCurrentItem(0);
-                        boxtoreMenuStationViewPagerIndicator.setViewPager(boxtoreMenuStationViewPager);
-                    }
-                    mainProductStationPagerAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<StuffGetResponse> call, Throwable t) {
-                t.printStackTrace();
-
-            }
-        });
+//        Retrofit retrofit = BoxStoreApplication.getRetrofit();
+//        Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(name);
+//        stuffGetResponseCall.enqueue(new Callback<StuffGetResponse>() {
+//            @Override
+//            public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
+//                if(response.isSuccessful()) {
+//                    List<Stuff> stuffs = response.body().getStuffs();
+//                    if (stuffs.size() != 0) {
+//                        stuffArrayListByStaionName.addAll(stuffs);
+//                        boxtoreMenuStationViewPager.setAdapter(mainProductStationPagerAdapter);
+//                        boxtoreMenuStationViewPager.setCurrentItem(0);
+//                        boxtoreMenuStationViewPagerIndicator.setViewPager(boxtoreMenuStationViewPager);
+//                    }
+//                    mainProductStationPagerAdapter.notifyDataSetChanged();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<StuffGetResponse> call, Throwable t) {
+//                t.printStackTrace();
+//
+//            }
+//        });
     }
 
 

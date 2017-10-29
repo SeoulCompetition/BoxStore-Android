@@ -24,6 +24,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_search" />
 
+
         <TextView
             android:layout_gravity="center_vertical"
             android:layout_marginStart="6.7dp"

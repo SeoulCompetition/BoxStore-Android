@@ -21,14 +21,13 @@
     
     
     <View
+        android:id="@+id/myStoreInfoView"
         android:background="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mypage_toolbar"
-        android:id="@+id/myStoreInfoView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="75dp">
-
     </View>
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -38,7 +37,8 @@
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@id/myStoreInfoView"
         app:layout_constraintLeft_toLeftOf="@id/myStoreInfoView"
-        app:layout_constraintTop_toTopOf="@id/myStoreInfoView" />
+        app:layout_constraintTop_toTopOf="@id/myStoreInfoView"
+        />
 
     <TextView
         android:id="@+id/myPageUserId"
@@ -49,6 +49,7 @@
         android:layout_marginStart="16dp"
         android:text="심다혜"
         android:textSize="12sp"
+
         app:layout_constraintBottom_toBottomOf="@id/myPageUserProfile"
         app:layout_constraintStart_toEndOf="@+id/myPageUserProfile"
         app:layout_constraintTop_toTopOf="@id/myPageUserProfile" />
@@ -58,24 +59,30 @@
         style="@style/customRatingBar"
         android:layout_width="89dp"
         android:layout_height="18dp"
-        android:layout_marginStart="110dp"
+        android:layout_marginEnd="14dp"
         android:numStars="5"
+        android:rating="5"
         android:stepSize="0.5"
         app:layout_constraintBottom_toBottomOf="@id/myPageUserId"
-        app:layout_constraintStart_toEndOf="@+id/myPageUserId"
-        app:layout_constraintTop_toTopOf="@id/myPageUserId" />
+        app:layout_constraintRight_toLeftOf="@+id/storeRank"
+        app:layout_constraintTop_toTopOf="@id/myPageUserId"
+
+        />
 
     <TextView
         android:id="@+id/storeRank"
         android:textSize="10sp"
         fontPath="fonts/NOTOSANSKR-THIN.OTF"
+        android:textColor="#ffffff"
         android:text="우수 스토어"
-        android:layout_marginStart="12dp"
+        android:layout_marginEnd="14dp"
         app:layout_constraintBottom_toBottomOf="@id/storeRaitingBar"
-        app:layout_constraintStart_toEndOf="@+id/storeRaitingBar"
+        app:layout_constraintEnd_toEndOf="@+id/myStoreInfoView"
         app:layout_constraintTop_toTopOf="@id/storeRaitingBar"
+        android:background="@drawable/mypage_store_rank_textview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/userRecordRecyclerview"

@@ -12,7 +12,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,7 +24,6 @@ import com.b05studio.boxstore.view.fragment.CategoryFragment;
 import com.b05studio.boxstore.view.fragment.HomeFragment;
 import com.b05studio.boxstore.view.fragment.MypageFragment;
 import com.b05studio.boxstore.view.fragment.NotificationFragment;
-
 
 import java.lang.reflect.Field;
 
@@ -42,6 +40,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
 
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
+
     @BindView(R.id.app_bar_linear_layout)
     LinearLayout linearLayout;
 

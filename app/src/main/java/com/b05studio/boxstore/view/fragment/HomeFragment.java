@@ -206,8 +206,9 @@ public class HomeFragment extends Fragment {
                 if(response.isSuccessful()) {
                     List<Stuff> stuffs = response.body().getStuffs();
                     if (stuffs.size() != 0) {
-                        mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(),stuffs);
+                        mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(),(ArrayList)stuffs);
                         boxtoreMenuStationViewPager.setAdapter(mainProductStationPagerAdapter);
+                        boxtoreMenuStationViewPager.setCurrentItem(0);
                         boxtoreMenuStationViewPagerIndicator.setViewPager(boxtoreMenuStationViewPager);
                     }
                     mainProductStationPagerAdapter.notifyDataSetChanged();

@@ -1,12 +1,14 @@
 
 package com.b05studio.boxstore.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class Stuff {
+public class Stuff  {
 
     @SerializedName("_id")
     @Expose
@@ -32,12 +34,6 @@ public class Stuff {
     @SerializedName("stuffName")
     @Expose
     private String stuffName;
-    @SerializedName("receipt")
-    @Expose
-    private Receipt receipt;
-    @SerializedName("negotiation")
-    @Expose
-    private Negotiation negotiation;
     @SerializedName("transactionStatus")
     @Expose
     private String transactionStatus;
@@ -47,46 +43,6 @@ public class Stuff {
     @SerializedName("createdDate")
     @Expose
     private String createdDate;
-
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public Stuff() {
-    }
-
-    /**
-     * 
-     * @param postType
-     * @param imageUrl
-     * @param stationId
-     * @param receipt
-     * @param id
-     * @param category
-     * @param price
-     * @param sellerId
-     * @param negotiation
-     * @param stuffName
-     * @param createdDate
-     * @param transactionStatus
-     * @param stuffInfo
-     */
-    public Stuff(String id, StationId stationId, SellerId sellerId, String category, String postType, Integer price, String stuffInfo, String stuffName, Receipt receipt, Negotiation negotiation, String transactionStatus, List<String> imageUrl, String createdDate) {
-        super();
-        this.id = id;
-        this.stationId = stationId;
-        this.sellerId = sellerId;
-        this.category = category;
-        this.postType = postType;
-        this.price = price;
-        this.stuffInfo = stuffInfo;
-        this.stuffName = stuffName;
-        this.receipt = receipt;
-        this.negotiation = negotiation;
-        this.transactionStatus = transactionStatus;
-        this.imageUrl = imageUrl;
-        this.createdDate = createdDate;
-    }
 
     public String getId() {
         return id;
@@ -152,22 +108,6 @@ public class Stuff {
         this.stuffName = stuffName;
     }
 
-    public Receipt getReceipt() {
-        return receipt;
-    }
-
-    public void setReceipt(Receipt receipt) {
-        this.receipt = receipt;
-    }
-
-    public Negotiation getNegotiation() {
-        return negotiation;
-    }
-
-    public void setNegotiation(Negotiation negotiation) {
-        this.negotiation = negotiation;
-    }
-
     public String getTransactionStatus() {
         return transactionStatus;
     }
@@ -191,5 +131,6 @@ public class Stuff {
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
+
 
 }

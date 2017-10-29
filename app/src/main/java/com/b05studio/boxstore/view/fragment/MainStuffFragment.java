@@ -1,7 +1,9 @@
 package com.b05studio.boxstore.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,13 +56,16 @@ public class MainStuffFragment extends Fragment {
     @BindView(R.id.thirdStuffMoneyTextView)
     TextView thirdStuffMoneyTextView;
 
-    public static MainStuffFragment newInstance(List<Stuff> stuffs, int count) {
-        MainStuffFragment fragment = new MainStuffFragment();
-        return fragment;
-    }
+    List<Stuff> stuffList = new ArrayList<>();
 
-    public MainStuffFragment() {
+//    public MainStuffFragment newInstance(List<Stuff> stuffs) {
+////        MainStuffFragment fragment = new MainStuffFragment();
+////        return fragment;
+//    }
 
+    @SuppressLint("ValidFragment")
+    public MainStuffFragment(List<Stuff> stuffs) {
+        stuffList = stuffs;
     }
 
     @Override
@@ -76,15 +81,15 @@ public class MainStuffFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main_stuff, container, false);
         ButterKnife.bind(this, rootView);
 
-        if (MainProductPagerAdapter.stuffs.size() == 1) {
-            Picasso.with(getContext()).load(MainProductPagerAdapter.stuffs.get(0).getImageUrl().get(0)).into(firstStuffImageview);
-        } else if ( MainProductPagerAdapter.stuffs.size() == 2) {
-            Picasso.with(getContext()).load(MainProductPagerAdapter.stuffs.get(0).getImageUrl().get(0)).into(firstStuffImageview);
-            Picasso.with(getContext()).load(MainProductPagerAdapter.stuffs.get(0).getImageUrl().get(0)).into(secondStuffImageView);
-        } else if ( MainProductPagerAdapter.stuffs.size() == 3) {
-            Picasso.with(getContext()).load(MainProductPagerAdapter.stuffs.get(0).getImageUrl().get(0)).into(firstStuffImageview);
-            Picasso.with(getContext()).load(MainProductPagerAdapter.stuffs.get(1).getImageUrl().get(0)).into(secondStuffImageView);
-            Picasso.with(getContext()).load(MainProductPagerAdapter.stuffs.get(2).getImageUrl().get(0)).into(thirdStuffImageView);
+        if (stuffList.size() == 1) {
+            Picasso.with(getContext()).load(stuffList.get(0).getImageUrl().get(0)).into(firstStuffImageview);
+        } else if ( stuffList.size() == 2) {
+            Picasso.with(getContext()).load(stuffList.get(0).getImageUrl().get(0)).into(firstStuffImageview);
+            Picasso.with(getContext()).load(stuffList.get(1).getImageUrl().get(0)).into(secondStuffImageView);
+        } else if (stuffList.size() == 3) {
+            Picasso.with(getContext()).load(stuffList.get(0).getImageUrl().get(0)).into(firstStuffImageview);
+            Picasso.with(getContext()).load(stuffList.get(1).getImageUrl().get(0)).into(secondStuffImageView);
+            Picasso.with(getContext()).load(stuffList.get(2).getImageUrl().get(0)).into(thirdStuffImageView);
         }
         return rootView;
     }

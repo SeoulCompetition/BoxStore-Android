@@ -10,6 +10,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+    dexOptions {
+        jumboMode true
+        javaMaxHeapSize "4g"
     }
 
     signingConfigs {
@@ -71,5 +77,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'id.zelory:compressor:2.1.0'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+    compile 'com.android.support:multidex:1.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

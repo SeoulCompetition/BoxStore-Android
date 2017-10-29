@@ -17,16 +17,25 @@ import java.util.List;
 public class MainProductPagerAdapter extends FragmentStatePagerAdapter  {
 
     private static final String TAG = "FramentStatePagerAdapter";
-    public static ArrayList<Stuff> stuffs = new ArrayList<>();
+    public List<Stuff> stuffs = new ArrayList<>();
+
+    int pageNum;
+    int productCount = 0;
+    int count = 1;
+
 
     public MainProductPagerAdapter(FragmentManager fm, List<Stuff> stuffs) {
         super(fm);
-        this.stuffs = (ArrayList)stuffs;
+        this.stuffs = stuffs;
+        pageNum = stuffs.size() / 3 + 1;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return MainStuffFragment.newInstance(stuffs.subList(position * 3,position * 3 + stuffs.size() % 3), position);
+        productCount = count != pageNum ? 3 : stuffs.size() % 3;
+        count++;
+
+        return new MainStuffFragment(stuffs.subList(position * 3,position * 3 + productCount));
     }
 
     @Override

@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:includeFontPadding="false"
-            android:text="영통역 신규상품"
+            android:text="신규 등록된 상품"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/mainNewStationIcon"
             app:layout_constraintLeft_toRightOf="@+id/mainNewStationIcon"

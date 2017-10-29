@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.b05studio.boxstore.model.Item;
+import com.b05studio.boxstore.model.Stuff;
 import com.b05studio.boxstore.view.fragment.NewItem_Fragment;
 
 import java.util.ArrayList;
@@ -14,16 +15,20 @@ import java.util.List;
  * Created by seungwoo on 2017-09-27.
  */
 
-public class homeveiw1Adapter extends FragmentStatePagerAdapter {
+public class MainProductPagerAdapter extends FragmentStatePagerAdapter {
 
 
     private static final String TAG = "FramentStatePagerAdapter";
+
+    // TODO: 2017. 10. 29.  여기에 정보 넣어놓을테니 뷰페이저 만들어주세요. model 패키지에 스터프 무슨정보있는지 다있다는
+    private ArrayList<Stuff> stuffArrayList;
+
     private ArrayList<Item> mImageItemList;
     private FragmentManager mFragmentManager;
 
-    public homeveiw1Adapter(FragmentManager fm, ArrayList<Item> imageItemList) {
+    public MainProductPagerAdapter(FragmentManager fm, ArrayList<Stuff> stuffArrayList) {
         super(fm);
-        this.mImageItemList = imageItemList;
+        this.stuffArrayList = stuffArrayList;
         this.mFragmentManager = fm;
     }
 
@@ -39,7 +44,7 @@ public class homeveiw1Adapter extends FragmentStatePagerAdapter {
         List<Item> dummyItemList  = new ArrayList<Item>();
              if(3*position < getCount()) {
                  Item dummyItem = mImageItemList.get(3 * position);
-            dummyItemList.add(dummyItem);
+                    dummyItemList.add(dummyItem);
              }
             else{
                  Item dummyItem = new Item("No","title","price");
@@ -99,6 +104,6 @@ public class homeveiw1Adapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mImageItemList.size();
+        return stuffArrayList.size();
     }
 }

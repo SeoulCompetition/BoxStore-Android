@@ -5,17 +5,14 @@ import com.b05studio.boxstore.model.Product;
 import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
 import com.b05studio.boxstore.service.response.RankStationGetResponse;
+import com.b05studio.boxstore.service.response.StuffGetResponse;
 import com.b05studio.boxstore.service.response.UserGetResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -53,6 +50,19 @@ public interface BoxStoreHttpService {
     @Headers("Content-type: application/json; charset=utf-8")
     @GET("/station/popular")
     Call<RankStationGetResponse> getStaionRankList();
+
+    // 신고 내역찾는거 띄우기
+
+    // 역 이름으로 최근 상품 검색
+    @GET("/stuffs/lately/{stationName}")
+    Call<StuffGetResponse> getStuffListByStationName(@Path(value="stationName", encoded = true) String stationName);
+
+    // 최근 등록된 상품 열람
+
+
+
+
+
 
 
 //    @Headers("Content-type: application/json; charset=utf-8")

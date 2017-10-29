@@ -2,16 +2,13 @@ package com.b05studio.boxstore.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Item;
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -44,25 +41,25 @@ public class NewItem_Fragment extends Fragment {
         //titleTextView.setText(bundle.getString(Utils.EXTRA_TITLE));
         //title = dummyItem.getImageTitle();
         //titleTextView.setText(title);
-        ImageView item_view1 = (ImageView) view.findViewById(R.id.new_goods_1);
-        ImageView item_view2 = (ImageView) view.findViewById(R.id.new_goods_2);
-        ImageView item_view3 = (ImageView) view.findViewById(R.id.new_goods_3);
-
-        //ImageLoaderUtil.downloadImage(bundle.getString(Utils.EXTRA_IMAGE_URL), imageView);
-        //Glide 사용 출력
-        Glide.with(getActivity())
-                .load(dummyItem.get(0).getItemURL())
-                .into(item_view1);
-
-        Glide.with(getActivity())
-                .load(dummyItem.get(1).getItemURL())
-                .into(item_view2);
-
-        Glide.with(getActivity())
-                .load(dummyItem.get(2).getItemURL())
-                .into(item_view3);
-        //ImageLoaderUtil.downloadImage(dummyItem.getImageUrl(), imageView);
-        Log.i(TAG, "****PagerFragment onCreateView()#" + title);
+//        ImageView item_view1 = (ImageView) view.findViewById(R.id.new_goods_1);
+//        ImageView item_view2 = (ImageView) view.findViewById(R.id.new_goods_2);
+//        ImageView item_view3 = (ImageView) view.findViewById(R.id.new_goods_3);
+//
+//        //ImageLoaderUtil.downloadImage(bundle.getString(Utils.EXTRA_IMAGE_URL), imageView);
+//        //Glide 사용 출력
+//        Glide.with(getActivity())
+//                .load(dummyItem.get(0).getItemURL())
+//                .into(item_view1);
+//
+//        Glide.with(getActivity())
+//                .load(dummyItem.get(1).getItemURL())
+//                .into(item_view2);
+//
+//        Glide.with(getActivity())
+//                .load(dummyItem.get(2).getItemURL())
+//                .into(item_view3);
+//        //ImageLoaderUtil.downloadImage(dummyItem.getImageUrl(), imageView);
+//        Log.i(TAG, "****PagerFragment onCreateView()#" + title);
         return view;
     }
 

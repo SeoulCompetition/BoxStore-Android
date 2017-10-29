@@ -23,12 +23,14 @@ import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.model.Station;
+import com.b05studio.boxstore.model.Stuff;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.service.response.RankStationGetResponse;
+import com.b05studio.boxstore.service.response.StuffGetResponse;
 import com.b05studio.boxstore.util.DotIndicator;
 import com.b05studio.boxstore.view.adapter.HorizonStationAdapter;
 import com.b05studio.boxstore.view.adapter.RankAdapter;
-import com.b05studio.boxstore.view.adapter.homeveiw1Adapter;
+import com.b05studio.boxstore.view.adapter.MainProductPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +55,14 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.boxStoreMenuStationSubHorizonScrollRecyclerView)
     RecyclerView stationSubHorizonReyclerView;
 
+    @BindView(R.id.mainStaionProductViewPager)
+    ViewPager boxtoreMenuStationViewPager;
+
+    MainProductPagerAdapter mainProductStationPagerAdapter;
+
+    @BindView(R.id.mainStaionProductViewPagerIndicator)
+    DotIndicator boxtoreMenuStationViewPagerIndicator;
+
     private static RecyclerView.Adapter subStationAdapter;
     private static RecyclerView.LayoutManager subStationLayoutManager;
     private static List<String> subStations = new ArrayList<>();
@@ -60,8 +70,11 @@ public class HomeFragment extends Fragment {
     Retrofit homeFragmentRetrofit;
 
     private static final String TAG = "FragmentStatPgrAdapFrag";
-    private homeveiw1Adapter mPagerAdapter;
+    private MainProductPagerAdapter mPagerAdapter;
     private ArrayList<Item> mImageItemList;
+
+    private ArrayList<Stuff> stuffArrayList;
+    private ArrayList<Stuff> stuffArrayListByStaionName = new ArrayList<>();
     ViewPager viewPager;
     DotIndicator viewIncicator;
     private RecyclerView mRankRecyclerview;
@@ -130,23 +143,90 @@ public class HomeFragment extends Fragment {
 
         mRankRecyclerview = (RecyclerView) view.findViewById(R.id.mainRankRecyclerView);
 
-        mImageItemList = new ArrayList<>();
-        mImageItemList.addAll(getThumbImageList());
+        mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), stuffArrayListByStaionName);
 
-        mPagerAdapter = new homeveiw1Adapter(getChildFragmentManager(), mImageItemList);
-
-        viewPager = view.findViewById(R.id.mainNewStaionProductViewPager);
-        viewPager.setAdapter(mPagerAdapter);
-        viewPager.setCurrentItem(0);
 
         // viewIncicator = view.findViewById(R.id.viewIncicator);
-        //viewIncicator.setViewPager(viewPager);
+        // viewIncicator.setViewPager(viewPager);
 
+        initGetLatelyRegistProduct(view);
+        initGetStationRegistProduct();
         initStationRecyclerView();
         initStationSubRecyclerView();
         initStationRankSubReycyclerView();
         return view;
     }
+
+    private void initGetLatelyRegistProduct(final View view) {
+//        mImageItemList = new ArrayList<>();
+//        mImageItemList.addAll(getThumbImageList());
+
+//        stuffArrayList = new ArrayList<>();
+//        Retrofit retrofit = BoxStoreApplication.getRetrofit();
+//        Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getLatelyProductList();
+//        stuffGetResponseCall.enqueue(new Callback<StuffGetResponse>() {
+//            @Override
+//            public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
+//                if(response.isSuccessful()) {
+//                    List<Stuff> stuffs = response.body().getStuffs();
+//                    if(stuffs.size() != 0) {
+//                        stuffArrayList.addAll(stuffs);
+//                        viewPager = view.findViewById(R.id.mainNewStaionProductViewPager);
+//                        mPagerAdapter = new MainProductPagerAdapter(getChildFragmentManager(), stuffArrayList);
+//                        viewPager.setAdapter(mPagerAdapter);
+//                        viewPager.setCurrentItem(0);
+//
+//                        viewIncicator = view.findViewById(R.id.mainNewStaionProductViewPagerIndicator);
+//                        viewIncicator.setViewPager(viewPager);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<StuffGetResponse> call, Throwable t) {
+//
+//            }
+//        });
+
+
+    }
+
+    private void initGetStationRegistProduct() {
+        // TODO: 2017. 10. 29. 역이름 으로 요청하는거 만들기
+        getStuffListByStaionName("홍대입구/1");
+    }
+
+    private void getStuffListByStaionName(String name) {
+       // boxtoreMenuStationViewPager
+       // boxtoreMenuStationViewPagerIndicator
+
+        Retrofit retrofit = BoxStoreApplication.getRetrofit();
+        Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(name);
+        stuffGetResponseCall.enqueue(new Callback<StuffGetResponse>() {
+            @Override
+            public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
+                if(response.isSuccessful()) {
+                    List<Stuff> stuffs = response.body().getStuffs();
+                    if (stuffs.size() != 0) {
+                        stuffArrayListByStaionName.addAll(stuffs);
+                        boxtoreMenuStationViewPager.setAdapter(mainProductStationPagerAdapter);
+                        boxtoreMenuStationViewPager.setCurrentItem(0);
+                        boxtoreMenuStationViewPagerIndicator.setViewPager(boxtoreMenuStationViewPager);
+                    }
+                    mainProductStationPagerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StuffGetResponse> call, Throwable t) {
+                t.printStackTrace();
+
+            }
+        });
+    }
+
+
+
 
 
     private void initStationRecyclerView() {
@@ -180,7 +260,6 @@ public class HomeFragment extends Fragment {
         dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.line_divider));
 
         mRankRecyclerview.addItemDecoration(dividerItemDecoration);
-
 
         Call<RankStationGetResponse> rankStationGetResponseCall = homeFragmentRetrofit.create(BoxStoreHttpService.class).getStaionRankList();
         rankStationGetResponseCall.enqueue(new Callback<RankStationGetResponse>() {

@@ -120,8 +120,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         homeFragmentRetrofit = BoxStoreApplication.getRetrofit();
-
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

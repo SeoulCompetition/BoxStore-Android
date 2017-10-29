@@ -8,12 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.view.fragment.BuyerTransactionFragment;
 import com.b05studio.boxstore.view.fragment.ChatFragment;
 import com.b05studio.boxstore.view.fragment.HomeFragment;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -47,5 +49,11 @@ public class ChatActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.chat_frame_layout, ChatFragment.newInstance());
         transaction.commit();
+    }
+    @OnClick(R.id.makeDealBtn)
+    public void onClick(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.chat_frame_layout, BuyerTransactionFragment.newInstance());
+        transaction.addToBackStack(null);
     }
 }

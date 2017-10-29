@@ -4,10 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.model.Stuff;
 import com.b05studio.boxstore.view.fragment.MainStuffFragment;
-import com.b05studio.boxstore.view.fragment.NewItem_Fragment;
 
 import java.util.ArrayList;
 import java.util.List;

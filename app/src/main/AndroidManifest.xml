@@ -77,7 +77,7 @@
         </service>
 
         <activity android:name=".view.activity.DetailProductActivity" />
-        <activity android:name=".view.activity.CategoryDetailActivity" />
+        <activity android:name=".view.activity.SearchActivity" />
         <activity android:name=".view.activity.KeywordActivity" />
         <activity android:name=".view.activity.KeywordAddActivity" />
         <activity

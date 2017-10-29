@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Category;
-import com.b05studio.boxstore.view.activity.CategoryDetailActivity;
+import com.b05studio.boxstore.view.activity.SearchActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 // TODO: 2017-10-19 카테고리 상품 들어가게 구현  
-                Intent intent = new Intent(context, CategoryDetailActivity.class);
+                Intent intent = new Intent(context, SearchActivity.class);
                 intent.putExtra("category",categoryObject.getName());
                 context.startActivity(intent);
             }

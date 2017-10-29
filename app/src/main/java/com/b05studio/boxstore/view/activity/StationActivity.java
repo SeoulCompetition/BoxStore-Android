@@ -30,7 +30,6 @@ public class StationActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     android.widget.SpinnerAdapter adapterSpinner;
 
-
     private final String android_image_urls = "http://api.learn2crack.com/android/images/donut.png";
 
     @Override
@@ -38,9 +37,7 @@ public class StationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station);
 
-
         String[] str= getResources().getStringArray(R.array.order);
-
         List<String> mNewList = new ArrayList<String>(Arrays.asList(str));
 
         adapterSpinner = new SpinnerAdapter(this,mNewList);

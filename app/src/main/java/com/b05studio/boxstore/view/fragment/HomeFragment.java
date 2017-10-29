@@ -27,10 +27,11 @@ import com.b05studio.boxstore.model.Stuff;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.service.response.RankStationGetResponse;
 import com.b05studio.boxstore.service.response.StuffGetResponse;
-import com.b05studio.boxstore.util.DotIndicator;
 import com.b05studio.boxstore.view.adapter.HorizonStationAdapter;
-import com.b05studio.boxstore.view.adapter.RankAdapter;
 import com.b05studio.boxstore.view.adapter.MainProductPagerAdapter;
+import com.b05studio.boxstore.view.adapter.RankAdapter;
+import com.rd.PageIndicatorView;
+import com.rd.animation.type.AnimationType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
 
 public class HomeFragment extends Fragment {
 
@@ -61,7 +63,7 @@ public class HomeFragment extends Fragment {
     MainProductPagerAdapter mainProductStationPagerAdapter;
 
     @BindView(R.id.mainStaionProductViewPagerIndicator)
-    DotIndicator boxtoreMenuStationViewPagerIndicator;
+    PageIndicatorView boxtoreMenuStationViewPagerIndicator;
 
     private static RecyclerView.Adapter subStationAdapter;
     private static RecyclerView.LayoutManager subStationLayoutManager;
@@ -76,13 +78,13 @@ public class HomeFragment extends Fragment {
     private ArrayList<Stuff> stuffArrayList;
     private ArrayList<Stuff> stuffArrayListByStaionName = new ArrayList<>();
     ViewPager viewPager;
-    DotIndicator viewIncicator;
+    PageIndicatorView viewIncicator;
     private RecyclerView mRankRecyclerview;
     private RankAdapter rankAdapter;
 
     public static int selectedIndex = 0;
 
-    public final static String[] imageThumbUrls = new String[] {
+    public final static String[] imageThumbUrls = new String[]{
             "https://lh6.googleusercontent.com/-55osAWw3x0Q/URquUtcFr5I/AAAAAAAAAbs/rWlj1RUKrYI/s240-c/A%252520Photographer.jpg",
             "https://lh4.googleusercontent.com/--dq8niRp7W4/URquVgmXvgI/AAAAAAAAAbs/-gnuLQfNnBA/s240-c/A%252520Song%252520of%252520Ice%252520and%252520Fire.jpg",
             "https://lh5.googleusercontent.com/-7qZeDtRKFKc/URquWZT1gOI/AAAAAAAAAbs/hqWgteyNXsg/s240-c/Another%252520Rockaway%252520Sunset.jpg",
@@ -95,7 +97,7 @@ public class HomeFragment extends Fragment {
             "https://lh5.googleusercontent.com/-n7mdm7I7FGs/URqueT_BT-I/AAAAAAAAAbs/9MYmXlmpSAo/s240-c/Bonzai%252520Rock%252520Sunset.jpg",
     };
 
-    public final static String[] imageUrls = new String[] {
+    public final static String[] imageUrls = new String[]{
             "https://lh6.googleusercontent.com/-h-ALJt7kSus/URqvIThqYfI/AAAAAAAAAbs/ejiv35olWS8/s1024/Tokyo%252520Heights.jpg",
             "https://lh5.googleusercontent.com/-Hy9k-TbS7xg/URqvIjQMOxI/AAAAAAAAAbs/RSpmmOATSkg/s1024/Tokyo%252520Highway.jpg",
             "https://lh6.googleusercontent.com/-83oOvMb4OZs/URqvJL0T7lI/AAAAAAAAAbs/c5TECZ6RONM/s1024/Tokyo%252520Smog.jpg",
@@ -109,38 +111,38 @@ public class HomeFragment extends Fragment {
     };
 
 
-
-    public static ArrayList<Item> getThumbImageList(){
+    public static ArrayList<Item> getThumbImageList() {
         ArrayList<Item> imageThumbsList = new ArrayList<>();
 
         for (int i = 0; i < imageThumbUrls.length; i++) {
-            imageThumbsList.add(new Item(imageThumbUrls[i],"GTX 1060","200,000"));
+            imageThumbsList.add(new Item(imageThumbUrls[i], "GTX 1060", "200,000"));
         }
 
         return imageThumbsList;
     }
 
     //빈생성자
-    public HomeFragment(){
+    public HomeFragment() {
 
     }
 
-    public static HomeFragment newInstance(){
+    public static HomeFragment newInstance() {
         HomeFragment homeFragment = new HomeFragment();
         return homeFragment;
     }
+
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         homeFragmentRetrofit = BoxStoreApplication.getRetrofit();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
 
         mRankRecyclerview = (RecyclerView) view.findViewById(R.id.mainRankRecyclerView);
-
         mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), stuffArrayListByStaionName);
 
 
@@ -160,56 +162,62 @@ public class HomeFragment extends Fragment {
 //        mImageItemList.addAll(getThumbImageList());
 
 //        stuffArrayList = new ArrayList<>();
-//        Retrofit retrofit = BoxStoreApplication.getRetrofit();
-//        Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getLatelyProductList();
-//        stuffGetResponseCall.enqueue(new Callback<StuffGetResponse>() {
-//            @Override
-//            public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
-//                if(response.isSuccessful()) {
-//                    List<Stuff> stuffs = response.body().getStuffs();
-//                    if(stuffs.size() != 0) {
-//                        stuffArrayList.addAll(stuffs);
-//                        viewPager = view.findViewById(R.id.mainNewStaionProductViewPager);
-//                        mPagerAdapter = new MainProductPagerAdapter(getChildFragmentManager(), stuffArrayList);
-//                        viewPager.setAdapter(mPagerAdapter);
-//                        viewPager.setCurrentItem(0);
-//
-//                        viewIncicator = view.findViewById(R.id.mainNewStaionProductViewPagerIndicator);
-//                        viewIncicator.setViewPager(viewPager);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<StuffGetResponse> call, Throwable t) {
-//
-//            }
-//        });
+        Retrofit retrofit = BoxStoreApplication.getRetrofit();
+        Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getLatelyProductList();
+        stuffGetResponseCall.enqueue(new Callback<StuffGetResponse>() {
+            @Override
+            public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
+                if (response.isSuccessful()) {
+                    List<Stuff> stuffs = response.body().getStuffs();
+                    if (stuffs.size() != 0) {
+                        viewPager = view.findViewById(R.id.mainNewStaionProductViewPager);
+                        mPagerAdapter = new MainProductPagerAdapter(getChildFragmentManager(), stuffs);
+                        viewPager.setAdapter(mPagerAdapter);
+                        viewPager.setCurrentItem(0);
+
+                        viewIncicator = view.findViewById(R.id.mainNewStaionProductViewPagerIndicator);
+                        viewIncicator.setViewPager(viewPager);
+                        viewIncicator.setSelectedColor(Color.parseColor("#4B65A7"));
+                        viewIncicator.setUnselectedColor(Color.parseColor("#F1F1F1"));
+                        viewIncicator.setAnimationType(AnimationType.DROP);
+                    }
+                    mPagerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StuffGetResponse> call, Throwable t) {
+
+            }
+        });
 
 
     }
 
     private void initGetStationRegistProduct() {
         // TODO: 2017. 10. 29. 역이름 으로 요청하는거 만들기
-        getStuffListByStaionName("홍대입구/1");
+        getStuffListByStaionName("홍대입구");
     }
 
     private void getStuffListByStaionName(String name) {
-       // boxtoreMenuStationViewPager
-       // boxtoreMenuStationViewPagerIndicator
 
+        // boxtoreMenuStationViewPager
+        // boxtoreMenuStationViewPagerIndicator
         Retrofit retrofit = BoxStoreApplication.getRetrofit();
         Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(name);
         stuffGetResponseCall.enqueue(new Callback<StuffGetResponse>() {
             @Override
             public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     List<Stuff> stuffs = response.body().getStuffs();
                     if (stuffs.size() != 0) {
-                        stuffArrayListByStaionName.addAll(stuffs);
+                        mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), (ArrayList) stuffs);
                         boxtoreMenuStationViewPager.setAdapter(mainProductStationPagerAdapter);
                         boxtoreMenuStationViewPager.setCurrentItem(0);
                         boxtoreMenuStationViewPagerIndicator.setViewPager(boxtoreMenuStationViewPager);
+                        boxtoreMenuStationViewPagerIndicator.setSelectedColor(Color.parseColor("#4B65A7"));
+                        boxtoreMenuStationViewPagerIndicator.setUnselectedColor(Color.parseColor("#F1F1F1"));
+                        boxtoreMenuStationViewPagerIndicator.setAnimationType(AnimationType.DROP);
                     }
                     mainProductStationPagerAdapter.notifyDataSetChanged();
                 }
@@ -224,12 +232,9 @@ public class HomeFragment extends Fragment {
     }
 
 
-
-
-
     private void initStationRecyclerView() {
 
-        for(int i = 1 ; i < 10 ; i++) {
+        for (int i = 1; i < 10; i++) {
             String stationName = i + "호선";
             stations.add(stationName);
         }
@@ -265,9 +270,9 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<RankStationGetResponse> call, Response<RankStationGetResponse> response) {
                 RankStationGetResponse rankStationGetResponse = response.body();
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     List<Station> stationRank = rankStationGetResponse.getStations();
-                    rankAdapter = new RankAdapter(getContext(),stationRank,true);
+                    rankAdapter = new RankAdapter(getContext(), stationRank.subList(0,5), true);
                     mRankRecyclerview.setAdapter(rankAdapter);
                 }
 
@@ -285,38 +290,37 @@ public class HomeFragment extends Fragment {
         HomeFragment.selectedIndex = 0;
         switch (name) {
             case "1호선":
-                subStations = Arrays.asList("서울역","종로3가","시청");
+                subStations = Arrays.asList("서울역", "종로3가", "시청");
                 break;
             case "2호선":
-                subStations = Arrays.asList("강남","홍대입구");
+                subStations = Arrays.asList("강남", "홍대입구");
                 break;
             case "3호선":
-                subStations = Arrays.asList("교대","양재");
+                subStations = Arrays.asList("교대", "양재");
                 break;
             case "4호선":
-                subStations = Arrays.asList("서울역","혜화","사당");
+                subStations = Arrays.asList("서울역", "혜화", "사당");
                 break;
             case "5호선":
-                subStations = Arrays.asList("여의도","동대문");
+                subStations = Arrays.asList("여의도", "동대문");
                 break;
             case "6호선":
-                subStations = Arrays.asList("합정역","연신내");
+                subStations = Arrays.asList("합정역", "연신내");
                 break;
             case "7호선":
-                subStations = Arrays.asList("건대입구","노원");
+                subStations = Arrays.asList("건대입구", "노원");
                 break;
             case "8호선":
-                subStations = Arrays.asList("천호","잠실");
+                subStations = Arrays.asList("천호", "잠실");
                 break;
             case "9호선":
-                subStations = Arrays.asList("노량진","당산");
+                subStations = Arrays.asList("노량진", "당산");
                 break;
         }
         subStationAdapter.notifyDataSetChanged();
     }
 
     public class HorizonStationSubAdapter extends RecyclerView.Adapter<HorizonStationSubAdapter.ViewHolder> {
-
 
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -337,17 +341,18 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                Log.d("OnClick",String.valueOf(selectedIndex));
+                Log.d("OnClick", String.valueOf(selectedIndex));
                 if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
                 notifyItemChanged(selectedIndex);
                 selectedIndex = getAdapterPosition();
                 notifyItemChanged(selectedIndex);
 //                HomeFragment.getStationInformation(stations.get(selectedIndex));
             }
-                                                                                                                                    }
+        }
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_sub_station,parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_sub_station, parent, false);
             return new HorizonStationSubAdapter.ViewHolder(view);
         }
 
@@ -355,7 +360,7 @@ public class HomeFragment extends Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.cardSubTextView.setText(subStations.get(position));
 
-            if(selectedIndex == position) {
+            if (selectedIndex == position) {
                 holder.cardSubTextView.setTextColor(Color.parseColor("#ffffff"));
                 holder.cardSubImageButton.setImageResource(R.drawable.card_station_sub_click);
             } else {
@@ -370,9 +375,6 @@ public class HomeFragment extends Fragment {
         }
 
     }
-
-
-
 
 
 }

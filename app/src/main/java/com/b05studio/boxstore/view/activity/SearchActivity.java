@@ -5,13 +5,12 @@ import android.os.Bundle;
 
 import com.b05studio.boxstore.R;
 
-public class CategoryDetailActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_detail);
+        setContentView(R.layout.activity_search);
     }
-
 
 }

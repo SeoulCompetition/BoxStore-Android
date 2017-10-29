@@ -18,7 +18,6 @@ import java.util.List;
 
 public class SpinnerAdapter extends BaseAdapter {
 
-
     Context context;
     List<String> data;
     LayoutInflater inflater;
@@ -29,7 +28,6 @@ public class SpinnerAdapter extends BaseAdapter {
         this.data = data;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
 
     @Override
     public int getCount() {

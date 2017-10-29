@@ -51,13 +51,21 @@ public interface BoxStoreHttpService {
     @GET("/station/popular")
     Call<RankStationGetResponse> getStaionRankList();
 
-    // 신고 내역찾는거 띄우기
-
     // 역 이름으로 최근 상품 검색
     @GET("/stuffs/lately/{stationName}")
     Call<StuffGetResponse> getStuffListByStationName(@Path(value="stationName", encoded = true) String stationName);
 
     // 최근 등록된 상품 열람
+    @GET("/stuffs")
+    Call<StuffGetResponse> getLatelyProductList();
+
+    // 키워드등록
+    // @POST("/users/keywords")
+    // @GET("/users/{id}/keywords")
+
+    // 신고 내역찾는거 띄우기
+//    @POST("/stuffs")
+//    Call<>
 
 
 

@@ -51,9 +51,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:support-annotations:27.0.0'
+    compile 'com.android.support:support-annotations:26.1.0'
     compile 'com.android.support:support-compat:26.1.0'
     compile 'com.android.support:support-core-ui:26.1.0'
+    compile 'com.android.support:support-v13:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'com.romandanylyk:pageindicatorview:0.2.0'
@@ -83,7 +84,6 @@ dependencies {
     compile 'id.zelory:compressor:2.1.0'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
     compile 'com.android.support:multidex:1.0.2'
-    compile 'xyz.sahildave:searchviewlayout:0.6'
 
 }
 apply plugin: 'com.google.gms.google-services'

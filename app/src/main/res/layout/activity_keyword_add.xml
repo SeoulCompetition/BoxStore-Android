@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
-        android:text="키워드 추가하기"
+        android:text="알람 키워드 추가"
         android:textColor="#ffffff"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/sellTitlebar"

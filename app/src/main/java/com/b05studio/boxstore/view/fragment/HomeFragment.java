@@ -140,16 +140,14 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
                 if (response.isSuccessful()) {
                     List<Stuff> stuffs = response.body().getStuffs();
-                    if (stuffs.size() != 0) {
-                        mainNewProductStationPagerAdapter  = new MainProductPagerAdapter(getFragmentManager(), stuffs);
-                        boxtoreNewMenuStationViewPager.setAdapter(mainNewProductStationPagerAdapter);
-                        boxtoreNewMenuStationViewPager.setCurrentItem(0);
+                    mainNewProductStationPagerAdapter  = new MainProductPagerAdapter(getFragmentManager(), stuffs);
+                    boxtoreNewMenuStationViewPager.setAdapter(mainNewProductStationPagerAdapter);
+                    boxtoreNewMenuStationViewPager.setCurrentItem(0);
 
-                        mainNewStaionProductViewPagerIndicator.setViewPager(boxtoreNewMenuStationViewPager);
-                        mainNewStaionProductViewPagerIndicator.setSelectedColor(Color.parseColor("#4B65A7"));
-                        mainNewStaionProductViewPagerIndicator.setUnselectedColor(Color.parseColor("#F1F1F1"));
-                        mainNewStaionProductViewPagerIndicator.setAnimationType(AnimationType.DROP);
-                    }
+                    mainNewStaionProductViewPagerIndicator.setViewPager(boxtoreNewMenuStationViewPager);
+                    mainNewStaionProductViewPagerIndicator.setSelectedColor(Color.parseColor("#4B65A7"));
+                    mainNewStaionProductViewPagerIndicator.setUnselectedColor(Color.parseColor("#F1F1F1"));
+                    mainNewStaionProductViewPagerIndicator.setAnimationType(AnimationType.DROP);
                     mainNewProductStationPagerAdapter.notifyDataSetChanged();
                 }
             }
@@ -165,7 +163,7 @@ public class HomeFragment extends Fragment {
 
     private void initGetStationRegistProduct() {
         // TODO: 2017. 10. 29. 역이름 으로 요청하는거 만들기
-        getStuffListByStaionName("홍대입구");
+        getStuffListByStaionName("서울역");
     }
 
     private void getStuffListByStaionName(String name) {
@@ -177,7 +175,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
                 if (response.isSuccessful()) {
                     List<Stuff> stuffs = response.body().getStuffs();
-                    if (stuffs.size() != 0) {
+
                         mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), stuffs);
                         boxtoreMenuStationViewPager.setAdapter(mainProductStationPagerAdapter);
                         boxtoreMenuStationViewPager.setCurrentItem(0);
@@ -185,8 +183,8 @@ public class HomeFragment extends Fragment {
                         boxtoreMenuStationViewPagerIndicator.setSelectedColor(Color.parseColor("#4B65A7"));
                         boxtoreMenuStationViewPagerIndicator.setUnselectedColor(Color.parseColor("#F1F1F1"));
                         boxtoreMenuStationViewPagerIndicator.setAnimationType(AnimationType.DROP);
-                    }
-                    mainProductStationPagerAdapter.notifyDataSetChanged();
+
+                        mainProductStationPagerAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -312,6 +310,7 @@ public class HomeFragment extends Fragment {
                 if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
                 notifyItemChanged(selectedIndex);
                 selectedIndex = getAdapterPosition();
+                getStuffListByStaionName(subStations.get(selectedIndex));
                 notifyItemChanged(selectedIndex);
 //                HomeFragment.getStationInformation(stations.get(selectedIndex));
             }

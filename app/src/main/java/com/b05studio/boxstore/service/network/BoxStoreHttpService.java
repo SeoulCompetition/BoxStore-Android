@@ -66,13 +66,16 @@ public interface BoxStoreHttpService {
     @GET("/stuffs")
     Call<StuffGetResponse> getLatelyProductList();
 
-    // 키워드등록
+//     키워드등록
 //     @POST("/users/keywords")
 //     Call
 
+    // 키워드가져오기
     @GET("/users/{uid}/keywords")
     Call<KeywordGetResponse> getKeywordList(@Path(value="uid", encoded = true) String uid);
 
+    // 경찰청 사기꾼검색
+    // 지도가져오기
 
 
 

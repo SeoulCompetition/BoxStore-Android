@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.ChatMessage;
@@ -13,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Marcel on 11/7/2015.
@@ -23,6 +26,8 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private DatabaseReference mUserDatabase;
     public static final int SENDER = 0;
     public static final int RECIPIENT = 1;
+    public static final int SENDER_BOX = 2;
+    public static final int RECIPIENT_BOX = 3;
 
     public MessageChatAdapter(List<ChatMessage> listOfFireChats) {
         mChatList = listOfFireChats;
@@ -51,6 +56,15 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 View viewRecipient = inflater.inflate(R.layout.layout_recipient_message, viewGroup, false);
                 viewHolder=new ViewHolderRecipient(viewRecipient);
                 break;
+
+            case SENDER_BOX:
+                View viewSenderBox = inflater.inflate(R.layout.layout_sender_req,viewGroup,false);
+                viewHolder = new ViewHolderSenderBox(viewSenderBox);
+                break;
+            case RECIPIENT_BOX:
+                View viewRecipientBox = inflater.inflate(R.layout.layout_recipent_req,viewGroup,false);
+                viewHolder = new ViewHolderRecipient(viewRecipientBox);
+                break;
             default:
                 View viewSenderDefault = inflater.inflate(R.layout.layout_sender_message, viewGroup, false);
                 viewHolder= new ViewHolderSender(viewSenderDefault);
@@ -68,12 +82,22 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (viewHolder.getItemViewType()){
             case SENDER:
-                ViewHolderSender viewHolderSender=(ViewHolderSender)viewHolder;
-                configureSenderView(viewHolderSender,position,message_type);
+                if(message_type.equals("image") || message_type.equals("text")){
+                    ViewHolderSender viewHolderSender=(ViewHolderSender)viewHolder;
+                    configureSenderView(viewHolderSender,position,message_type);
+                }else{
+                    ViewHolderSenderBox viewHolderSellerBox = (ViewHolderSenderBox)viewHolder;
+                    configureSellerBoxView(viewHolderSellerBox,position,message_type);
+                }
                 break;
             case RECIPIENT:
-                ViewHolderRecipient viewHolderRecipient=(ViewHolderRecipient)viewHolder;
-                configureRecipientView(viewHolderRecipient,position,message_type);
+                if(message_type.equals("image") || message_type.equals("text")) {
+                    ViewHolderRecipient viewHolderRecipient=(ViewHolderRecipient)viewHolder;
+                    configureRecipientView(viewHolderRecipient,position,message_type);
+                }else{
+                    ViewHolderRecipientBox viewHolderRecipientBox = (ViewHolderRecipientBox)viewHolder;
+                    configureBuyerBoxView(viewHolderRecipientBox,position,message_type);
+                }
                 break;
         }
 
@@ -81,14 +105,36 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
+    private void configureBuyerBoxView(ViewHolderRecipientBox viewHolderRecipientBox, int position, String message_type) {
+
+        ChatMessage Message= mChatList.get(position);
+
+        viewHolderRecipientBox.mSellerNameAndProductName.setText(Message.getMessage()+"'"+"아이템이름"+"'"+"에 대한 거래 승인을 요청하셨습니다.");
+
+        viewHolderRecipientBox.getClickView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //todo : 거래 진행 화면으로 연결 근데 셀러가 클릭하면 셀러 프래그먼트가 떠야되고 바이어가 클릭하면 바이어 프래그먼트가 떠야됨
+                Toast.makeText(getApplicationContext(), "Box View Click!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void configureSellerBoxView(ViewHolderSenderBox viewHolderSellerBox, int position, String message_type) {
+
+    }
+
     private void configureSenderView(ViewHolderSender viewHolderSender, int position,String message_type) {
         ChatMessage senderFireMessage= mChatList.get(position);
 
         if(message_type.equals("text")){
+            viewHolderSender.mSenderMessageImageView.setVisibility(View.GONE);
+            viewHolderSender.mSenderMessageTextView.setVisibility(View.VISIBLE);
             viewHolderSender.getSenderMessageTextView().setText(senderFireMessage.getMessage());
         }
-        else{
-            viewHolderSender.getSenderMessageTextView().setVisibility(View.INVISIBLE);
+        if(message_type.equals("image")){
+            viewHolderSender.getSenderMessageTextView().setVisibility(View.GONE);
             viewHolderSender.mSenderMessageImageView.setVisibility(View.VISIBLE);
             Picasso.with(viewHolderSender.mSenderMessageImageView.getContext()).load(senderFireMessage.getMessage())
                    .into(viewHolderSender.mSenderMessageImageView);
@@ -179,4 +225,36 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
 
         }
+        /*ViewHolder for SellerBox */
+        public class ViewHolderSenderBox extends RecyclerView.ViewHolder {
+
+            private View clickView;
+            private TextView mSellerNameAndProductName;
+
+
+            public ViewHolderSenderBox(View itemView) {
+                super(itemView);
+                clickView = (View) itemView.findViewById(R.id.sellClickview);
+                mSellerNameAndProductName  = (TextView)itemView.findViewById(R.id.sellerBoxTextView);
+            }
+
+            public TextView getmSellerNameAndProductName() {return mSellerNameAndProductName;}
+            public View getClickView() {return clickView;}
+        }
+    /*ViewHolder for BuyerBox */
+    public class ViewHolderRecipientBox extends RecyclerView.ViewHolder {
+
+        private View clickView;
+        private TextView mSellerNameAndProductName;
+
+
+        public ViewHolderRecipientBox(View itemView) {
+            super(itemView);
+            clickView = (View) itemView.findViewById(R.id.buyerClickview);
+            mSellerNameAndProductName  = (TextView)itemView.findViewById(R.id.buyerBoxTextView);
+        }
+
+        public TextView getmSellerNameAndProductName() {return mSellerNameAndProductName;}
+        public View getClickView() {return clickView;}
+    }
 }

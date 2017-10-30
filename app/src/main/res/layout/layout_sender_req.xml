@@ -37,7 +37,7 @@
         app:layout_constraintRight_toRightOf="@+id/message_view"
         app:layout_constraintTop_toTopOf="@+id/message_view"
         fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
-        android:id="@+id/textView" />
+        android:id="@+id/sellerBoxTextView" />
 
     <View
         android:background="@color/white"
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.107" />
 
     <View
-        android:id="@+id/clickview"
+        android:id="@+id/sellClickview"
         android:layout_width="170dp"
         android:layout_height="59dp"
         android:layout_marginLeft="8dp"
@@ -74,9 +74,9 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_buyer_chat_box"
-        app:layout_constraintBottom_toBottomOf="@+id/clickview"
-        app:layout_constraintLeft_toLeftOf="@+id/clickview"
-        app:layout_constraintTop_toTopOf="@+id/clickview" />
+        app:layout_constraintBottom_toBottomOf="@+id/sellClickview"
+        app:layout_constraintLeft_toLeftOf="@+id/sellClickview"
+        app:layout_constraintTop_toTopOf="@+id/sellClickview" />
 
     <TextView
         android:id="@+id/showContent"
@@ -87,9 +87,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@+id/boxicon"
         android:layout_marginLeft="12.5dp"
-        app:layout_constraintTop_toTopOf="@+id/clickview"
+        app:layout_constraintTop_toTopOf="@+id/sellClickview"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/clickview"
+        app:layout_constraintBottom_toBottomOf="@+id/sellClickview"
         android:layout_marginBottom="8dp" />
 
     <ImageView
@@ -98,10 +98,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/clickview"
-        app:layout_constraintBottom_toBottomOf="@+id/clickview"
+        app:layout_constraintRight_toRightOf="@+id/sellClickview"
+        app:layout_constraintBottom_toBottomOf="@+id/sellClickview"
         android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toTopOf="@+id/clickview"
+        app:layout_constraintTop_toTopOf="@+id/sellClickview"
         android:layout_marginTop="8dp" />
 
 

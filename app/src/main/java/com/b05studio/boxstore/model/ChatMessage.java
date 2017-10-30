@@ -1,5 +1,7 @@
 package com.b05studio.boxstore.model;
 
+import com.google.firebase.database.Exclude;
+
 /**
  * Created by Marcel on 11/7/2015.
  */
@@ -67,7 +69,7 @@ public class ChatMessage {
         return sender;
     }
 
-    //exclude
+    @Exclude
     public int getRecipientOrSenderStatus() {
         return mRecipientOrSenderStatus;
     }

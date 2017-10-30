@@ -42,5 +42,7 @@ public class BuyerTransactionFragment extends Fragment {
     @OnClick(R.id.compleTransactionBtn)
     public void onClickComplete(){
 
+
+
     }
 }

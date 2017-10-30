@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.Stuff;
 import com.b05studio.boxstore.view.adapter.DetailProductPagerAdapter;
 import com.b05studio.boxstore.view.fragment.HomeFragment;
@@ -32,7 +33,22 @@ public class DetailProductActivity extends AppCompatActivity {
 
     @OnClick(R.id.detailProductSellButton)
     public void onClickDetailPrdouctSell() {
-        // TODO: 2017-10-30 구매하기버튼눌렀을때
+        Intent intent = new Intent(this,ChatActivity.class);
+
+        //상품 이미지배열 첫번째
+        //상품 이름
+        //상품 가격
+        intent.putExtra("BuyerName",BoxStoreApplication.getCurrentUser().getuId());
+        intent.putExtra("BuyerUID", BoxStoreApplication.getCurrentUser().getuId());
+        intent.putExtra("SellerName",selectedStuff.getSellerId().getName());
+        intent.putExtra("SellerUID",selectedStuff.getSellerId().getUid());
+        intent.putExtra("ProductImage",selectedStuff.getImageUrl().get(0).toString());
+        intent.putExtra("ProductName",selectedStuff.getStuffName().toString());
+        intent.putExtra("ProductPrice",selectedStuff.getPrice().toString());
+
+        startActivity(intent);
+        // TODO: 2017-10-30 구매하기버튼눌렀을때 일단 들어간느 사람이 물건을 올린 당사자가 아니라고 가정함
+        // TODO : 이후 만들어지는 ChatAcitity는 NotificationFragment에서 들어가므로 Sender와 Recipedent를 확정할 수 있다.
     }
 
     @OnClick(R.id.detailProductBackButton)

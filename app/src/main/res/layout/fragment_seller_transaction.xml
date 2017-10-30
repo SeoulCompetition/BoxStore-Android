@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="@+id/sellProductPriceImage" />
 
     <EditText
-        android:id="@+id/sellProductNameEditText"
+        android:id="@+id/sellProductPriceEditText"
         fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
         android:layout_width="0dp"
         android:layout_height="34dp"

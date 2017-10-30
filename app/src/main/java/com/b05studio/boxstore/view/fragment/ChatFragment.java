@@ -19,15 +19,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.ChatMessage;
 import com.b05studio.boxstore.util.ActivityResultEvent;
 import com.b05studio.boxstore.view.adapter.MessageChatAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -51,6 +54,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class ChatFragment extends Fragment {
 
+    private static final String ARG_PIRCE = "PRICE";
+    private static final String ARG_STATION = "STATION";
 
     private static final String TAG = ChatFragment.class.getSimpleName();
 
@@ -59,9 +64,12 @@ public class ChatFragment extends Fragment {
     @BindView(R.id.sendChatBtn)
     EditText mUserMessageChatText;
 
+    private String paramPrice;
+    private String paramStation;
 
     private String mRecipientId;
     private String mCurrentUserId;
+
     private MessageChatAdapter messageChatAdapter;
     private DatabaseReference messageChatDatabase;
     private ChildEventListener messageChatListener;
@@ -84,6 +92,30 @@ public class ChatFragment extends Fragment {
         ChatFragment chatFragment = new ChatFragment();
         return chatFragment;
     }
+    public static ChatFragment newInstance(String paramPrice, String paramStation){
+        ChatFragment chatFragment = new ChatFragment();
+        Bundle args = new Bundle();
+        args.putString("buyerUID",paramPrice);
+        args.putString("sellerUID",paramStation);
+        chatFragment.setArguments(args);
+        return chatFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mCurrentUserId = BoxStoreApplication.getCurrentUser().getuId();
+            if(mCurrentUserId.equals(getArguments().getString("buyerUID")))
+            {
+                //만약 현재 유저와 구매자의 uid가 같다면
+                mRecipientId = getArguments().getString("sellerUID");
+            } else {
+                mRecipientId = getArguments().getString("buyerUID");
+            }
+
+        }
+    }
 
     @Nullable
     @Override
@@ -94,11 +126,68 @@ public class ChatFragment extends Fragment {
         initReyclerView();
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
+        //mRootRef.keepSynced(true);
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
         setDatabaseInstance();
         setUsersId();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        DatabaseReference massageRef = mRootRef.child("messages").child(mCurrentUserId).child(mRecipientId);
+
+        Query messageQuery = massageRef.limitToLast(20);
+        messageQuery.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildKey) {
+
+                if(dataSnapshot.exists()){
+                    ChatMessage newMessage = dataSnapshot.getValue(ChatMessage.class);
+                    if(newMessage.getSender().equals(mCurrentUserId)){
+                        if(newMessage.getType().equals("box")){
+                            newMessage.setRecipientOrSenderStatus(MessageChatAdapter.SENDER_BOX);
+                        }else{
+                            newMessage.setRecipientOrSenderStatus(MessageChatAdapter.SENDER);
+                        }
+                    }else{
+                        if(newMessage.getType().equals("box"))
+                        {
+                            newMessage.setRecipientOrSenderStatus(MessageChatAdapter.RECIPIENT_BOX);
+                        }
+                        newMessage.setRecipientOrSenderStatus(MessageChatAdapter.RECIPIENT);
+                    }
+                    messageChatAdapter.refillAdapter(newMessage);
+                    chatRecyclerView.scrollToPosition(messageChatAdapter.getItemCount()-1);
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     private void setUsersId() {
@@ -152,9 +241,7 @@ public class ChatFragment extends Fragment {
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     if(task.isSuccessful()){
                         String download_url = task.getResult().getDownloadUrl().toString();
-
                         //
-
                         //ChatMessage newMessage = new ChatMessage(download_url,mCurrentUserId,mRecipientId,"image");
                         //messageChatDatabase.push().setValue(newMessage);
 

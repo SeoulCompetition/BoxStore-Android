@@ -33,6 +33,7 @@
 
     <TextView
         fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+        android:id="@+id/opponentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -43,6 +44,20 @@
         app:layout_constraintLeft_toLeftOf="@+id/chatTitleBar"
         app:layout_constraintRight_toRightOf="@+id/chatTitleBar"
         app:layout_constraintTop_toTopOf="@+id/chatTitleBar" />
+
+
+    <TextView
+        android:text="거래하기"
+        android:id="@+id/makeDealBtn"
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+        android:textSize="11sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/chatTitleBar"
+        app:layout_constraintRight_toRightOf="@+id/chatTitleBar"
+        app:layout_constraintTop_toTopOf="@+id/chatTitleBar"
+        android:layout_marginEnd="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <View
         android:id="@+id/itemInfoView"
@@ -98,7 +113,7 @@
     <FrameLayout
         android:id="@+id/chat_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.boxStoreMenuStationSubHorizonScrollRecyclerView)
     RecyclerView stationSubHorizonReyclerView;
 
-    @BindView(R.id.mainStaionProductViewPager)
+    @BindView(R.id.mainNewStaionProductViewPager)
     ViewPager boxtoreMenuStationViewPager;
 
     MainProductPagerAdapter mainProductStationPagerAdapter;
@@ -135,8 +135,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         homeFragmentRetrofit = BoxStoreApplication.getRetrofit();
-
-
     }
 
     @Override
@@ -194,7 +192,7 @@ public class HomeFragment extends Fragment {
         });
 
 
-    }
+}
 
     private void initGetStationRegistProduct() {
         // TODO: 2017. 10. 29. 역이름 으로 요청하는거 만들기

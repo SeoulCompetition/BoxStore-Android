@@ -1,12 +1,16 @@
 package com.b05studio.boxstore.view.activity;
 
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialcamera.MaterialCamera;
 import com.b05studio.boxstore.R;
 
 import butterknife.BindView;
@@ -19,11 +23,23 @@ import butterknife.OnClick;
 
 public class  KeywordAddActivity extends AppCompatActivity{
 
-
+    private static final int SELECT_CATEGORY_BUTTON = 3001;
     @BindView(R.id.edit_keyword)
     EditText editKeyword;
+
     @BindView(R.id.keyword_icon)
     ImageView keywordIcon;
+
+    @OnClick(R.id.category_view)
+    public void onClickCategorySelected() {
+        Intent intent = new Intent(KeywordAddActivity.this, CategorySelectActivity.class);
+        startActivityForResult(intent,SELECT_CATEGORY_BUTTON);
+    }
+
+    @BindView(R.id.category_explain)
+    TextView categoryTextView;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +54,7 @@ public class  KeywordAddActivity extends AppCompatActivity{
     public void onBackBtnClick(){
         onBackPressed();
     }
+
     @OnClick(R.id.addKeywordBtn)
     public void onClickAddBtn(){
         String getKeyword = editKeyword.getText().toString();
@@ -49,5 +66,17 @@ public class  KeywordAddActivity extends AppCompatActivity{
     protected void onDestroy(){      //액티비티가 종료될 때의 메서드
         super.onDestroy();
         setResult( 0 ); // 여기에 넣는 int형 정수는 MainActivity의 onActivityResult안에서 requestCode로 들어간다.
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Received recording or error from MaterialCamera
+        if( requestCode == SELECT_CATEGORY_BUTTON) {
+            String category = data.getStringExtra("category");
+            categoryTextView.setText(category);
+        }
     }
 }

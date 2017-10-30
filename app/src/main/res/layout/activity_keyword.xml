@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="@color/seoul"
-        android:src="@drawable/ic_actionbar_shop"
+        android:src="@drawable/ic_keyword_add"
         app:layout_constraintBottom_toBottomOf="@+id/sellTitlebar"
         app:layout_constraintRight_toRightOf="@+id/sellTitlebar"
         app:layout_constraintTop_toTopOf="@+id/sellTitlebar" />

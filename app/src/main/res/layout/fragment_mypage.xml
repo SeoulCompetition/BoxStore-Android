@@ -1,280 +1,277 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.b05studio.boxstore.MainActivity">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/mypage_toolbar"
-        android:layout_width="fill_parent"
-        android:layout_height="56dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/seoul">
-        <include
-            layout="@layout/layout_category_toolbar">
-        </include>
-
-    </android.support.v7.widget.Toolbar>
-    
-    
-    <View
-        android:id="@+id/myStoreInfoView"
-        android:background="@color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mypage_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="75dp">
-    </View>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/myPageUserProfile"
-        android:layout_width="43dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/myStoreInfoView"
-        app:layout_constraintLeft_toLeftOf="@id/myStoreInfoView"
-        app:layout_constraintTop_toTopOf="@id/myStoreInfoView"
-        />
-
-    <TextView
-        android:id="@+id/myPageUserId"
-        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:layout_marginStart="16dp"
-        android:text="심다혜"
-        android:textSize="12sp"
-
-        app:layout_constraintBottom_toBottomOf="@id/myPageUserProfile"
-        app:layout_constraintStart_toEndOf="@+id/myPageUserProfile"
-        app:layout_constraintTop_toTopOf="@id/myPageUserProfile" />
-
-    <RatingBar
-        android:id="@+id/storeRaitingBar"
-        style="@style/customRatingBar"
-        android:layout_width="89dp"
-        android:layout_height="18dp"
-        android:layout_marginEnd="14dp"
-        android:numStars="5"
-        android:rating="5"
-        android:stepSize="0.5"
-        app:layout_constraintBottom_toBottomOf="@id/myPageUserId"
-        app:layout_constraintRight_toLeftOf="@+id/storeRank"
-        app:layout_constraintTop_toTopOf="@id/myPageUserId"
-
-        />
-
-    <TextView
-        android:id="@+id/storeRank"
-        android:textSize="10sp"
-        fontPath="fonts/NOTOSANSKR-THIN.OTF"
-        android:textColor="#ffffff"
-        android:text="우수 스토어"
-        android:layout_marginEnd="14dp"
-        app:layout_constraintBottom_toBottomOf="@id/storeRaitingBar"
-        app:layout_constraintEnd_toEndOf="@+id/myStoreInfoView"
-        app:layout_constraintTop_toTopOf="@id/storeRaitingBar"
-        android:background="@drawable/mypage_store_rank_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/userRecordRecyclerview"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/record_item"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/myStoreInfoView">
+        android:layout_height="match_parent"
+        tools:context="com.b05studio.boxstore.MainActivity">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/mypage_toolbar"
+            android:layout_width="fill_parent"
+            android:layout_height="56dp"
+            android:background="@color/seoul"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <View
-        android:id="@+id/settingsView"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userRecordRecyclerview">
-    </View>
+            <include layout="@layout/layout_category_toolbar"></include>
 
-    <ImageView
-        android:id="@+id/settingsImage"
-        android:src="@drawable/ic_settings_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        app:layout_constraintBottom_toBottomOf="@id/settingsView"
-        app:layout_constraintLeft_toLeftOf="@id/settingsView"
-        app:layout_constraintTop_toTopOf="@id/settingsView"/>
-
-    <TextView
-        android:id="@+id/settingsText"
-        android:text="설정"
-        android:textSize="12sp"
-        fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/settingsImage"
-        app:layout_constraintLeft_toRightOf="@id/settingsImage"
-        app:layout_constraintTop_toTopOf="@id/settingsImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <ImageView
-        app:layout_constraintBottom_toBottomOf="@id/settingsView"
-        app:layout_constraintEnd_toEndOf="@id/settingsView"
-        app:layout_constraintTop_toTopOf="@id/settingsView"
-        android:src="@drawable/ic_recycler_right"
-        android:layout_marginEnd="14.2dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        </android.support.v7.widget.Toolbar>
 
 
-    <View
-        android:id="@+id/settingsETCView"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="132dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settingsView">
-    </View>
+        <View
+            android:id="@+id/myStoreInfoView"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:background="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mypage_toolbar"></View>
 
-    <ImageView
-        android:layout_marginTop="10dp"
-        android:id="@+id/noticeImage"
-        android:src="@drawable/ic_settings_notice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        app:layout_constraintLeft_toLeftOf="@id/settingsETCView"
-        app:layout_constraintTop_toTopOf="@id/settingsETCView"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/myPageUserProfile"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/myStoreInfoView"
+            app:layout_constraintLeft_toLeftOf="@id/myStoreInfoView"
+            app:layout_constraintTop_toTopOf="@id/myStoreInfoView" />
 
-    <TextView
-        android:id="@+id/noticeText"
-        android:text="공지사항"
-        android:textSize="12sp"
-        fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/noticeImage"
-        app:layout_constraintLeft_toRightOf="@id/noticeImage"
-        app:layout_constraintTop_toTopOf="@id/noticeImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/myPageUserId"
+            fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginStart="16dp"
+            android:text="심다혜"
+            android:textSize="12sp"
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="14.2dp"
-        android:layout_marginTop="14.5dp"
-        android:src="@drawable/ic_recycler_right"
-        app:layout_constraintEnd_toEndOf="@id/settingsETCView"
-        app:layout_constraintTop_toTopOf="@id/settingsETCView" />
+            app:layout_constraintBottom_toBottomOf="@id/myPageUserProfile"
+            app:layout_constraintStart_toEndOf="@+id/myPageUserProfile"
+            app:layout_constraintTop_toTopOf="@id/myPageUserProfile" />
 
-    <View
+        <RatingBar
+            android:id="@+id/storeRaitingBar"
+            style="@style/customRatingBar"
+            android:layout_width="89dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="14dp"
+            android:numStars="5"
+            android:rating="5"
+            android:stepSize="0.5"
+            app:layout_constraintBottom_toBottomOf="@id/myPageUserId"
+            app:layout_constraintRight_toLeftOf="@+id/storeRank"
+            app:layout_constraintTop_toTopOf="@id/myPageUserId"
 
-        android:id="@+id/row_first_devider"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10.5dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_bg"
-        app:layout_constraintRight_toRightOf="@id/settingsETCView"
-        app:layout_constraintStart_toStartOf="@id/settingsETCView"
-        app:layout_constraintTop_toBottomOf="@id/noticeImage">
+            />
 
-    </View>
+        <TextView
+            android:id="@+id/storeRank"
+            fontPath="fonts/NOTOSANSKR-THIN.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:background="@drawable/mypage_store_rank_textview"
+            android:text="우수 스토어"
+            android:textColor="#ffffff"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/storeRaitingBar"
+            app:layout_constraintEnd_toEndOf="@+id/myStoreInfoView"
+            app:layout_constraintTop_toTopOf="@id/storeRaitingBar" />
 
-    <ImageView
-        android:layout_marginTop="10dp"
-        android:id="@+id/faqImage"
-        android:src="@drawable/ic_settings_faq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        app:layout_constraintLeft_toLeftOf="@id/settingsETCView"
-        app:layout_constraintTop_toBottomOf="@id/row_first_devider"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/userRecordRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myStoreInfoView"
+            tools:listitem="@layout/record_item">
 
-    <TextView
-        android:id="@+id/faqText"
-        fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="FAQ"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/faqImage"
-        app:layout_constraintLeft_toRightOf="@id/faqImage"
-        app:layout_constraintTop_toTopOf="@id/faqImage" />
+        </android.support.v7.widget.RecyclerView>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="14.2dp"
-        android:layout_marginTop="14.5dp"
-        android:src="@drawable/ic_recycler_right"
-        app:layout_constraintEnd_toEndOf="@id/settingsETCView"
-        app:layout_constraintTop_toBottomOf="@id/row_first_devider" />
+        <View
+            android:id="@+id/settingsView"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userRecordRecyclerview"></View>
 
-    <View
+        <ImageView
+            android:id="@+id/settingsImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:src="@drawable/ic_settings_setting"
+            app:layout_constraintBottom_toBottomOf="@id/settingsView"
+            app:layout_constraintLeft_toLeftOf="@id/settingsView"
+            app:layout_constraintTop_toTopOf="@id/settingsView" />
 
-        android:id="@+id/row_second_devider"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10.5dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/gray_bg"
-        app:layout_constraintRight_toRightOf="@id/settingsETCView"
-        app:layout_constraintStart_toStartOf="@id/settingsETCView"
-        app:layout_constraintTop_toBottomOf="@id/faqImage">
+        <TextView
+            android:id="@+id/settingsText"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="설정"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/settingsImage"
+            app:layout_constraintLeft_toRightOf="@id/settingsImage"
+            app:layout_constraintTop_toTopOf="@id/settingsImage" />
 
-    </View>
-
-    <ImageView
-        android:id="@+id/questionImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="14.5dp"
-        android:src="@drawable/ic_settings_question"
-        app:layout_constraintStart_toStartOf="@+id/settingsETCView"
-        app:layout_constraintTop_toBottomOf="@+id/row_second_devider" />
-
-    <TextView
-        android:id="@+id/questionText"
-        fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="1:1 문의하기"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/questionImage"
-        app:layout_constraintStart_toEndOf="@+id/questionImage"
-        app:layout_constraintTop_toTopOf="@+id/questionImage" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="14.2dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/ic_recycler_right"
-        app:layout_constraintEnd_toEndOf="@+id/settingsETCView"
-        app:layout_constraintTop_toBottomOf="@+id/row_second_devider" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14.2dp"
+            android:src="@drawable/ic_recycler_right"
+            app:layout_constraintBottom_toBottomOf="@id/settingsView"
+            app:layout_constraintEnd_toEndOf="@id/settingsView"
+            app:layout_constraintTop_toTopOf="@id/settingsView" />
 
 
+        <View
+            android:id="@+id/settingsETCView"
+            android:layout_width="match_parent"
+            android:layout_height="132dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settingsView"></View>
 
+        <ImageView
+            android:id="@+id/noticeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_settings_notice"
+            app:layout_constraintLeft_toLeftOf="@id/settingsETCView"
+            app:layout_constraintTop_toTopOf="@id/settingsETCView" />
 
+        <TextView
+            android:id="@+id/noticeText"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="공지사항"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/noticeImage"
+            app:layout_constraintLeft_toRightOf="@id/noticeImage"
+            app:layout_constraintTop_toTopOf="@id/noticeImage" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14.2dp"
+            android:layout_marginTop="14.5dp"
+            android:src="@drawable/ic_recycler_right"
+            app:layout_constraintEnd_toEndOf="@id/settingsETCView"
+            app:layout_constraintTop_toTopOf="@id/settingsETCView" />
+
+        <View
+
+            android:id="@+id/row_first_devider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10.5dp"
+            android:background="@color/gray_bg"
+            app:layout_constraintRight_toRightOf="@id/settingsETCView"
+            app:layout_constraintStart_toStartOf="@id/settingsETCView"
+            app:layout_constraintTop_toBottomOf="@id/noticeImage">
+
+        </View>
+
+        <ImageView
+            android:id="@+id/faqImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_settings_faq"
+            app:layout_constraintLeft_toLeftOf="@id/settingsETCView"
+            app:layout_constraintTop_toBottomOf="@id/row_first_devider" />
+
+        <TextView
+            android:id="@+id/faqText"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="FAQ"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/faqImage"
+            app:layout_constraintLeft_toRightOf="@id/faqImage"
+            app:layout_constraintTop_toTopOf="@id/faqImage" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14.2dp"
+            android:layout_marginTop="14.5dp"
+            android:src="@drawable/ic_recycler_right"
+            app:layout_constraintEnd_toEndOf="@id/settingsETCView"
+            app:layout_constraintTop_toBottomOf="@id/row_first_devider" />
+
+        <View
+
+            android:id="@+id/row_second_devider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10.5dp"
+            android:background="@color/gray_bg"
+            app:layout_constraintRight_toRightOf="@id/settingsETCView"
+            app:layout_constraintStart_toStartOf="@id/settingsETCView"
+            app:layout_constraintTop_toBottomOf="@id/faqImage">
+
+        </View>
+
+        <ImageView
+            android:id="@+id/questionImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="14.5dp"
+            android:src="@drawable/ic_settings_question"
+            app:layout_constraintStart_toStartOf="@+id/settingsETCView"
+            app:layout_constraintTop_toBottomOf="@+id/row_second_devider" />
+
+        <TextView
+            android:id="@+id/questionText"
+            fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="1:1 문의하기"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/questionImage"
+            app:layout_constraintStart_toEndOf="@+id/questionImage"
+            app:layout_constraintTop_toTopOf="@+id/questionImage" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14.2dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_recycler_right"
+            app:layout_constraintEnd_toEndOf="@+id/settingsETCView"
+            app:layout_constraintTop_toBottomOf="@+id/row_second_devider" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

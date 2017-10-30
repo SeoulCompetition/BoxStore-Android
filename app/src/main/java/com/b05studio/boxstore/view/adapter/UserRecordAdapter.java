@@ -39,6 +39,7 @@ public class UserRecordAdapter extends RecyclerView.Adapter<UserRecordAdapter.Vi
     @Override
     public void onBindViewHolder(UserRecordAdapter.ViewHolder holder, int position) {
         String recordName = recordList.get(position);
+
         holder.settingText.setText(recordName);
 
         switch (recordName){
@@ -87,7 +88,7 @@ public class UserRecordAdapter extends RecyclerView.Adapter<UserRecordAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
+            ButterKnife.bind(this,itemView);
         }
     }
 }

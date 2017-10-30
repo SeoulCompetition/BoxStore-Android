@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class MypageFragment extends Fragment {
 
-    List<String> mRecordList;
+    List<String> mRecordList= new ArrayList<>();
 
     @BindView(R.id.userRecordRecyclerview)
     RecyclerView userRecordRecyclerView;
@@ -43,9 +43,8 @@ public class MypageFragment extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_mypage, container, false);
-        ButterKnife.bind(view);
+        ButterKnife.bind(this,view);
         initRecyclerView();
         return view;
     }

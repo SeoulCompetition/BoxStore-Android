@@ -2,6 +2,7 @@ package com.b05studio.boxstore.view.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -29,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import xyz.sahildave.widget.SearchViewLayout;
 
 /**
  * Created by joyeongje on 2017. 9. 28..
@@ -42,10 +44,24 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
     @BindView(R.id.toolbarLayout)
     ConstraintLayout toolbarLayout;
 
-    @OnClick(R.id.moveToSearchViewButton)
-    public void onClickMoveToSearchViewButton() {
-
+    @OnClick(R.id.moveToKeywordActivityBtn)
+    public void moveToKeyword(){
+        // 따로 받을건 없는걸로
+        Intent intent = new Intent(BoxstoreMenuActivity.this,KeywordActivity.class);
+        startActivity(intent);
     }
+
+    @OnClick(R.id.search_view_container)
+    public void onClickMoveToSearchViewButton() {
+        // TODO: 2017. 10. 30. 처리해야됨.
+        Intent intent = new Intent(BoxstoreMenuActivity.this,SearchActivity.class);
+        startActivity(intent);
+    }
+
+    @BindView(R.id.search_view_container)
+    SearchViewLayout searchViewLayout;
+
+
 //
 //    @BindView(R.id.app_bar_linear_layout)
 //    LinearLayout linearLayout;
@@ -62,12 +78,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
 
 
 //
-//    @OnClick(R.id.moveToKeywordActivityBtn)
-//    public void moveToKeyword(){
-//        // 따로 받을건 없는걸로
-//        Intent intent = new Intent(BoxstoreMenuActivity.this,KeywordActivity.class);
-//        startActivity(intent);
-//    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +86,8 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
        ButterKnife.bind(this);
+       searchViewLayout.setExpandedContentSupportFragment(this, new NotificationFragment());
+
 //        searchView.setQueryHint("상품명, 키워드, 역 이름으로 검색하세요.");
 
 //        final SearchViewLayout searchViewLayout = (SearchViewLayout) findViewById(R.id.search_view_container);

@@ -93,7 +93,7 @@ public class CategorySelectActivity extends AppCompatActivity {
                 case "남성 의류":
                     categories.get(i).setImageUrl(R.drawable.mini_man);
                     break;
-                case "패션/잡화":
+                case "패션잡화":
                     categories.get(i).setImageUrl(R.drawable.mini_fashion);
                     break;
                 case "뷰티/미용":
@@ -114,7 +114,7 @@ public class CategorySelectActivity extends AppCompatActivity {
                 case "반려동물 용품":
                     categories.get(i).setImageUrl(R.drawable.mini_pet);
                     break;
-                case "도서/티켓":
+                case "도서/티켓/음반":
                     categories.get(i).setImageUrl(R.drawable.mini_book);
                     break;
             }

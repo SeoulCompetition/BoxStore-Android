@@ -45,6 +45,10 @@ public class Stuff implements Serializable {
     @Expose
     private String createdDate;
 
+    @SerializedName("productState")
+    @Expose
+    private String productState;
+
     public String getId() {
         return id;
     }
@@ -134,4 +138,11 @@ public class Stuff implements Serializable {
     }
 
 
+    public String getProductState() {
+        return productState;
+    }
+
+    public void setProductState(String productState) {
+        this.productState = productState;
+    }
 }

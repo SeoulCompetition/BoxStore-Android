@@ -55,8 +55,12 @@ public interface BoxStoreHttpService {
     @GET("/stuffs/lately/{stationName}")
     Call<StuffGetResponse> getStuffListByStationName(@Path(value="stationName", encoded = true) String stationName);
 
+    @GET("/stuffs/search/{keyword}")
+    Call<StuffGetResponse> getStuffListByKeywordName(@Path(value="keyword", encoded = true) String keyword);
+
     @GET("/stuffs/list/{categoryName}")
     Call<StuffGetResponse> getStuffListByCategoryName(@Path(value="categoryName", encoded = true) String categoryName);
+
 
 
 

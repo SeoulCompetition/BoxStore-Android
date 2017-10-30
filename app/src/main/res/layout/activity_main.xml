@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.b05studio.boxstore.MainActivity">
 
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/myScrollingContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -67,8 +72,6 @@
 
         </android.support.constraint.ConstraintLayout>
 
-
-
         <FrameLayout
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
@@ -79,6 +82,25 @@
     </RelativeLayout>
 
 
+
+        <!-- Your loooooong scrolling content here. -->
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_gravity="bottom"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        app:bb_inActiveTabAlpha="0.6"
+        app:bb_activeTabAlpha="1"
+        app:bb_inActiveTabColor="#222222"
+        app:bb_activeTabColor="@color/colorPrimary"
+        app:bb_titleTextAppearance="@style/MyTextAppearance"
+        app:bb_titleTypeFace="fonts/NOTOSANSKR-REGULAR.OTF"
+        app:bb_behavior="shy"
+        />
     <!--<include layout="@layout/widget_search_bar"/>-->
     <!--&lt;!&ndash;<include&ndash;&gt;-->
     <!--android:id="@+id/search_view"-->
@@ -86,15 +108,7 @@
     <!--</include>-->
 
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        style="@style/BottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/frame_layout"
-        app:layout_anchorGravity="bottom"
-        app:layout_behavior="com.b05studio.boxstore.util.BottomNavigationBehavior"
-        app:menu="@menu/navigation" />
+
 
 
 </android.support.design.widget.CoordinatorLayout>

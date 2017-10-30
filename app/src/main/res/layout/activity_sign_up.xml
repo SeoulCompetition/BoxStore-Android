@@ -63,7 +63,7 @@
         android:id="@+id/signupPasswordTextView"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:hint="비밀번호 {영문, 숫자, 특문 조합 8~15자}"
+        android:hint="비밀번호 {영문, 숫자 조합 8자이상}"
         android:background="@drawable/login_input_textview"
         app:layout_constraintTop_toBottomOf="@+id/signupIdTextView"
         app:layout_constraintRight_toRightOf="parent"

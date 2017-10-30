@@ -58,12 +58,24 @@ public class HomeFragment extends Fragment {
     RecyclerView stationSubHorizonReyclerView;
 
     @BindView(R.id.mainNewStaionProductViewPager)
+    ViewPager boxtoreNewMenuStationViewPager;
+
+    @BindView(R.id.mainStaionProductViewPager)
     ViewPager boxtoreMenuStationViewPager;
 
+    MainProductPagerAdapter mainNewProductStationPagerAdapter;
     MainProductPagerAdapter mainProductStationPagerAdapter;
+
+    private ArrayList<Stuff> stuffNewArrayList = new ArrayList<>();
+    private ArrayList<Stuff> stuffArrayListByStaionName = new ArrayList<>();
+
+    @BindView(R.id.mainNewStaionProductViewPagerIndicator)
+    PageIndicatorView mainNewStaionProductViewPagerIndicator;
 
     @BindView(R.id.mainStaionProductViewPagerIndicator)
     PageIndicatorView boxtoreMenuStationViewPagerIndicator;
+
+
 
     private static RecyclerView.Adapter subStationAdapter;
     private static RecyclerView.LayoutManager subStationLayoutManager;
@@ -75,16 +87,13 @@ public class HomeFragment extends Fragment {
     private MainProductPagerAdapter mPagerAdapter;
     private ArrayList<Item> mImageItemList;
 
-    private ArrayList<Stuff> stuffArrayList;
-    private ArrayList<Stuff> stuffArrayListByStaionName = new ArrayList<>();
+
     ViewPager viewPager;
     PageIndicatorView viewIncicator;
     private RecyclerView mRankRecyclerview;
     private RankAdapter rankAdapter;
 
     public static int selectedIndex = 0;
-
-
 
     //빈생성자
     public HomeFragment() {
@@ -108,11 +117,8 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         mRankRecyclerview = (RecyclerView) view.findViewById(R.id.mainRankRecyclerView);
-        mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), stuffArrayListByStaionName);
 
 
-        // viewIncicator = view.findViewById(R.id.viewIncicator);
-        // viewIncicator.setViewPager(viewPager);
 
         initGetLatelyRegistProduct(view);
         initGetStationRegistProduct();
@@ -135,18 +141,16 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<Stuff> stuffs = response.body().getStuffs();
                     if (stuffs.size() != 0) {
-                        viewPager = view.findViewById(R.id.mainNewStaionProductViewPager);
-                        mPagerAdapter = new MainProductPagerAdapter(getChildFragmentManager(), stuffs);
-                        viewPager.setAdapter(mPagerAdapter);
-                        viewPager.setCurrentItem(0);
+                        mainNewProductStationPagerAdapter  = new MainProductPagerAdapter(getFragmentManager(), stuffs);
+                        boxtoreNewMenuStationViewPager.setAdapter(mainNewProductStationPagerAdapter);
+                        boxtoreNewMenuStationViewPager.setCurrentItem(0);
 
-                        viewIncicator = view.findViewById(R.id.mainNewStaionProductViewPagerIndicator);
-                        viewIncicator.setViewPager(viewPager);
-                        viewIncicator.setSelectedColor(Color.parseColor("#4B65A7"));
-                        viewIncicator.setUnselectedColor(Color.parseColor("#F1F1F1"));
-                        viewIncicator.setAnimationType(AnimationType.DROP);
+                        mainNewStaionProductViewPagerIndicator.setViewPager(boxtoreNewMenuStationViewPager);
+                        mainNewStaionProductViewPagerIndicator.setSelectedColor(Color.parseColor("#4B65A7"));
+                        mainNewStaionProductViewPagerIndicator.setUnselectedColor(Color.parseColor("#F1F1F1"));
+                        mainNewStaionProductViewPagerIndicator.setAnimationType(AnimationType.DROP);
                     }
-                    mPagerAdapter.notifyDataSetChanged();
+                    mainNewProductStationPagerAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -166,8 +170,6 @@ public class HomeFragment extends Fragment {
 
     private void getStuffListByStaionName(String name) {
 
-        // boxtoreMenuStationViewPager
-        // boxtoreMenuStationViewPagerIndicator
         Retrofit retrofit = BoxStoreApplication.getRetrofit();
         Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(name);
         stuffGetResponseCall.enqueue(new Callback<StuffGetResponse>() {
@@ -176,7 +178,7 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<Stuff> stuffs = response.body().getStuffs();
                     if (stuffs.size() != 0) {
-                        mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), (ArrayList) stuffs);
+                        mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), stuffs);
                         boxtoreMenuStationViewPager.setAdapter(mainProductStationPagerAdapter);
                         boxtoreMenuStationViewPager.setCurrentItem(0);
                         boxtoreMenuStationViewPagerIndicator.setViewPager(boxtoreMenuStationViewPager);

@@ -75,13 +75,16 @@ public class IdentificationActivity extends AppCompatActivity {
     @OnClick(R.id.identifyNextButton)
     public void registerUser() {
 
-        String code = authCodeEditText.getText().toString();
-        if (TextUtils.isEmpty(code)) {
-            authCodeEditText.setError("인증번호를 입력해주세요.");
-            return;
-        }
+//        String code = authCodeEditText.getText().toString();
+//        if (TextUtils.isEmpty(code)) {
+//            authCodeEditText.setError("인증번호를 입력해주세요.");
+//            return;
+//        }
+//
+//        verifyPhoneNumberWithCode(mVerificationId, code);
 
-        verifyPhoneNumberWithCode(mVerificationId, code);
+        Toast.makeText(getApplicationContext(),"테스터는 자동인증 됩니다.", Toast.LENGTH_LONG).show();
+        testerAuth();
     }
 
     private static final String TAG = "IdentificationActivity";
@@ -102,8 +105,7 @@ public class IdentificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_identification);
         ButterKnife.bind(this);
 
-        Toast.makeText(getApplicationContext(),"테스터는 전화번호가 없어서 자동인증 됩니다.", Toast.LENGTH_LONG).show();
-        testerAuth();
+
 
 //        if (savedInstanceState != null) {
 //            onRestoreInstanceState(savedInstanceState);
@@ -170,14 +172,43 @@ public class IdentificationActivity extends AppCompatActivity {
     }
 
     private void testerAuth() {
-        // 2초간 멈추게 하고싶다면
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
+
+        BoxstoreUser currentUser = BoxStoreApplication.getCurrentUser();
+        final String uid = currentUser.getuId();
+        final String name = userNameEditText.getText().toString().length() == 0 ? "Tester" : userNameEditText.getText().toString();
+        final String email = currentUser.getEmail();
+        final String photoUrl = currentUser.getPhotoURL();
+        final String phoneNum = phoneEditText.getText().toString();
+        final String token = FirebaseInstanceId.getInstance().getToken();
+
+        BoxstoreUser boxstoreUser = new BoxstoreUser(uid, email, photoUrl, name, token, phoneNum);
+        BoxStoreApplication.setCurrentUser(boxstoreUser);
+        Retrofit retrofit = BoxStoreApplication.getRetrofit();
+        BoxStoreHttpService httpService = retrofit.create(BoxStoreHttpService.class);
+        httpService.registerUser(boxstoreUser).enqueue(new Callback<BoxtorePostResponse>() {
+            @Override
+            public void onResponse(Call<BoxtorePostResponse> call, Response<BoxtorePostResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.d("회원정보 업로드 : ", "SUCCESS");
+                } else {
+                    Log.d("회원정보 업로드 : ", "Fail");
+                }
                 BaseUtil.moveActivity(IdentificationActivity.this, BoxstoreMenuActivity.class);
                 finish();
             }
-        }, 1500);  // 2000은 2초를 의미합니다.
+
+            @Override
+            public void onFailure(Call<BoxtorePostResponse> call, Throwable t) {
+                t.printStackTrace();
+                Log.d("회원정보 업로드 : ", "Fail(서버상태확인)");
+            }
+        });
+
+        BaseUtil.moveActivity(IdentificationActivity.this, BoxstoreMenuActivity.class);
+        finish();
+
+
+
     }
 
 

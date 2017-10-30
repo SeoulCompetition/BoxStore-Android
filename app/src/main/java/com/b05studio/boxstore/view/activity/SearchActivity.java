@@ -44,6 +44,8 @@ public class SearchActivity extends AppCompatActivity {
     android.widget.SpinnerAdapter adapterSpinner;
 
     ArrayList<Stuff> items = new ArrayList<>();
+    Retrofit retrofit = BoxStoreApplication.getRetrofit();
+    final StationAdapter mAdapter = new StationAdapter(this,items);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +64,79 @@ public class SearchActivity extends AppCompatActivity {
         final GridLayoutManager mGrid = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(mGrid);
         recyclerView.setHasFixedSize(true);
-        final StationAdapter mAdapter = new StationAdapter(this,items);
+
         recyclerView.setAdapter(mAdapter);
 
         Intent intent = getIntent();
-        String searchQuery = intent.getStringExtra("searchQuery");
-        searchToolbarTitle.setText(searchQuery);
+        final String searchQuery = intent.getStringExtra("searchQuery");
+        String categoryQuery = intent.getStringExtra("category");
 
-        Retrofit retrofit = BoxStoreApplication.getRetrofit();
-        Call<StuffGetResponse> getStuffListByStationNameCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(searchQuery);
-        getStuffListByStationNameCall.enqueue(new Callback<StuffGetResponse>() {
+
+        if(searchQuery != null) {
+            searchToolbarTitle.setText(searchQuery);
+
+            Call<StuffGetResponse> getStuffListByStationNameCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(searchQuery);
+            getStuffListByStationNameCall.enqueue(new Callback<StuffGetResponse>() {
+                @Override
+                public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
+                    if (response.isSuccessful()) {
+                        items.addAll(response.body().getStuffs());
+                    }
+
+                    Call<StuffGetResponse> getStuffListByKeywordName = retrofit.create(BoxStoreHttpService.class).getStuffListByKeywordName(searchQuery);
+                    getStuffListByKeywordName.enqueue(new Callback<StuffGetResponse>() {
+                        @Override
+                        public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
+                            if (response.isSuccessful()) {
+                                items.addAll(response.body().getStuffs());
+                            }
+                            getStuffsByCategory(searchQuery);
+                        }
+
+                        @Override
+                        public void onFailure(Call<StuffGetResponse> call, Throwable t) {
+
+                        }
+                    });
+
+
+                }
+
+                @Override
+                public void onFailure(Call<StuffGetResponse> call, Throwable t) {
+
+                }
+            });
+
+
+
+        } else if(categoryQuery != null) {
+            searchToolbarTitle.setText(categoryQuery);
+            getStuffsByCategory(categoryQuery);
+        }
+
+
+//        Call<StuffGetResponse> getStuffListByKeywordCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(searchQuery);
+//
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.category_toolbar);
+//        setSupportActionBar(toolbar);
+    }
+
+    private void getStuffsByKeyword(String name) {
+
+    }
+
+    private void getStuffsByStationName(String name) {
+
+    }
+
+    private void getStuffsByCategory(String name) {
+        String replaceCategory = name.replace("/",".");
+        Call<StuffGetResponse> getStuffListByCategoryCall = retrofit.create(BoxStoreHttpService.class).getStuffListByCategoryName(replaceCategory);
+        getStuffListByCategoryCall.enqueue(new Callback<StuffGetResponse>() {
             @Override
             public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     items.addAll(response.body().getStuffs());
                 }
                 searchItemListNum.setText("상품 " + String.valueOf(items.size()) + "건");
@@ -83,14 +145,10 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<StuffGetResponse> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
-
-
-//        Call<StuffGetResponse> getStuffListByKeywordCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(searchQuery);
-//        Call<StuffGetResponse> getStuffListByCategoryCall = retrofit.create(BoxStoreHttpService.class).getStuffListByCategoryName(searchQuery);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.category_toolbar);
-//        setSupportActionBar(toolbar);
     }
 }
+
+

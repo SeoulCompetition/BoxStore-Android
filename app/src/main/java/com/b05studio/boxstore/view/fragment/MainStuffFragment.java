@@ -2,9 +2,7 @@ package com.b05studio.boxstore.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +13,8 @@ import android.widget.TextView;
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Stuff;
 import com.b05studio.boxstore.view.activity.DetailProductActivity;
-import com.b05studio.boxstore.view.adapter.MainProductPagerAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +89,10 @@ public class MainStuffFragment extends Fragment {
 ////        MainStuffFragment fragment = new MainStuffFragment();
 ////        return fragment;
 //    }
+
+    public MainStuffFragment() {
+
+    }
 
     @SuppressLint("ValidFragment")
     public MainStuffFragment(List<Stuff> stuffs) {

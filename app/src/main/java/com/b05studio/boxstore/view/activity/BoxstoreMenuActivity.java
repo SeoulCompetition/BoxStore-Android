@@ -2,12 +2,11 @@ package com.b05studio.boxstore.view.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.util.BaseUtil;
@@ -38,25 +36,49 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BoxstoreMenuActivity extends AppCompatActivity {
 
-    @BindView(R.id.app_bar_layout)
-    AppBarLayout appBarLayout;
+//    @BindView(R.id.app_bar_layout)
+//    AppBarLayout appBarLayout;
 
-    @BindView(R.id.app_bar_linear_layout)
-    LinearLayout linearLayout;
+    @BindView(R.id.toolbarLayout)
+    ConstraintLayout toolbarLayout;
 
-    @OnClick(R.id.moveToKeywordActivityBtn)
-    public void moveToKeyword(){
-        // 따로 받을건 없는걸로
-        Intent intent = new Intent(BoxstoreMenuActivity.this,KeywordActivity.class);
-        startActivity(intent);
+    @OnClick(R.id.moveToSearchViewButton)
+    public void onClickMoveToSearchViewButton() {
+
     }
+//
+//    @BindView(R.id.app_bar_linear_layout)
+//    LinearLayout linearLayout;
+
+
+
+//    @BindView(R.id.searchViewLayout)
+//    SearchView searchView;
+//
+//    @OnClick(R.id.searchViewLayout)
+//    public void onClicksearchViewLayout() {
+//
+//    }
+
+
+//
+//    @OnClick(R.id.moveToKeywordActivityBtn)
+//    public void moveToKeyword(){
+//        // 따로 받을건 없는걸로
+//        Intent intent = new Intent(BoxstoreMenuActivity.this,KeywordActivity.class);
+//        startActivity(intent);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(this);
+       ButterKnife.bind(this);
+//        searchView.setQueryHint("상품명, 키워드, 역 이름으로 검색하세요.");
+
+//        final SearchViewLayout searchViewLayout = (SearchViewLayout) findViewById(R.id.search_view_container);
+//        searchViewLayout.setExpandedContentSupportFragment(this, new NotificationFragment());
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
@@ -82,13 +104,13 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
 
                             case R.id.navigation_home:
-                                linearLayout.setVisibility(View.VISIBLE);
+                                toolbarLayout.setVisibility(View.VISIBLE);
                                 selectedFragment = HomeFragment.newInstance();
                                 transaction.replace(R.id.frame_layout, selectedFragment);
                                 transaction.commit();
                                 break;
                             case R.id.navigation_category:
-                                linearLayout.setVisibility(View.GONE);
+                                toolbarLayout.setVisibility(View.GONE);
                                 selectedFragment = CategoryFragment.newInstance();
                                 transaction.replace(R.id.frame_layout, selectedFragment);
                                 transaction.commit();
@@ -97,13 +119,13 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
                                 BaseUtil.moveActivity(BoxstoreMenuActivity.this, SellActivity.class);
                                 break;
                             case R.id.navigation_notifications:
-                                linearLayout.setVisibility(View.GONE);
+                                toolbarLayout.setVisibility(View.GONE);
                                 selectedFragment = NotificationFragment.newInstance();
                                 transaction.replace(R.id.frame_layout, selectedFragment);
                                 transaction.commit();
                                 break;
                             case R.id.navigation_mypage:
-                                linearLayout.setVisibility(View.GONE);
+                                toolbarLayout.setVisibility(View.GONE);
                                 selectedFragment = MypageFragment.newInstance();
                                 transaction.replace(R.id.frame_layout, selectedFragment);
                                 transaction.commit();

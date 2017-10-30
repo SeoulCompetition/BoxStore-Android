@@ -1,66 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.b05studio.boxstore.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar_layout"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/app_bar_linear_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_scrollFlags="enterAlways|scroll|snap">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/toolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="@color/seoul">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/titleImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_textview_round"
+                android:src="@drawable/ic_splash_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageButton
+                android:id="@+id/moveToKeywordActivityBtn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:background="@color/seoul"
-                app:contentInsetEnd="0.0dip"
-                app:contentInsetStart="0.0dip">
+                android:src="@drawable/ic_actionbar_shop"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <include
-                    layout="@layout/layout_actionbar">
-                </include>
 
-            </android.support.v7.widget.Toolbar>
+            <ImageButton
+                android:id="@+id/moveToSearchViewButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/bg_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleImageView" />
 
-            <include
-                android:id="@+id/search_view"
-                layout="@layout/layout_search_view">
-            </include>
 
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
 
-    </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:animateLayoutChanges="true">
+            android:layout_below="@+id/toolbarLayout"
+            android:animateLayoutChanges="true"/>
 
-        </FrameLayout>
+    </RelativeLayout>
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
-            style="@style/BottomNavigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_anchor="@id/frame_layout"
-            app:layout_anchorGravity="bottom"
-            app:layout_behavior="com.b05studio.boxstore.util.BottomNavigationBehavior"
-            app:menu="@menu/navigation" />
+
+    <!--<include layout="@layout/widget_search_bar"/>-->
+    <!--&lt;!&ndash;<include&ndash;&gt;-->
+    <!--android:id="@+id/search_view"-->
+    <!--layout="@layout/layout_search_view">-->
+    <!--</include>-->
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        style="@style/BottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/frame_layout"
+        app:layout_anchorGravity="bottom"
+        app:layout_behavior="com.b05studio.boxstore.util.BottomNavigationBehavior"
+        app:menu="@menu/navigation" />
 
 
 </android.support.design.widget.CoordinatorLayout>

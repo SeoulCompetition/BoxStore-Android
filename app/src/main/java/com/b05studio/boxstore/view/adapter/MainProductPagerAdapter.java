@@ -27,19 +27,23 @@ public class MainProductPagerAdapter extends FragmentStatePagerAdapter  {
     public MainProductPagerAdapter(FragmentManager fm, List<Stuff> stuffs) {
         super(fm);
         this.stuffs = stuffs;
-        pageNum = stuffs.size() / 3 + 1;
+        if(stuffs.size() % 3 == 0) {
+            pageNum = stuffs.size() / 3;
+        } else {
+            pageNum = stuffs.size() / 3 + 1;
+            productCount = stuffs.size() % 3;
+        }
+
     }
 
     @Override
     public Fragment getItem(int position) {
-        productCount = count != pageNum ? 3 : stuffs.size() % 3;
-        count++;
-
-        return new MainStuffFragment(stuffs.subList(position * 3,position * 3 + productCount));
+        int addNum = position + 1 == pageNum ? productCount : 3;
+        return new MainStuffFragment(stuffs.subList(position * 3,position * 3 + addNum));
     }
 
     @Override
     public int getCount() {
-        return stuffs.size() / 3 + 1;
+        return pageNum;
     }
 }

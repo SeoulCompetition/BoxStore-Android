@@ -82,6 +82,7 @@ dependencies {
     compile 'id.zelory:compressor:2.1.0'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
     compile 'com.android.support:multidex:1.0.2'
+    compile 'xyz.sahildave:searchviewlayout:0.6'
 
 }
 apply plugin: 'com.google.gms.google-services'

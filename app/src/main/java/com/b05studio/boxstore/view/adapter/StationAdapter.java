@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.Item;
+import com.b05studio.boxstore.model.Stuff;
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -27,12 +29,12 @@ import butterknife.ButterKnife;
 public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ItemViewHolder>{
 
     private static final String TAG = "StationAdapter";
-    private List<Item> item_list;
+    private List<Stuff> stuffList;
     private Context context;
 
 
-    public StationAdapter(Context context, List<Item> item_list) {
-        this.item_list = item_list;
+    public StationAdapter(Context context, List<Stuff> stuffList) {
+        this.stuffList = stuffList;
         this.context = context;
     }
 
@@ -46,21 +48,25 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ItemView
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
-        Item ItemObject = item_list.get(position);
+        Stuff stuff = stuffList.get(position);
+        String url = stuff.getSellerId().getPhotoURL();
+        if(url != null) {
+            Glide.with(context)
+                    .load(url)
+                    .into(holder.profile_image);
+        }
         Glide.with(context)
-                .load(ItemObject.getUserProfileURL())
-                .into(holder.profile_image);
-        Glide.with(context)
-                .load(ItemObject.getItemURL())
+                .load(stuff.getImageUrl().get(0))
                 .into(holder.item_image);
-        holder.item_title.setText(ItemObject.getItemTitle());
-        holder.item_price.setText(ItemObject.getItemPrice());
-        holder.profile_name.setText(ItemObject.getUserName());
+
+        holder.item_title.setText(stuff.getStuffName());
+        holder.item_price.setText(String.valueOf(stuff.getPrice()) + " 원");
+        holder.profile_name.setText(stuff.getSellerId().getName());
     }
 
     @Override
     public int getItemCount() {
-        return item_list.size();
+        return stuffList.size();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

@@ -12,10 +12,16 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.util.BaseUtil;
@@ -44,16 +50,19 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
     ConstraintLayout toolbarLayout;
 
     @OnClick(R.id.moveToKeywordActivityBtn)
-    public void moveToKeyword(){
+    public void moveToKeyword() {
         // 따로 받을건 없는걸로
-        Intent intent = new Intent(BoxstoreMenuActivity.this,KeywordActivity.class);
+        Intent intent = new Intent(BoxstoreMenuActivity.this, KeywordActivity.class);
         startActivity(intent);
     }
 
+    @BindView(R.id.searchEditText)
+    EditText searchKeywordEditText;
+
 //    @OnClick(R.id.moveToSearchViewButton)
 //    public void moveToSearch() {
-//        Intent intent = new Intent(BoxstoreMenuActivity.this,SearchActivity.class);
-//        startActivity(intent);
+//
+//
 //    }
 
 
@@ -61,8 +70,25 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        searchKeywordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                switch (actionId) {
+                    case EditorInfo.IME_ACTION_SEARCH:
+                        Intent intent = new Intent(BoxstoreMenuActivity.this,SearchActivity.class);
+                        String searchQuery = searchKeywordEditText.getText().toString();
+                        intent.putExtra("searchQuery",searchQuery);
+                        startActivity(intent);
+                        return true;
+                    default:
+                        return false;
+                }
 
-       ButterKnife.bind(this);
+            }
+        });
+
+
 //        searchView.setQueryHint("상품명, 키워드, 역 이름으로 검색하세요.");
 
 //        final SearchViewLayout searchViewLayout = (SearchViewLayout) findViewById(R.id.search_view_container);
@@ -153,6 +179,7 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

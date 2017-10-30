@@ -1,6 +1,7 @@
 package com.b05studio.boxstore.application;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.model.BoxstoreUser;
@@ -16,7 +17,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Created by young on 2017-09-25.
  */
 
-public class BoxStoreApplication extends Application {
+public class BoxStoreApplication  extends MultiDexApplication {
 
     private static Retrofit retrofit = null;
     private static final String BOXSTORE_BASIC_URL = "http://52.78.22.122:3000";

@@ -2,10 +2,12 @@ package com.b05studio.boxstore.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -100,69 +102,84 @@ public class IdentificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_identification);
         ButterKnife.bind(this);
 
-        if (savedInstanceState != null) {
-            onRestoreInstanceState(savedInstanceState);
-        }
+        Toast.makeText(getApplicationContext(),"테스터는 전화번호가 없어서 자동인증 됩니다.", Toast.LENGTH_LONG).show();
+        testerAuth();
+
+//        if (savedInstanceState != null) {
+//            onRestoreInstanceState(savedInstanceState);
+//        }
 
         // TODO: 2017-10-07 ResendCode 처리
 //        resendVerificationCode("01043019700",mResendToken);
 
-        mAuth = FirebaseAuth.getInstance();
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-            @Override
-            public void onVerificationCompleted(PhoneAuthCredential credential) {
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verificaiton without
-                //     user action.
-                Log.d(TAG, "onVerificationCompleted:" + credential);
-                // [START_EXCLUDE silent]
-                mVerificationInProgress = false;
-                // [END_EXCLUDE]
-
-                // login nono
-
-                // TODO: 2017. 10. 11. 여기서 로그인하지말고 사용해야됨
-                signInWithPhoneAuthCredential(credential);
-
-            }
-
-            @Override
-            public void onVerificationFailed(FirebaseException e) {
-                // This callback is invoked in an invalid request for verification is made,
-                // for instance if the the phone number format is not valid.
-                Log.w(TAG, "onVerificationFailed", e);
-                // [START_EXCLUDE silent]
-                mVerificationInProgress = false;
-                // [END_EXCLUDE]
-
-                if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    // Invalid request
-                    phoneEditText.setError("잘못된 전화번호 양식입니다.");
-
-                } else if (e instanceof FirebaseTooManyRequestsException) {
-                    // The SMS quota for the project has been exceeded
-                }
-            }
-
-            @Override
-            public void onCodeSent(String verificationId,
-                                   PhoneAuthProvider.ForceResendingToken token) {
-                // The SMS verification code has been sent to the provided phone number, we
-                // now need to ask the user to enter the code and then construct a credential
-                // by combining the code with a verification ID.
-                Log.d(TAG, "onCodeSent:" + verificationId);
-
-                // Save verification ID and resending token so we can use them later
-                mVerificationId = verificationId;
-                mResendToken = token;
-
-                // 이 메소드는 제공된 전화번호로 인증 코드가 SMS를 통해 전송된 후에 호출됩니다.
-            }
-        };
+//        mAuth = FirebaseAuth.getInstance();
+//        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//
+//            @Override
+//            public void onVerificationCompleted(PhoneAuthCredential credential) {
+//                // 1 - Instant verification. In some cases the phone number can be instantly
+//                //     verified without needing to send or enter a verification code.
+//                // 2 - Auto-retrieval. On some devices Google Play services can automatically
+//                //     detect the incoming verification SMS and perform verificaiton without
+//                //     user action.
+//                Log.d(TAG, "onVerificationCompleted:" + credential);
+//                // [START_EXCLUDE silent]
+//                mVerificationInProgress = false;
+//                // [END_EXCLUDE]
+//
+//                // login nono
+//
+//                // TODO: 2017. 10. 11. 여기서 로그인하지말고 사용해야됨
+//                signInWithPhoneAuthCredential(credential);
+//
+//            }
+//
+//            @Override
+//            public void onVerificationFailed(FirebaseException e) {
+//                // This callback is invoked in an invalid request for verification is made,
+//                // for instance if the the phone number format is not valid.
+//                Log.w(TAG, "onVerificationFailed", e);
+//                // [START_EXCLUDE silent]
+//                mVerificationInProgress = false;
+//                // [END_EXCLUDE]
+//
+//                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+//                    // Invalid request
+//                    phoneEditText.setError("잘못된 전화번호 양식입니다.");
+//
+//                } else if (e instanceof FirebaseTooManyRequestsException) {
+//                    // The SMS quota for the project has been exceeded
+//                }
+//            }
+//
+//            @Override
+//            public void onCodeSent(String verificationId,
+//                                   PhoneAuthProvider.ForceResendingToken token) {
+//                // The SMS verification code has been sent to the provided phone number, we
+//                // now need to ask the user to enter the code and then construct a credential
+//                // by combining the code with a verification ID.
+//                Log.d(TAG, "onCodeSent:" + verificationId);
+//
+//                // Save verification ID and resending token so we can use them later
+//                mVerificationId = verificationId;
+//                mResendToken = token;
+//
+//                // 이 메소드는 제공된 전화번호로 인증 코드가 SMS를 통해 전송된 후에 호출됩니다.
+//            }
+//        };
     }
+
+    private void testerAuth() {
+        // 2초간 멈추게 하고싶다면
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                BaseUtil.moveActivity(IdentificationActivity.this, BoxstoreMenuActivity.class);
+                finish();
+            }
+        }, 1500);  // 2000은 2초를 의미합니다.
+    }
+
 
     @Override
     public void onStart() {

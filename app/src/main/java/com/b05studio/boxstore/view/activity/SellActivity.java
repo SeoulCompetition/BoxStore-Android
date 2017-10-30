@@ -180,12 +180,11 @@ public class SellActivity extends AppCompatActivity {
             return;
         }
 
-//        String category = productCategoryTextView.getText().toString();
-//        if(category.length() == 0) {
-//            printErrorMessage("카테고리");
-//            return ;
-//        }
-        String category = "컴퓨터";
+        String category = productCategoryTextView.getText().toString();
+        if(category.length() == 0) {
+            printErrorMessage("카테고리");
+            return ;
+        }
 
         String state = productState;
         if (state.length() == 0) {

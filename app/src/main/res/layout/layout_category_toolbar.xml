@@ -6,6 +6,7 @@
     android:layout_height="60dp">
 
     <TextView
+
         android:textColor="@color/white"
         android:text="카테고리"
         android:textSize="13dp"

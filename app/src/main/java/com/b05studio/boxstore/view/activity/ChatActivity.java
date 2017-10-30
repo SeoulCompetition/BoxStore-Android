@@ -36,6 +36,8 @@ public class ChatActivity extends AppCompatActivity {
     private String buyerUId= "";
     private String sellerName = "";
     private String buyerName = "";
+    private String stuffId;
+    private String itemName;
 
 
     @Override
@@ -51,9 +53,12 @@ public class ChatActivity extends AppCompatActivity {
         buyerUId = intent.getStringExtra("BuyerUID");
         sellerUId = intent.getStringExtra("SellerUID");
         sellerName = intent.getStringExtra("SellerName");
+        stuffId = intent.getStringExtra("StuffID");
+
+
 
         String itemPrice = intent.getStringExtra("ProductPrice");
-        String itemName = intent.getStringExtra("ProductName");
+        itemName = intent.getStringExtra("ProductName");
         String itemImageURL = intent.getStringExtra("ProductImage");
 
         Picasso.with(ChatActivity.this).load(itemImageURL)
@@ -73,7 +78,7 @@ public class ChatActivity extends AppCompatActivity {
         itemInfoPrice.setText(itemPrice+"원");
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.chat_frame_layout, ChatFragment.newInstance(buyerUId,sellerUId));
+        transaction.replace(R.id.chat_frame_layout, ChatFragment.newInstance(buyerUId,sellerUId,stuffId));
         transaction.commit();
     }
     //판매자만 보인다.
@@ -81,7 +86,7 @@ public class ChatActivity extends AppCompatActivity {
     public void onClick(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //bundlel로 구매자 UID 판매자 UID 전송, 파이어베이스 데이터베이스 생성에 쓰인다.
-        transaction.replace(R.id.chat_frame_layout, SellerTransactionFragment.newInstance(buyerUId,sellerUId));
+        transaction.replace(R.id.chat_frame_layout, SellerTransactionFragment.newInstance(buyerUId,sellerUId,itemName));
         transaction.addToBackStack(null);
         transaction.commit();
     }

@@ -43,6 +43,7 @@ public class SellerTransactionFragment extends Fragment{
 
     private String mbuyerUID;
     private String msellerUID;
+    private String mstuffID;
 
     private static final String ARG_PIRCE = "PRICE";
     private static final String ARG_STATION = "STATION";
@@ -57,19 +58,22 @@ public class SellerTransactionFragment extends Fragment{
         return sellerTransactionFragment;
     }
 
-    public static SellerTransactionFragment newInstance(String paramPrice, String paramStation){
+    public static SellerTransactionFragment newInstance(String paramPrice, String paramStation,String paramStuffName){
         SellerTransactionFragment sellerTransactionFragment = new SellerTransactionFragment();
         Bundle args = new Bundle();
-        args.putString("buyerUID",paramPrice);
-        args.putString("sellerUID",paramStation);
+        args.putString("BuyerUID",paramPrice);
+        args.putString("SellerUID",paramStation);
+        args.putString("StuffName",paramStuffName);
         sellerTransactionFragment.setArguments(args);
         return sellerTransactionFragment;
     }
 
     private void setUsersId() {
         if (getArguments() != null) {
-            mbuyerUID = getArguments().getString("buyerUID").toString();
-            msellerUID = getArguments().getString("sellerUID").toString();
+            mbuyerUID = getArguments().getString("BuyerUID").toString();
+            msellerUID = getArguments().getString("SellerUID").toString();
+            mstuffID = getArguments().getString("StuffName").toString();
+
         }
     }
 
@@ -99,18 +103,18 @@ public class SellerTransactionFragment extends Fragment{
 
         if(!TextUtils.isEmpty(itemPrice) && !TextUtils.isEmpty(stationName))
         {
-            String current_user_ref ="messages/" + msellerUID + "/" +mbuyerUID;
-            String chat_user_ref = "messages/" + mbuyerUID + "/" + msellerUID;
+            String current_user_ref ="messages/" + msellerUID + "/" +mbuyerUID + "/"+ mstuffID;
+            String chat_user_ref = "messages/" + mbuyerUID + "/" + msellerUID + "/" + mstuffID;
 
             DatabaseReference user_message_push = mRootRef.child("messages")
-                    .child(msellerUID).child(mbuyerUID).push();
+                    .child(msellerUID).child(mbuyerUID).child(mstuffID).push();
 
             String push_id = user_message_push.getKey();
 
             Map messageMap = new HashMap();
             messageMap.put("message", BoxStoreApplication.getCurrentUser().getName());
             messageMap.put("seen",false);
-            messageMap.put("type","BuyerBox");
+            messageMap.put("type","box");
             messageMap.put("time", ServerValue.TIMESTAMP);
             messageMap.put("sender",msellerUID);
 

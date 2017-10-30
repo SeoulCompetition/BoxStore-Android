@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/mapView"
+        android:layout_width="355dp"
+        android:layout_height="545dp">
+
+    </View>
+
+
+    <ImageView
+        android:id="@+id/popupMapImage"
+        android:layout_width="355dp"
+        android:layout_height="545dp"
+        android:padding="8dp"
+        android:src="@drawable/map_exam_image"
+        app:layout_constraintBottom_toBottomOf="@id/mapView"
+        app:layout_constraintEnd_toEndOf="@id/mapView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/mapView"
+        app:layout_constraintTop_toTopOf="@id/mapView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_popup_cancle_btn"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="29dp" />
+
+</android.support.constraint.ConstraintLayout>

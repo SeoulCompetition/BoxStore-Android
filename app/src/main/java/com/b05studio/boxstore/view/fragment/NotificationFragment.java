@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -116,7 +117,7 @@ public class NotificationFragment extends Fragment {
 
     public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder> {
 
-        private List<Notification> mNotifyList;
+        private List<Notification> mNotifyList = new ArrayList<>();
 
         public NotifyAdapter() {
 
@@ -174,7 +175,8 @@ public class NotificationFragment extends Fragment {
         public void refillAdapter(Notification newFireChatMessage){
 
         /*add new message chat to list*/
-            mNotifyList.add(newFireChatMessage);
+
+        mNotifyList.add(newFireChatMessage);
 
         /*refresh view*/
             notifyItemInserted(getItemCount()-1);

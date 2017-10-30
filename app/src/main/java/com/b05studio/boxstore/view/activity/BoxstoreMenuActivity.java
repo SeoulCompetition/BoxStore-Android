@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.util.BaseUtil;
@@ -51,33 +52,11 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.search_view_container)
-    public void onClickMoveToSearchViewButton() {
-        // TODO: 2017. 10. 30. 처리해야됨.
-        Intent intent = new Intent(BoxstoreMenuActivity.this,SearchActivity.class);
-        startActivity(intent);
-    }
-
-    @BindView(R.id.search_view_container)
-    SearchViewLayout searchViewLayout;
-
-
-//
-//    @BindView(R.id.app_bar_linear_layout)
-//    LinearLayout linearLayout;
-
-
-
-//    @BindView(R.id.searchViewLayout)
-//    SearchView searchView;
-//
-//    @OnClick(R.id.searchViewLayout)
-//    public void onClicksearchViewLayout() {
-//
+//    @OnClick(R.id.moveToSearchViewButton)
+//    public void moveToSearch() {
+//        Intent intent = new Intent(BoxstoreMenuActivity.this,SearchActivity.class);
+//        startActivity(intent);
 //    }
-
-
-//
 
 
     @Override
@@ -86,8 +65,6 @@ public class BoxstoreMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
        ButterKnife.bind(this);
-       searchViewLayout.setExpandedContentSupportFragment(this, new NotificationFragment());
-
 //        searchView.setQueryHint("상품명, 키워드, 역 이름으로 검색하세요.");
 
 //        final SearchViewLayout searchViewLayout = (SearchViewLayout) findViewById(R.id.search_view_container);

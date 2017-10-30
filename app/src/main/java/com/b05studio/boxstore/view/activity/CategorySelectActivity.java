@@ -19,6 +19,8 @@ import com.b05studio.boxstore.model.Category;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
+import com.squareup.picasso.Picasso;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -75,8 +77,6 @@ public class CategorySelectActivity extends AppCompatActivity {
     private void initReyclerView() {
         categorySelectLayoutManager = new LinearLayoutManager(getApplicationContext());
         categorySelectRecyclerView.setLayoutManager(categorySelectLayoutManager);
-
-
     }
 
     @Override
@@ -164,7 +164,7 @@ public class CategorySelectActivity extends AppCompatActivity {
         public void onBindViewHolder(final CategorySelectAdapter.ViewHolder holder, int position) {
             final Category categoryObject = categories.get(position);
             holder.categoryTitle.setText(categoryObject.getName());
-            Glide.with(holder.categoryImage.getContext()).load(categoryObject.getImageUrl())
+            Picasso.with(holder.categoryImage.getContext()).load(categoryObject.getImageUrl())
                     .into(holder.categoryImage);
             holder.categoryConstraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

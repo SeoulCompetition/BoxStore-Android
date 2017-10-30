@@ -70,6 +70,8 @@ public class ChatFragment extends Fragment {
     private String mRecipientId;
     private String mCurrentUserId;
 
+    private String stuffId;
+
     private MessageChatAdapter messageChatAdapter;
     private DatabaseReference messageChatDatabase;
     private ChildEventListener messageChatListener;
@@ -92,11 +94,12 @@ public class ChatFragment extends Fragment {
         ChatFragment chatFragment = new ChatFragment();
         return chatFragment;
     }
-    public static ChatFragment newInstance(String paramPrice, String paramStation){
+    public static ChatFragment newInstance(String paramPrice, String paramStation,String paramStuffId){
         ChatFragment chatFragment = new ChatFragment();
         Bundle args = new Bundle();
-        args.putString("buyerUID",paramPrice);
-        args.putString("sellerUID",paramStation);
+        args.putString("BuyerUID",paramPrice);
+        args.putString("SellerUID",paramStation);
+        args.putString("StuffID",paramStuffId);
         chatFragment.setArguments(args);
         return chatFragment;
     }
@@ -106,13 +109,15 @@ public class ChatFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mCurrentUserId = BoxStoreApplication.getCurrentUser().getuId();
-            if(mCurrentUserId.equals(getArguments().getString("buyerUID")))
+            if(mCurrentUserId.equals(getArguments().getString("BuyerUID")))
             {
                 //만약 현재 유저와 구매자의 uid가 같다면
-                mRecipientId = getArguments().getString("sellerUID");
+                mRecipientId = getArguments().getString("SellerUID");
             } else {
-                mRecipientId = getArguments().getString("buyerUID");
+                mRecipientId = getArguments().getString("BuyerUID");
             }
+
+            stuffId = getArguments().getString("StuffID");
 
         }
     }
@@ -138,7 +143,7 @@ public class ChatFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        DatabaseReference massageRef = mRootRef.child("messages").child(mCurrentUserId).child(mRecipientId);
+        DatabaseReference massageRef = mRootRef.child("messages").child(mCurrentUserId).child(mRecipientId).child(stuffId);
 
         Query messageQuery = massageRef.limitToLast(20);
         messageQuery.addChildEventListener(new ChildEventListener() {
@@ -226,11 +231,11 @@ public class ChatFragment extends Fragment {
         if(resultCode == RESULT_OK && requestCode == GALLERY_PICKED) {
             Uri imageUri = data.getData();
 
-            final String current_user_ref = "messages/" + mCurrentUserId + "/"+ mRecipientId;
-            final String chat_user_ref = "messages/" + mRecipientId + "/" + mCurrentUserId;
+            final String current_user_ref = "messages/"+ mCurrentUserId + "/"+ mRecipientId  +"/"+ stuffId;
+            final String chat_user_ref = "messages/"+ mRecipientId + "/" + mCurrentUserId  + "/"+ stuffId;
 
             DatabaseReference user_message_push = mRootRef.child("messages")
-                    .child(mCurrentUserId).child(mRecipientId).push();
+                    .child(mCurrentUserId).child(mRecipientId).child(stuffId).push();
 
             final String push_id = user_message_push.getKey();
 
@@ -246,10 +251,12 @@ public class ChatFragment extends Fragment {
                         //messageChatDatabase.push().setValue(newMessage);
 
                         Map messageMap = new HashMap();
+
                         messageMap.put("message",download_url);
-                        messageMap.put("recipient",mRecipientId);
-                        messageMap.put("sender",mCurrentUserId);
+                        messageMap.put("seen",false);
                         messageMap.put("type","image");
+                        messageMap.put("time", ServerValue.TIMESTAMP);
+                        messageMap.put("sender",mCurrentUserId);
 
                         Map messageUserMap = new HashMap();
 
@@ -277,11 +284,12 @@ public class ChatFragment extends Fragment {
         String message = mUserMessageChatText.getText().toString();
 
         if(!TextUtils.isEmpty(message)){
-            String current_user_ref ="messages/" + mCurrentUserId + "/" +mRecipientId;
-            String chat_user_ref = "messages/" + mRecipientId + "/" + mCurrentUserId;
+            final String current_user_ref = "messages/"+ mCurrentUserId + "/"+ mRecipientId  +"/"+ stuffId;
+            final String chat_user_ref = "messages/"+ mRecipientId + "/" + mCurrentUserId  + "/" + stuffId;
+
 
             DatabaseReference user_message_push = mRootRef.child("messages")
-                    .child(mCurrentUserId).child(mRecipientId).push();
+                    .child(mCurrentUserId).child(mRecipientId).child(stuffId).push();
 
             String push_id = user_message_push.getKey();
 

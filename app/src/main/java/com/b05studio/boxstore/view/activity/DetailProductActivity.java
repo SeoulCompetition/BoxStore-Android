@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
@@ -15,8 +16,14 @@ import com.b05studio.boxstore.model.Stuff;
 import com.b05studio.boxstore.view.adapter.DetailProductPagerAdapter;
 import com.b05studio.boxstore.view.fragment.HomeFragment;
 import com.b05studio.boxstore.view.fragment.MainStuffFragment;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.rd.PageIndicatorView;
 import com.rd.animation.type.AnimationType;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +33,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class DetailProductActivity extends AppCompatActivity {
 
 
+    private DatabaseReference mNotificationDatabase;
+    private DatabaseReference mRootRef;
+
     @OnClick(R.id.detailProductScrapButton)
     public void onClickDetailProductScrap() {
         // TODO: 2017-10-30 담아두기버튼눌렀을때
@@ -33,11 +43,40 @@ public class DetailProductActivity extends AppCompatActivity {
 
     @OnClick(R.id.detailProductSellButton)
     public void onClickDetailPrdouctSell() {
+
+        String user_id = selectedStuff.getSellerId().getUid();
+
+        DatabaseReference newNotificationref = mRootRef.child("notifications").child(user_id).push();
+        String newNotificationId = newNotificationref.getKey();
+
+        HashMap<String,String> notificationData = new HashMap<>();
+        notificationData.put("stuff_name",selectedStuff.getStuffName());
+        notificationData.put("name",BoxStoreApplication.getCurrentUser().getName());
+        notificationData.put("from",BoxStoreApplication.getCurrentUser().getuId());
+        notificationData.put("type","request");
+        notificationData.put("device_token",selectedStuff.getSellerId().getUserToken());
+
+        Map requestMap = new HashMap();
+        requestMap.put("Question_req/"+ BoxStoreApplication.getCurrentUser().getuId() + "/" + user_id + "/request_type","sent");
+        requestMap.put("Question_req/"+ user_id + "/" + BoxStoreApplication.getCurrentUser().getuId() + "/request_type","received");
+        requestMap.put("notifications/" + user_id + "/" + newNotificationId,notificationData);
+
+        mRootRef.updateChildren(requestMap, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if(databaseError != null) {
+                    Toast.makeText(DetailProductActivity.this,"There was some error in seding request",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
         Intent intent = new Intent(this,ChatActivity.class);
 
         //상품 이미지배열 첫번째
         //상품 이름
         //상품 가격
+        intent.putExtra("StuffID",selectedStuff.getId());
         intent.putExtra("BuyerName",BoxStoreApplication.getCurrentUser().getuId());
         intent.putExtra("BuyerUID", BoxStoreApplication.getCurrentUser().getuId());
         intent.putExtra("SellerName",selectedStuff.getSellerId().getName());
@@ -87,6 +126,9 @@ public class DetailProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
         ButterKnife.bind(this);
+
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+        mNotificationDatabase = FirebaseDatabase.getInstance().getReference().child("notifications");
 
         selectedStuff = MainStuffFragment.selectedStuff;
         initProductImageViewPager();

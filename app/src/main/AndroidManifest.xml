@@ -95,6 +95,7 @@
         <activity android:name=".view.activity.ChatActivity"></activity>
         <activity android:name=".view.activity.BuyerTransactionActivity"></activity>
         <activity android:name=".view.activity.SellerTransactionActivity"></activity>
+        <activity android:name=".view.activity.LockerLocationActivity"></activity>
     </application>
 
 </manifest>

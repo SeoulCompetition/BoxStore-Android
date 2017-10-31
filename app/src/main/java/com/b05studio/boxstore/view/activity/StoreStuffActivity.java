@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 
 public class StoreStuffActivity extends AppCompatActivity {
 
-    @BindView()
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -2,12 +2,10 @@ package com.b05studio.boxstore.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,8 +17,6 @@ import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.b05studio.boxstore.util.BaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -114,7 +110,7 @@ public class IdentificationActivity extends AppCompatActivity {
         // TODO: 2017-10-07 ResendCode 처리
 //        resendVerificationCode("01043019700",mResendToken);
 
-//        mAuth = FirebaseAuth.getInstance();
+       mAuth = FirebaseAuth.getInstance();
 //        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 //
 //            @Override

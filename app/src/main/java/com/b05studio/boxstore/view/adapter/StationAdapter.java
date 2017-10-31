@@ -1,6 +1,7 @@
 package com.b05studio.boxstore.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
@@ -12,10 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
-import com.b05studio.boxstore.model.Item;
 import com.b05studio.boxstore.model.Stuff;
+import com.b05studio.boxstore.view.activity.DetailProductActivity;
+import com.b05studio.boxstore.view.fragment.MainStuffFragment;
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -48,11 +49,15 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ItemView
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
-        Stuff stuff = stuffList.get(position);
+        final Stuff stuff = stuffList.get(position);
         String url = stuff.getSellerId().getPhotoURL();
         if(url != null) {
             Glide.with(context)
                     .load(url)
+                    .into(holder.profile_image);
+        } else {
+            Glide.with(context)
+                    .load(R.drawable.ic_empty_profile)
                     .into(holder.profile_image);
         }
         Glide.with(context)
@@ -62,6 +67,14 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.ItemView
         holder.item_title.setText(stuff.getStuffName());
         holder.item_price.setText(String.valueOf(stuff.getPrice()) + " 원");
         holder.profile_name.setText(stuff.getSellerId().getName());
+        holder.item_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailProductActivity.class);
+                MainStuffFragment.selectedStuff = stuff;
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

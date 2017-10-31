@@ -54,6 +54,7 @@ public class HorizonStationAdapter extends RecyclerView.Adapter<HorizonStationAd
             selectedIndex = getAdapterPosition();
             notifyItemChanged(selectedIndex);
             HomeFragment.getStationInformation(stations.get(selectedIndex));
+
         }
     }
 

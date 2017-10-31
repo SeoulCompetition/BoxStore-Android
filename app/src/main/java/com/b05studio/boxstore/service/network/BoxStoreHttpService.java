@@ -1,6 +1,7 @@
 package com.b05studio.boxstore.service.network;
 
 import com.b05studio.boxstore.model.BoxstoreUser;
+import com.b05studio.boxstore.model.Keyword;
 import com.b05studio.boxstore.model.Product;
 import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
@@ -67,8 +68,8 @@ public interface BoxStoreHttpService {
     Call<StuffGetResponse> getLatelyProductList();
 
 //     키워드등록
-//     @POST("/users/keywords")
-//     Call
+     @POST("/users/keywords")
+     Call<BoxtorePostResponse> postKeyword(@Body Keyword keyword);
 
     // 키워드가져오기
     @GET("/users/{uid}/keywords")

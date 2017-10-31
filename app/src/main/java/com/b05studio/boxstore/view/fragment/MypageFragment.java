@@ -16,8 +16,6 @@ import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
-import com.b05studio.boxstore.model.ChatMessage;
-import com.b05studio.boxstore.view.adapter.MessageChatAdapter;
 import com.b05studio.boxstore.view.adapter.UserRecordAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -59,7 +57,12 @@ public class MypageFragment extends Fragment {
         ButterKnife.bind(this,view);
         initRecyclerView();
 
-        Picasso.with(getContext()).load(BoxStoreApplication.getCurrentUser().getPhotoURL()).into(circleImageView);
+        String photourl = BoxStoreApplication.getCurrentUser().getPhotoURL();
+        if(photourl != null)
+            Picasso.with(getContext()).load(photourl).into(circleImageView);
+        else {
+            Picasso.with(getContext()).load(R.drawable.ic_empty_profile).into(circleImageView);
+        }
         textView.setText(BoxStoreApplication.getCurrentUser().getName());
         return view;
     }

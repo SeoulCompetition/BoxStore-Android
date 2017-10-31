@@ -52,7 +52,6 @@
         app:layout_constraintTop_toTopOf="@+id/sellTitlebar" />
 
     <android.support.v7.widget.RecyclerView
-
         android:id="@+id/keywordRecyclerview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

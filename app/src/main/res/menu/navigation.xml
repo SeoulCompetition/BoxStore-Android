@@ -10,7 +10,7 @@
     <item
         android:id="@+id/navigation_category"
         android:orderInCategory="1"
-        android:icon="@drawable/ic_bottom_category"
+        android:icon="@drawable/ic_bottom_catgory"
         android:title="@string/title_category"/>
 
     <item

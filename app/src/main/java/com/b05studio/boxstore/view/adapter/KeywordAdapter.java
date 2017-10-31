@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
@@ -32,23 +31,19 @@ public class KeywordAdapter extends RecyclerView.Adapter<KeywordAdapter.ViewHold
 
     @Override
     public KeywordAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.keyword_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_keyword, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(KeywordAdapter.ViewHolder holder, final int position) {
-
-        holder.keywordImage.setImageResource(R.drawable.ic_actionbar_shop);
         holder.keywordText.setText(mkeywordList.get(position));
-        holder.keywordCancleBtn.setImageResource(R.drawable.ic_image_add);
         holder.keywordCancleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 delete(position);
             }
         });
-
     }
 
     public void addItem(int position,String infoData) {
@@ -56,9 +51,9 @@ public class KeywordAdapter extends RecyclerView.Adapter<KeywordAdapter.ViewHold
         mkeywordList.add(position, infoData);
         notifyItemInserted(position);
     }
+
     private void delete(int position) {
         try{
-
             mkeywordList.remove(position);
             notifyItemRemoved(position);
 
@@ -79,11 +74,10 @@ public class KeywordAdapter extends RecyclerView.Adapter<KeywordAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.keyword_icon)
-        ImageView keywordImage;
-        @BindView(R.id.keyword_text)
+        @BindView(R.id.keywordCardTextview)
         TextView keywordText;
-        @BindView(R.id.keyword_cancel_btn)
+
+        @BindView(R.id.keywordDeleteBtn)
         ImageButton keywordCancleBtn;
 
         public ViewHolder(View itemView) {

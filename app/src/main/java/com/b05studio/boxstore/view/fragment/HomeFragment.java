@@ -118,8 +118,6 @@ public class HomeFragment extends Fragment {
 
         mRankRecyclerview = (RecyclerView) view.findViewById(R.id.mainRankRecyclerView);
 
-
-
         initGetLatelyRegistProduct(view);
         initGetStationRegistProduct();
         initStationRecyclerView();
@@ -140,15 +138,17 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
                 if (response.isSuccessful()) {
                     List<Stuff> stuffs = response.body().getStuffs();
-                    mainNewProductStationPagerAdapter  = new MainProductPagerAdapter(getFragmentManager(), stuffs);
-                    boxtoreNewMenuStationViewPager.setAdapter(mainNewProductStationPagerAdapter);
-                    boxtoreNewMenuStationViewPager.setCurrentItem(0);
+                    if(stuffs.size() != 0) {
+                        mainNewProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), stuffs);
+                        boxtoreNewMenuStationViewPager.setAdapter(mainNewProductStationPagerAdapter);
+                        boxtoreNewMenuStationViewPager.setCurrentItem(0);
 
-                    mainNewStaionProductViewPagerIndicator.setViewPager(boxtoreNewMenuStationViewPager);
-                    mainNewStaionProductViewPagerIndicator.setSelectedColor(Color.parseColor("#4B65A7"));
-                    mainNewStaionProductViewPagerIndicator.setUnselectedColor(Color.parseColor("#F1F1F1"));
-                    mainNewStaionProductViewPagerIndicator.setAnimationType(AnimationType.DROP);
-                    mainNewProductStationPagerAdapter.notifyDataSetChanged();
+                        mainNewStaionProductViewPagerIndicator.setViewPager(boxtoreNewMenuStationViewPager);
+                        mainNewStaionProductViewPagerIndicator.setSelectedColor(Color.parseColor("#4B65A7"));
+                        mainNewStaionProductViewPagerIndicator.setUnselectedColor(Color.parseColor("#F1F1F1"));
+                        mainNewStaionProductViewPagerIndicator.setAnimationType(AnimationType.DROP);
+                        mainNewProductStationPagerAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -161,12 +161,12 @@ public class HomeFragment extends Fragment {
 
 }
 
-    private void initGetStationRegistProduct() {
+    public void initGetStationRegistProduct() {
         // TODO: 2017. 10. 29. 역이름 으로 요청하는거 만들기
         getStuffListByStaionName("서울역");
     }
 
-    private void getStuffListByStaionName(String name) {
+    public void getStuffListByStaionName(String name) {
 
         Retrofit retrofit = BoxStoreApplication.getRetrofit();
         Call<StuffGetResponse> stuffGetResponseCall = retrofit.create(BoxStoreHttpService.class).getStuffListByStationName(name);
@@ -174,8 +174,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<StuffGetResponse> call, Response<StuffGetResponse> response) {
                 if (response.isSuccessful()) {
-                    List<Stuff> stuffs = response.body().getStuffs();
-
+                    List<Stuff> stuffs = new ArrayList<>();
+                    stuffs = response.body().getStuffs();
+                    if(stuffs.size() != 0) {
                         mainProductStationPagerAdapter = new MainProductPagerAdapter(getFragmentManager(), stuffs);
                         boxtoreMenuStationViewPager.setAdapter(mainProductStationPagerAdapter);
                         boxtoreMenuStationViewPager.setCurrentItem(0);
@@ -185,6 +186,7 @@ public class HomeFragment extends Fragment {
                         boxtoreMenuStationViewPagerIndicator.setAnimationType(AnimationType.DROP);
 
                         mainProductStationPagerAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -281,13 +283,17 @@ public class HomeFragment extends Fragment {
             case "9호선":
                 subStations = Arrays.asList("노량진", "당산");
                 break;
-        }
+            }
+
+
         subStationAdapter.notifyDataSetChanged();
     }
 
     public class HorizonStationSubAdapter extends RecyclerView.Adapter<HorizonStationSubAdapter.ViewHolder> {
 
+        public HorizonStationSubAdapter() {
 
+        }
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             @BindView(R.id.cardSubStationImageButton)
@@ -300,8 +306,10 @@ public class HomeFragment extends Fragment {
                 super(itemView);
                 ButterKnife.bind(this, itemView);
                 itemView.setOnClickListener(this);
+
                 cardSubImageButton.setOnClickListener(this);
                 cardSubTextView.setOnClickListener(this);
+
             }
 
             @Override
@@ -319,16 +327,20 @@ public class HomeFragment extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_sub_station, parent, false);
+
             return new HorizonStationSubAdapter.ViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
+
             holder.cardSubTextView.setText(subStations.get(position));
 
             if (selectedIndex == position) {
                 holder.cardSubTextView.setTextColor(Color.parseColor("#ffffff"));
                 holder.cardSubImageButton.setImageResource(R.drawable.card_station_sub_click);
+                getStuffListByStaionName(subStations.get(selectedIndex));
+
             } else {
                 holder.cardSubTextView.setTextColor(Color.parseColor("#4B65A7"));
                 holder.cardSubImageButton.setImageResource(R.drawable.card_station_sub_circular);

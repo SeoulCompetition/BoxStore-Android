@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -36,12 +35,6 @@ import com.b05studio.boxstore.util.FileUtils;
 import com.bumptech.glide.Glide;
 import com.esafirm.imagepicker.features.camera.CameraModule;
 import com.esafirm.imagepicker.features.camera.ImmediateCameraModule;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 
 import java.io.File;
 import java.util.ArrayList;
@@ -49,21 +42,16 @@ import java.util.List;
 import java.util.UUID;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
-import static android.R.attr.data;
 
 public class SellActivity extends AppCompatActivity {
 
@@ -216,22 +204,26 @@ public class SellActivity extends AppCompatActivity {
             return;
         }
 
-        UUID uuid = UUID.randomUUID();
+        final UUID uuid = UUID.randomUUID();
         final String productionId = uuid.toString();
 
         Product product = new Product(BoxStoreApplication.getCurrentUser().getuId(), productName, category, state, type, detailText, price, station, productionId);
-        List<MultipartBody.Part> parts = new ArrayList<>();
+        final List<MultipartBody.Part> parts = new ArrayList<>();
 
         for (int i = 0; i < imagePath.size(); i++) {
             parts.add(prepareFilePart("photo", imagePath.get(i)));
         }
 
-        Retrofit retrofit = BoxStoreApplication.getRetrofit();
+        final Retrofit retrofit = BoxStoreApplication.getRetrofit();
         Call<BoxtorePostResponse> responseProductBodyCall = retrofit.create(BoxStoreHttpService.class).uplodeProduct(product);
         responseProductBodyCall.enqueue(new Callback<BoxtorePostResponse>() {
             @Override
             public void onResponse(Call<BoxtorePostResponse> call, Response<BoxtorePostResponse> response) {
                 // 상품을 먼저올림.
+
+
+
+
             }
 
             @Override
@@ -245,6 +237,7 @@ public class SellActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BoxtorePostResponse> call, Response<BoxtorePostResponse> response) {
                 // 상품을 먼저올림.
+
             }
 
             @Override
@@ -252,6 +245,9 @@ public class SellActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+
+        Toast.makeText(getApplicationContext(),"상품이 등록되었습니다",Toast.LENGTH_LONG).show();
+        finish();
 
 //        ArrayList<MultipartBody.Part> images = new ArrayList<>();
 //        for (int i = 0 ; i < imagePath.size() ; i++) {

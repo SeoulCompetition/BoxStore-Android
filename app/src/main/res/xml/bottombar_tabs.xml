@@ -5,7 +5,7 @@
         title="홈" />
     <tab
         id="@+id/navigation_category"
-        icon="@drawable/ic_bottom_category"
+        icon="@drawable/ic_bottom_catgory"
         title="카테고리" />
     <tab
         id="@+id/navigation_sell"

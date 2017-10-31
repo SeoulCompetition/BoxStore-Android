@@ -54,18 +54,19 @@ public class IdentificationActivity extends AppCompatActivity {
     @OnClick(R.id.identifyRequestAuthCodeButton)
     public void onClickRequestAuthCodeButton() {
 
-        Toast.makeText(getApplicationContext(),"문자메시지로 전송된 인증번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),"문자메시지로 전송된 인증번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"테스터는 사용할수 없습니다.", Toast.LENGTH_SHORT).show();
 
-        if (!validatePhoneNumber())
-            return;
-
-        if(isFirstTimeGetToken) {
-            startPhoneNumberVerification(phoneEditText.getText().toString());
-            isFirstTimeGetToken = false;
-
-        } else {
-            resendVerificationCode(phoneEditText.getText().toString(), mResendToken);
-        }
+//        if (!validatePhoneNumber())
+//            return;
+//
+//        if(isFirstTimeGetToken) {
+//            startPhoneNumberVerification(phoneEditText.getText().toString());
+//            isFirstTimeGetToken = false;
+//
+//        } else {
+//            resendVerificationCode(phoneEditText.getText().toString(), mResendToken);
+//        }
     }
 
     @OnClick(R.id.identifyNextButton)
@@ -172,6 +173,7 @@ public class IdentificationActivity extends AppCompatActivity {
         BoxstoreUser currentUser = BoxStoreApplication.getCurrentUser();
         final String uid = currentUser.getuId();
         final String name = userNameEditText.getText().toString().length() == 0 ? "Tester" : userNameEditText.getText().toString();
+
         final String email = currentUser.getEmail();
         final String photoUrl = currentUser.getPhotoURL();
         final String phoneNum = phoneEditText.getText().toString();
@@ -213,6 +215,9 @@ public class IdentificationActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         currentFirebaseUser = mAuth.getCurrentUser();
+        String name = currentFirebaseUser.getDisplayName();
+        if(name != null)
+            userNameEditText.setText(name);
 
     }
 

@@ -1,6 +1,5 @@
 package com.b05studio.boxstore.view.activity;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,9 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.afollestad.materialcamera.MaterialCamera;
 import com.b05studio.boxstore.R;
 
 import butterknife.BindView;
@@ -30,6 +27,9 @@ public class  KeywordAddActivity extends AppCompatActivity{
     @BindView(R.id.keyword_icon)
     ImageView keywordIcon;
 
+    private String keyword = "";
+    private String category = "";
+
     @OnClick(R.id.category_view)
     public void onClickCategorySelected() {
         Intent intent = new Intent(KeywordAddActivity.this, CategorySelectActivity.class);
@@ -38,8 +38,6 @@ public class  KeywordAddActivity extends AppCompatActivity{
 
     @BindView(R.id.category_explain)
     TextView categoryTextView;
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,15 +55,18 @@ public class  KeywordAddActivity extends AppCompatActivity{
 
     @OnClick(R.id.addKeywordBtn)
     public void onClickAddBtn(){
-        String getKeyword = editKeyword.getText().toString();
-        //
+        keyword = editKeyword.getText().toString();
+        Intent intent = new Intent();
+        if(!keyword.equals("")) intent.putExtra("keyword", keyword);
+        if(!category.equals("")) intent.putExtra("category",category);
+        setResult(0,intent);
         finish();
     }
 
     @Override
     protected void onDestroy(){      //액티비티가 종료될 때의 메서드
         super.onDestroy();
-        setResult( 0 ); // 여기에 넣는 int형 정수는 MainActivity의 onActivityResult안에서 requestCode로 들어간다.
+
     }
 
 
@@ -77,6 +78,7 @@ public class  KeywordAddActivity extends AppCompatActivity{
         if( requestCode == SELECT_CATEGORY_BUTTON) {
             String category = data.getStringExtra("category");
             categoryTextView.setText(category);
+            this.category = category;
         }
     }
 }

@@ -84,7 +84,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<UserGetResponse> call, Throwable t)
             {
-                Toast.makeText(SplashActivity.this,"서버상태와 인터넷 연결상태를 확인해주세요.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SplashActivity.this,"서버 상태를 확인해주세요.",Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });

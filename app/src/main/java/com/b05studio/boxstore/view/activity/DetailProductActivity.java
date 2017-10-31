@@ -121,8 +121,14 @@ public class DetailProductActivity extends AppCompatActivity {
     @BindView(R.id.detailProductStateTextView)
     TextView detailProductStateTextView;
 
+    @BindView(R.id.detailProductStateImageViewReal)
+    ImageView detailProductStateImageViewReal;
+
+
     @BindView(R.id.detailPrductDescriptionTextView)
     TextView detailPrductDescriptionTextView;
+
+
 
     private Stuff selectedStuff;
 
@@ -153,9 +159,13 @@ public class DetailProductActivity extends AppCompatActivity {
     private void initProductInfomationView() {
         detailProductNameTitleTextview.setText(selectedStuff.getStuffName());
         detailProductNameTextview.setText(selectedStuff.getStuffName());
-        detailProductPriceTextview.setText(String.valueOf(selectedStuff.getPrice()));
-//        detailProductStateImageView.setImageResource(selectedStuff.get);
-//        detailProductStateTextView.setText(selectedStuff.get);
+        detailProductPriceTextview.setText(String.valueOf(selectedStuff.getPrice()) +" 원");
+
+        String productState = selectedStuff.getProductState();
+        if(productState.equals("미개봉")) detailProductStateImageViewReal.setImageResource(R.drawable.ic_sell_no_open_state_check);
+        else if(productState.equals("중고상품")) detailProductStateImageViewReal.setImageResource(R.drawable.ic_sell_new_state_check);
+        else if(productState.equals("하자있음")) detailProductStateImageViewReal.setImageResource(R.drawable.ic_sell_not_good_state_check);
+        detailProductStateTextView.setText(selectedStuff.getPostType());
         detailPrductDescriptionTextView.setText(selectedStuff.getStuffInfo());
     }
 

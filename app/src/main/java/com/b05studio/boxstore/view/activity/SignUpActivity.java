@@ -49,8 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     @OnClick(R.id.signupNextButton)
     public void moveIdenficationAcitivity() {
-        // TODO: 2017-10-01  서버에서 검증하는거 구현해야됨.
-        // TODO: 2017-09-25 유효값 검증 기능을 구현해야됨.
+
         if (!alreadyRegisterID() && isEqualPassword()) {
             createEmailAndPassWordUser();
 
@@ -105,7 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void createEmailAndPassWordUser() {
         final String email = idEditText.getText().toString();
         final String password = passwordEditText.getText().toString();
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -113,12 +112,15 @@ public class SignUpActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
                             BoxStoreApplication.getCurrentUser().setEmail(email);
+                            BoxStoreApplication.getCurrentUser().setuId(user.getUid());
                             BaseUtil.moveActivity(SignUpActivity.this, IdentificationActivity.class);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                            Toast.makeText(SignUpActivity.this, "형식을 다시 확인해주세요.",
                                     Toast.LENGTH_SHORT).show();
 
                         }

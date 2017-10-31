@@ -12,16 +12,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.b05studio.boxstore.R;
+import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.ChatMessage;
 import com.b05studio.boxstore.view.adapter.MessageChatAdapter;
 import com.b05studio.boxstore.view.adapter.UserRecordAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MypageFragment extends Fragment {
 
@@ -29,6 +34,13 @@ public class MypageFragment extends Fragment {
 
     @BindView(R.id.userRecordRecyclerview)
     RecyclerView userRecordRecyclerView;
+
+    @BindView(R.id.myPageUserProfile)
+    CircleImageView circleImageView;
+
+    @BindView(R.id.myPageUserId)
+    TextView textView;
+
     //빈 생성자
     public MypageFragment(){
 
@@ -46,6 +58,9 @@ public class MypageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mypage, container, false);
         ButterKnife.bind(this,view);
         initRecyclerView();
+
+        Picasso.with(getContext()).load(BoxStoreApplication.getCurrentUser().getPhotoURL()).into(circleImageView);
+        textView.setText(BoxStoreApplication.getCurrentUser().getName());
         return view;
     }
 

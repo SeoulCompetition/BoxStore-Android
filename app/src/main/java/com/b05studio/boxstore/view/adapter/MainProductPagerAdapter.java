@@ -21,7 +21,6 @@ public class MainProductPagerAdapter extends FragmentStatePagerAdapter  {
 
     int pageNum;
     int productCount = 0;
-    int count = 1;
 
 
     public MainProductPagerAdapter(FragmentManager fm, List<Stuff> stuffs) {
@@ -29,6 +28,7 @@ public class MainProductPagerAdapter extends FragmentStatePagerAdapter  {
         this.stuffs = stuffs;
         if(stuffs.size() % 3 == 0) {
             pageNum = stuffs.size() / 3;
+            productCount = 3;
         } else {
             pageNum = stuffs.size() / 3 + 1;
             productCount = stuffs.size() % 3;

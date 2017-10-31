@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
-        android:text="키워드"
+        android:text="키워드 리스트"
         android:textColor="#ffffff"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/sellTitlebar"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="@color/seoul"
-        android:src="@drawable/ic_actionbar_shop"
+        android:src="@drawable/ic_keyword_add"
         app:layout_constraintBottom_toBottomOf="@+id/sellTitlebar"
         app:layout_constraintRight_toRightOf="@+id/sellTitlebar"
         app:layout_constraintTop_toTopOf="@+id/sellTitlebar" />

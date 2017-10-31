@@ -172,13 +172,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:text="미개봉"
+                android:text="판매"
                 android:textColor="#4B65A7"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@+id/detailProductStateImageView"
                 app:layout_constraintLeft_toLeftOf="@+id/detailProductStateImageView"
                 app:layout_constraintRight_toRightOf="@+id/detailProductStateImageView"
                 app:layout_constraintTop_toTopOf="@+id/detailProductStateImageView" />
+
+
+            <ImageView
+                android:id="@+id/detailProductStateImageViewReal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_sell_new_state_check"
+                app:layout_constraintLeft_toLeftOf="@+id/detailProductBasicInfoView"
+                app:layout_constraintTop_toBottomOf="@+id/detailProductPriceTextview"
+                />
 
             <TextView
                 android:id="@+id/detailPrductDescriptionTextView"
@@ -188,7 +200,7 @@
                 android:layout_marginBottom="28dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="12dp"
                 android:text="슈프림 X 노스페이스 아노락 팝니다.\n
@@ -200,7 +212,7 @@ M 사이즈에 미개봉 상태입니다.\n
                 app:layout_constraintBottom_toBottomOf="@+id/detailProductBasicInfoView"
                 app:layout_constraintLeft_toLeftOf="@+id/detailProductBasicInfoView"
                 app:layout_constraintRight_toRightOf="@+id/detailProductBasicInfoView"
-                app:layout_constraintTop_toBottomOf="@+id/detailProductPriceTextview" />
+                app:layout_constraintTop_toBottomOf="@+id/detailProductStateImageViewReal" />
 
         </android.support.constraint.ConstraintLayout>
 

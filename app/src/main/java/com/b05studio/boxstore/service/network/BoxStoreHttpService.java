@@ -4,6 +4,7 @@ import com.b05studio.boxstore.model.BoxstoreUser;
 import com.b05studio.boxstore.model.Product;
 import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
+import com.b05studio.boxstore.service.response.KeywordGetResponse;
 import com.b05studio.boxstore.service.response.RankStationGetResponse;
 import com.b05studio.boxstore.service.response.StuffGetResponse;
 import com.b05studio.boxstore.service.response.UserGetResponse;
@@ -55,28 +56,26 @@ public interface BoxStoreHttpService {
     @GET("/stuffs/lately/{stationName}")
     Call<StuffGetResponse> getStuffListByStationName(@Path(value="stationName", encoded = true) String stationName);
 
+    @GET("/stuffs/search/{keyword}")
+    Call<StuffGetResponse> getStuffListByKeywordName(@Path(value="keyword", encoded = true) String keyword);
+
     @GET("/stuffs/list/{categoryName}")
     Call<StuffGetResponse> getStuffListByCategoryName(@Path(value="categoryName", encoded = true) String categoryName);
-
-
-
-
 
     // 최근 등록된 상품 열람
     @GET("/stuffs")
     Call<StuffGetResponse> getLatelyProductList();
 
-    // 키워드등록
-    // @POST("/users/keywords")
-    // @GET("/users/{id}/keywords")
+//     키워드등록
+//     @POST("/users/keywords")
+//     Call
 
-    // 신고 내역찾는거 띄우기
-//    @POST("/stuffs")
-//    Call<>
+    // 키워드가져오기
+    @GET("/users/{uid}/keywords")
+    Call<KeywordGetResponse> getKeywordList(@Path(value="uid", encoded = true) String uid);
 
-
-
-
+    // 경찰청 사기꾼검색
+    // 지도가져오기
 
 
 

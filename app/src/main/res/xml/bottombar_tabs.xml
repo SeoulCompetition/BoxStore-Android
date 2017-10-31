@@ -1,0 +1,22 @@
+<tabs>
+    <tab
+        id="@+id/navigation_home"
+        icon="@drawable/ic_bottom_home"
+        title="홈" />
+    <tab
+        id="@+id/navigation_category"
+        icon="@drawable/ic_bottom_category"
+        title="카테고리" />
+    <tab
+        id="@+id/navigation_sell"
+        icon="@drawable/ic_bottom_sell"
+        title="판매하기" />
+    <tab
+        id="@+id/navigation_notifications"
+        icon="@drawable/ic_bottom_notification"
+        title="알림" />
+    <tab
+        id="@+id/navigation_mypage"
+        icon="@drawable/ic_bottom_mypage"
+        title="마이페이지" />
+</tabs>

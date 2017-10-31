@@ -45,4 +45,9 @@
 
 </style>
 
+    <style name="MyTextAppearance">
+        <item name="android:textSize">10sp</item>
+        <item name="android:includeFontPadding">false </item>
+    </style>
+
 </resources>

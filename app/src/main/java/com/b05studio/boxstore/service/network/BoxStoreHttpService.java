@@ -76,6 +76,9 @@ public interface BoxStoreHttpService {
     Call<KeywordGetResponse> getKeywordList(@Path(value="uid", encoded = true) String uid);
 
     // 경찰청 사기꾼검색
+    @GET("/cheat/{uid}")
+    Call<BoxtorePostResponse> checkCriminal(@Path(value="uid", encoded = true) String uid);
+
     // 지도가져오기
 
 

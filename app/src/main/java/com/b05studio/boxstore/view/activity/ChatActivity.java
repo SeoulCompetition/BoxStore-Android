@@ -1,25 +1,29 @@
 package com.b05studio.boxstore.view.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
-import com.b05studio.boxstore.util.ExtraIntent;
-import com.b05studio.boxstore.view.fragment.BuyerTransactionFragment;
+import com.b05studio.boxstore.service.network.BoxStoreHttpService;
+import com.b05studio.boxstore.service.response.BoxtorePostResponse;
+import com.b05studio.boxstore.view.dialog.CheckCriminalDialog;
 import com.b05studio.boxstore.view.fragment.ChatFragment;
-import com.b05studio.boxstore.view.fragment.HomeFragment;
-import com.b05studio.boxstore.view.fragment.SellerTransactionFragment;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -46,6 +50,8 @@ public class ChatActivity extends AppCompatActivity {
     private String itemName;
 
     private String userState = "";
+
+    private CheckCriminalDialog checkCriminalDialog;
 
 
     @Override
@@ -122,6 +128,27 @@ public class ChatActivity extends AppCompatActivity {
     }
     @OnClick(R.id.searchCheaterBtn)
     public void onClickSearch(){
-        //todo : 구매자가 사기꾼을 조회한다.
+        // 구매자 사기꾼 조회하는 부분..
+
+        Retrofit retrofit = BoxStoreApplication.getRetrofit();
+        Call<BoxtorePostResponse> checkCriminalCall = retrofit.create(BoxStoreHttpService.class).checkCriminal(sellerUId);
+        checkCriminalCall.enqueue(new Callback<BoxtorePostResponse>() {
+            @Override
+            public void onResponse(Call<BoxtorePostResponse> call, Response<BoxtorePostResponse> response) {
+                BoxtorePostResponse checkCriminalRes = response.body();
+                if(response.isSuccessful()) {
+                    Log.d("더치트 api","성공인가");
+                    // TODO: 2017. 10. 31. 여기에 메시지 띄우기...!
+                    checkCriminalDialog = new CheckCriminalDialog(ChatActivity.this,checkCriminalRes.getMessage());
+                    checkCriminalDialog.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BoxtorePostResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
     }
 }

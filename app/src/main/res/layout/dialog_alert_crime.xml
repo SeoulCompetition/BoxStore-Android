@@ -31,9 +31,11 @@
         android:layout_height="wrap_content"
         android:textSize="13sp"
         android:text="인터넷 사기피해 사고여부 조회 결과"
-        app:layout_constraintLeft_toLeftOf="@+id/ic_cyber_security_imageView"
+        android:textColor="#000000"
+        app:layout_constraintLeft_toRightOf="@+id/ic_cyber_security_imageView"
         app:layout_constraintTop_toTopOf="@+id/ic_cyber_security_imageView"
         app:layout_constraintBottom_toBottomOf="@+id/ic_cyber_security_imageView"
+        android:layout_marginStart="6dp"
         />
 
     <ImageButton
@@ -41,8 +43,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        app:layout_constraintTop_toTopOf="@+id/ic_cyber_security_imageView"
-        app:layout_constraintRight_toRightOf="@+id/ic_cyber_security_imageView"
+        android:src="@drawable/alert_dialog_exit_button"
+        app:layout_constraintTop_toTopOf="@+id/alertDialogCheckCrime"
+        app:layout_constraintRight_toRightOf="@+id/alertDialogCheckCrime"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/dialogDivdeLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/alert_diallog_devide_line"
+        app:layout_constraintLeft_toLeftOf="@+id/alertDialogCheckCrime"
+        app:layout_constraintRight_toRightOf="@+id/alertDialogCheckCrime"
+        app:layout_constraintTop_toBottomOf="@+id/ic_cyber_security_imageView"
+        android:layout_marginTop="12dp"
+        />
+
+    <TextView
+        android:id="@+id/checkPrimeResultTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/alertDialogCheckCrime"
+        app:layout_constraintRight_toRightOf="@+id/alertDialogCheckCrime"
+        app:layout_constraintTop_toBottomOf="@+id/dialogDivdeLine"
+        app:layout_constraintBottom_toBottomOf="@+id/alertDialogCheckCrime"
+        android:textAlignment="center"
+        android:layout_marginStart="90dp"
+        android:layout_marginEnd="90dp"
+        android:text="최근3개월내 3건 이상\n접수된 민원이 없습니다."
+        android:textSize="12sp"
+        android:textColor="#000000"
         />
 
 

@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,6 +136,19 @@ public class ChatFragment extends Fragment {
         //mRootRef.keepSynced(true);
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
+        mUserMessageChatText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    //Enter키눌렀을떄 처리
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
         setDatabaseInstance();
         setUsersId();
         return view;
@@ -164,9 +178,8 @@ public class ChatFragment extends Fragment {
                         {
                             newMessage.setRecipientOrSenderStatus(MessageChatAdapter.RECIPIENT_BOX);
                         }else {
-
+                            newMessage.setRecipientOrSenderStatus(MessageChatAdapter.RECIPIENT);
                         }
-                        newMessage.setRecipientOrSenderStatus(MessageChatAdapter.RECIPIENT);
                     }
                     messageChatAdapter.refillAdapter(newMessage);
                     chatRecyclerView.scrollToPosition(messageChatAdapter.getItemCount()-1);

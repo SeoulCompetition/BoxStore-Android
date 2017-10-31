@@ -87,9 +87,18 @@ public class BuyerTransactionActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Intent chatIntent = new Intent(this,ChatActivity.class);
+        chatIntent.putExtra("BuyerUID",mbuyerUID);
+        chatIntent.putExtra("SellerUID",msellerUID);
+        chatIntent.putExtra("stuff_id",mstuffID);
+        startActivity(chatIntent);
+
+        /*
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.chat_frame_layout, ChatFragment.newInstance(mbuyerUID,msellerUID,mstuffID));
         transaction.commit();
+        */
     }
 
     @Override

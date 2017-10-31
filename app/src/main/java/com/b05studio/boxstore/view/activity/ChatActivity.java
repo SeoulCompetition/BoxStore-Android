@@ -42,6 +42,9 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.searchCheaterBtn)
     TextView searchCheaterBtn;
 
+    @BindView(R.id.itemInfoView)
+    View itemInfo;
+
     private String sellerUId = "";
     private String buyerUId= "";
     private String sellerName = "";
@@ -69,6 +72,7 @@ public class ChatActivity extends AppCompatActivity {
         sellerName = intent.getStringExtra("SellerName");
         stuffId = intent.getStringExtra("stuff_id");
 
+
         if(buyerUId.equals(BoxStoreApplication.getCurrentUser().getuId())){
             chattalkerName.setText(sellerName);
             //구매자와 현재 chatAcitivyt에 들어온 사람의 UID가 같을때
@@ -87,6 +91,10 @@ public class ChatActivity extends AppCompatActivity {
         String itemPrice = intent.getStringExtra("stuff_price");
         itemName = intent.getStringExtra("stuff_name");
         String itemImageURL = intent.getStringExtra("stuff_image");
+
+        if(itemPrice == null && itemName == null && itemImageURL == null){
+            itemInfo.setVisibility(View.GONE);
+        }
 
         Picasso.with(ChatActivity.this).load(itemImageURL)
                 .into(itemInfoImage);

@@ -6,12 +6,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
@@ -32,6 +35,12 @@ public class SellerTransactionActivity extends AppCompatActivity {
     @BindView(R.id.stationText)
     EditText stationNameText;
 
+    @BindView(R.id.completeSellerView)
+    View completeView;
+    @BindView(R.id.storeItemBtn)
+    Button storeItemBtn;
+    @BindView(R.id.completeItemStoreBtn)
+    Button completeBtn;
 
     private DatabaseReference mRootRef;
 
@@ -48,10 +57,24 @@ public class SellerTransactionActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_seller_transaction);
         ButterKnife.bind(this);
 
+        mRootRef = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
         mbuyerUID = intent.getStringExtra("BuyerUID");
         msellerUID = intent.getStringExtra("SellerUID");
         mstuffID = intent.getStringExtra("stuff_id");
+
+        sellPriceText.setText(intent.getStringExtra("Price"));
+        stationNameText.setText(intent.getStringExtra("Station"));
+
+        if(intent.getStringExtra("step").equals("2")){
+            completeView.setVisibility(View.VISIBLE);
+            storeItemBtn.setVisibility(View.VISIBLE);
+            completeBtn.setVisibility(View.GONE);
+            stationNameText.setClickable(false);
+            stationNameText.setFocusable(false);
+            sellPriceText.setClickable(false);
+            sellPriceText.setFocusable(false);
+        }
 
     }
 
@@ -98,12 +121,19 @@ public class SellerTransactionActivity extends AppCompatActivity {
                 }
             });
         }
+
+
+
+
         Intent chatIntent = new Intent(this,ChatActivity.class);
+        chatIntent.putExtra("BuyerUID",mbuyerUID);
+        chatIntent.putExtra("SellerUID",msellerUID);
+        chatIntent.putExtra("stuff_id",mstuffID);
         startActivity(chatIntent);
     }
 
-    @OnClick(R.id.StoreItemBtn)
+    @OnClick(R.id.storeItemBtn)
     public void onClickGotoLocker(){
-        //TODO : 영수증 찍고 보관함 비밀 번호 입력하고 하는거 함
+        //TODO : 영수증 찍고 보관함 비밀 번호 입력하고 하는거 함 영제
     }
 }

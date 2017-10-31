@@ -6,6 +6,7 @@ import com.b05studio.boxstore.model.Product;
 import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.b05studio.boxstore.service.response.CategoryGetResponse;
 import com.b05studio.boxstore.service.response.KeywordGetResponse;
+import com.b05studio.boxstore.service.response.MapGetResponse;
 import com.b05studio.boxstore.service.response.RankStationGetResponse;
 import com.b05studio.boxstore.service.response.StuffGetResponse;
 import com.b05studio.boxstore.service.response.UserGetResponse;
@@ -79,6 +80,8 @@ public interface BoxStoreHttpService {
     @GET("/cheat/{uid}")
     Call<BoxtorePostResponse> checkCriminal(@Path(value="uid", encoded = true) String uid);
 
+    @GET("/stations/images/{station}")
+    Call<MapGetResponse> getMapUrl(@Path(value="station", encoded = true) String station);
     // 지도가져오기
 
 

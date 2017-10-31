@@ -44,6 +44,6 @@ public class MainProductPagerAdapter extends FragmentStatePagerAdapter  {
 
     @Override
     public int getCount() {
-        return pageNum;
+        return pageNum > 5 ? 5 : pageNum;
     }
 }

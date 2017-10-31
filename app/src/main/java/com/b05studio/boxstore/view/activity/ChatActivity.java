@@ -106,11 +106,19 @@ public class ChatActivity extends AppCompatActivity {
     //판매자만 보인다.
     @OnClick(R.id.makeDealBtn)
     public void onClickDeal(){
+
+        Intent intent = new Intent(this,SellerTransactionActivity.class);
+        intent.putExtra("BuyerUID",buyerUId);
+        intent.putExtra("SellerUID",sellerUId);
+        intent.putExtra("stuff_id",stuffId);
+        startActivity(intent);
+        /*
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //bundlel로 구매자 UID 판매자 UID 전송, 파이어베이스 데이터베이스 생성에 쓰인다.
         transaction.replace(R.id.chat_frame_layout, SellerTransactionFragment.newInstance(buyerUId,sellerUId,stuffId));
         transaction.addToBackStack(null);
         transaction.commit();
+        */
     }
     @OnClick(R.id.searchCheaterBtn)
     public void onClickSearch(){

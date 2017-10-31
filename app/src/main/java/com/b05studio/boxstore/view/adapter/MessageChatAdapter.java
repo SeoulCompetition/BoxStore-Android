@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,6 +113,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case RECIPIENT_BOX:
                 ViewHolderRecipientBox viewHolderRecipientBox = (ViewHolderRecipientBox)viewHolder;
                 configureBuyerBoxView(viewHolderRecipientBox,position,message_type);
+                break;
         }
 
 
@@ -122,13 +124,25 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         final  ChatMessage Message = mChatList.get(position);
 
-        viewHolderRecipientBox.getmBuyerNameAndProductName().setText(BoxStoreApplication.getCurrentUser().getName()+"님이 신청하신"
-                +" 문의하신 상품"+ "에 대한 판매자의 거래 승인이 요청되었습니다.");
+        if(Message.getStep().equals("1")){
+            viewHolderRecipientBox.getmBuyerNameAndProductName().setText(BoxStoreApplication.getCurrentUser().getName()+"님이 신청하신"
+                    +" 문의하신 상품"+ "에 대한 판매자의 거래 승인이 요청되었습니다.");
+        }
+        if(Message.getStep().equals("2")){
+            viewHolderRecipientBox.getmBuyerNameAndProductName().setText(BoxStoreApplication.getCurrentUser().getName()+"님이 신청하신"
+                    +" 문의하신 상품"+ "에 대한 판매자의 거래 승인이 완료되었습니다.");
+        }
         viewHolderRecipientBox.getClickView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(Message.getSender().equals(BoxStoreApplication.getCurrentUser().getuId()))
                 {
+                    Log.d("Tag"," 1 ");
+                    /*
+
+                    */
+
+                }else {
                     Intent intent = new Intent(mContext, BuyerTransactionActivity.class);
                     intent.putExtra("Price",Message.getPrice());
                     intent.putExtra("Station",Message.getStation());
@@ -136,9 +150,6 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     intent.putExtra("BuyerUID", Message.getBuyerUID());
                     intent.putExtra("stuff_id",Message.getStuff_id());
                     mContext.startActivity(intent);
-
-                }else {
-
                 }
             }
         });
@@ -157,14 +168,17 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View v) {
 
                 //todo : 거래 진행 화면으로 연결 근데 셀러가 클릭하면 셀러 프래그먼트가 떠야되고 바이어가 클릭하면 바이어 프래그먼트가 떠야됨
-                Toast.makeText(getApplicationContext(), "Box View Click!", Toast.LENGTH_LONG).show();
+
                 if(Message.getSender().equals(BoxStoreApplication.getCurrentUser().getuId()))
                 {
                     //메세지를 보낸 사람과 현재 기기의 유저가 같은경우  판매자
+                    Log.d("Tag"," 1 ");
+                    Toast.makeText(getApplicationContext(), "Box View Click 1 !", Toast.LENGTH_LONG).show();
 
                 }else {
-
-                                    }
+                    Toast.makeText(getApplicationContext(), "Box View Click 2 !", Toast.LENGTH_LONG).show();
+                    Log.d("Tag"," 2 ");
+                }
             }
         });
     }

@@ -119,6 +119,10 @@ public class SellerTransactionFragment extends Fragment{
             messageMap.put("sender",msellerUID);
             messageMap.put("price",itemPrice);
             messageMap.put("station",stationName);
+            messageMap.put("BuyerUID",getArguments().getString("BuyerUID"));
+            messageMap.put("SellerUID",getArguments().getString("SellerUID"));
+            messageMap.put("stuff_id",mstuffID);
+            messageMap.put("step","1");
 
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref + "/" + push_id,messageMap);
@@ -133,9 +137,15 @@ public class SellerTransactionFragment extends Fragment{
                 }
             });
         }
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.chat_frame_layout,ChatFragment.newInstance(mbuyerUID,msellerUID,mstuffID));
+        /*
+        FragmentTransaction transaction =  getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.chat_frame_layout,ChatFragment.newInstance()); //new Instance() 여기안에 변수 3개드가쓴데 이건 상관없나?
+        transaction.addToBackStack(null);
         transaction.commit();
+        //리플레이스인가 리무브인가 커밋은 하면 안되는가
+        */
+
     }
+
 
 }

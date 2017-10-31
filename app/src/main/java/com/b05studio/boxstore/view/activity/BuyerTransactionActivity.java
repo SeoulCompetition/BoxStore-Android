@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
@@ -31,7 +32,7 @@ import butterknife.OnClick;
 public class BuyerTransactionActivity extends AppCompatActivity {
 
     @BindView(R.id.buyProductPriceEditText)
-    EditText buyProductPrice;
+    EditText buyProductPriceText;
     @BindView(R.id.stationText)
     EditText stationText;
 
@@ -44,7 +45,7 @@ public class BuyerTransactionActivity extends AppCompatActivity {
     @OnClick(R.id.compleTransactionBtn)
     public void onClickComplte(){
 
-        String itemPrice = buyProductPrice.getText().toString().trim();
+        String itemPrice = buyProductPriceText.getText().toString().trim();
         String stationName = stationText.getText().toString().trim();
 
         String mbuyerUID = BoxStoreApplication.getCurrentUser().getuId();
@@ -67,6 +68,11 @@ public class BuyerTransactionActivity extends AppCompatActivity {
             messageMap.put("sender",msellerUID);
             messageMap.put("price",itemPrice);
             messageMap.put("station",stationName);
+            messageMap.put("BuyerUID",mbuyerUID);
+            messageMap.put("SellerUID",msellerUID);
+            messageMap.put("stuff_id",mstuffID);
+            messageMap.put("step","2");
+
 
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref + "/" + push_id,messageMap);
@@ -89,14 +95,18 @@ public class BuyerTransactionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+
         setContentView(R.layout.fragment_buyer_transaction);
+        ButterKnife.bind(this);
+
+       // buyProductPriceText = (TextView) findViewById(R.id.buyProductPriceEditText);
+       // stationText = (TextView) findViewById(R.id.stationText);
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
         stationText.setText(intent.getStringExtra("Station"));
-        buyProductPrice.setText(intent.getStringExtra("Price"));
+        buyProductPriceText.setText(intent.getStringExtra("Price"));
         msellerUID  = intent.getStringExtra("SellerUID");
         mstuffID = intent.getStringExtra("stuff_id");
     }

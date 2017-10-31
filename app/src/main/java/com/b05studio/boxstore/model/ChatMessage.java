@@ -13,6 +13,15 @@ public class ChatMessage {
     private String stuff_id;
     private String SellerUID;
     private String BuyerUID;
+    private String step;
+
+    public String getStep() {
+        return step;
+    }
+
+    public void setStep(String step) {
+        this.step = step;
+    }
 
     public String getStuff_id() {
         return stuff_id;

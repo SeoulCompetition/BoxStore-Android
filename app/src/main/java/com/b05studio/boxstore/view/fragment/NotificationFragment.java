@@ -4,22 +4,27 @@ package com.b05studio.boxstore.view.fragment;
  * Created by seungwoo on 2017-09-25.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.Notification;
 import com.b05studio.boxstore.util.GetTimeAgo;
 import com.b05studio.boxstore.util.SimpleDividerItemDecoration;
+import com.b05studio.boxstore.view.activity.ChatActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,6 +48,8 @@ public class NotificationFragment extends Fragment {
 
     private DatabaseReference mRootRef;
     private NotifyAdapter notiftyAdapter;
+
+    private List<Notification> mNotifyList = new ArrayList<>();
 
 
     public static NotificationFragment newInstance() {
@@ -69,7 +76,7 @@ public class NotificationFragment extends Fragment {
         notifyRecyclerview.setLayoutManager(notifyLayoutManager);
         notifyRecyclerview.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
 
-        notiftyAdapter = new NotifyAdapter();
+        notiftyAdapter = new NotifyAdapter(mNotifyList);
         notifyRecyclerview.setAdapter(notiftyAdapter);
 
     }
@@ -117,18 +124,20 @@ public class NotificationFragment extends Fragment {
 
     public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder> {
 
-        private List<Notification> mNotifyList = new ArrayList<>();
+
 
         public NotifyAdapter() {
 
         }
-        public NotifyAdapter(List<Notification> mNotifyList)
+        public NotifyAdapter(List<Notification> nNotifyList)
         {
-            this.mNotifyList = mNotifyList;
+           mNotifyList = nNotifyList;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
+            @BindView(R.id.cardNotifyView)
+            ConstraintLayout cardView;
             @BindView(R.id.cardNotifyTextView)
             TextView cardNotifyText;
             @BindView(R.id.cardNotifyTimeTextView)
@@ -149,12 +158,13 @@ public class NotificationFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(NotifyAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(final NotifyAdapter.ViewHolder holder, int position) {
 
-            Notification c = mNotifyList.get(position);
+            final Notification c = mNotifyList.get(position);
 
             holder.cardNoifyImage.setImageResource(R.drawable.notify_profile);
-            holder.cardNotifyText.setText(c.getSellerName()+ " 님이 " + c.getStuffName() + "상품에 대한 문의를 남기셨습니다.");
+            holder.cardNotifyText.setText(c.getName()+ " 님이 " + c.getStuff_name() + "상품에 대한 문의를 남기셨습니다.");
+
 
             GetTimeAgo getTimeAgo = new GetTimeAgo();
 
@@ -165,11 +175,28 @@ public class NotificationFragment extends Fragment {
             //mLastSeenView.setText(lastSeenTime);
             //holder.cardNotifyTimeText.setText("ourtimeisrunning out");
 
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("TAG ","Click");
+                    Intent intent =new Intent(getContext(),ChatActivity.class);
+                    intent.putExtra("stuff_id",c.getStuff_id());
+                    intent.putExtra("BuyerUID",c.getFrom());
+                    intent.putExtra("BuyerName",c.getName());
+                    intent.putExtra("stuff_name",c.getStuff_name());
+                    intent.putExtra("stuff_price",c.getStuff_price());
+                    intent.putExtra("stuff_image",c.getStuff_image());
+                    intent.putExtra("SellerUID",c.getSellerUID());
+                    intent.putExtra("SellerName",c.getSellerName());
+                    startActivity(intent);
+                }
+            });
+
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return mNotifyList.size();
         }
 
         public void refillAdapter(Notification newFireChatMessage){

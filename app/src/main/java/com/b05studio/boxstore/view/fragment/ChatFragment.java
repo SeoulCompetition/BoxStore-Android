@@ -99,7 +99,7 @@ public class ChatFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString("BuyerUID",paramPrice);
         args.putString("SellerUID",paramStation);
-        args.putString("StuffID",paramStuffId);
+        args.putString("stuff_id",paramStuffId);
         chatFragment.setArguments(args);
         return chatFragment;
     }
@@ -116,8 +116,9 @@ public class ChatFragment extends Fragment {
             } else {
                 mRecipientId = getArguments().getString("BuyerUID");
             }
+                //구매자가 접근할때 bundle을 이용해서 값을 받고 후에 저장
+                stuffId = getArguments().getString("stuff_id");
 
-            stuffId = getArguments().getString("StuffID");
 
         }
     }
@@ -208,7 +209,7 @@ public class ChatFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         chatRecyclerView.setLayoutManager(linearLayoutManager);
         chatRecyclerView.setHasFixedSize(true);
-        messageChatAdapter = new MessageChatAdapter(new ArrayList<ChatMessage>());
+        messageChatAdapter = new MessageChatAdapter(getContext(),new ArrayList<ChatMessage>());
         chatRecyclerView.setAdapter(messageChatAdapter);
     }
     @OnClick(R.id.sednImageBtn)
@@ -257,6 +258,9 @@ public class ChatFragment extends Fragment {
                         messageMap.put("type","image");
                         messageMap.put("time", ServerValue.TIMESTAMP);
                         messageMap.put("sender",mCurrentUserId);
+                        messageMap.put("BuyerUID",getArguments().getString("BuyerUID"));
+                        messageMap.put("SellerUID",getArguments().getString("SellerUID"));
+                        messageMap.put("stuff_id",stuffId);
 
                         Map messageUserMap = new HashMap();
 
@@ -299,6 +303,9 @@ public class ChatFragment extends Fragment {
             messageMap.put("type","text");
             messageMap.put("time", ServerValue.TIMESTAMP);
             messageMap.put("sender",mCurrentUserId);
+            messageMap.put("BuyerUID",getArguments().getString("BuyerUID"));
+            messageMap.put("SellerUID",getArguments().getString("SellerUID"));
+            messageMap.put("stuff_id",stuffId);
 
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref + "/" + push_id,messageMap);

@@ -10,6 +10,33 @@ public class ChatMessage {
     private String message;
     private String sender;
     private String recipient;
+    private String stuff_id;
+    private String SellerUID;
+    private String BuyerUID;
+
+    public String getStuff_id() {
+        return stuff_id;
+    }
+
+    public void setStuff_id(String stuff_id) {
+        this.stuff_id = stuff_id;
+    }
+
+    public String getSellerUID() {
+        return SellerUID;
+    }
+
+    public void setSellerUID(String sellerUID) {
+        SellerUID = sellerUID;
+    }
+
+    public String getBuyerUID() {
+        return BuyerUID;
+    }
+
+    public void setBuyerUID(String buyerUID) {
+        BuyerUID = buyerUID;
+    }
 
     public String getType() {
         return type;
@@ -38,6 +65,25 @@ public class ChatMessage {
     private String type;
     private boolean seen;
     private long time;
+
+    private String price;
+    private String station;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getStation() {
+        return station;
+    }
+
+    public void setStation(String station) {
+        this.station = station;
+    }
 
     private int mRecipientOrSenderStatus;
 

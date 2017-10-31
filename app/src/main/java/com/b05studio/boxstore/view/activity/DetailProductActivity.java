@@ -50,11 +50,16 @@ public class DetailProductActivity extends AppCompatActivity {
         String newNotificationId = newNotificationref.getKey();
 
         HashMap<String,String> notificationData = new HashMap<>();
+        notificationData.put("stuff_id",selectedStuff.getId());
+        notificationData.put("stuff_image",selectedStuff.getImageUrl().get(0).toString());
+        notificationData.put("stuff_price",selectedStuff.getPrice().toString());
         notificationData.put("stuff_name",selectedStuff.getStuffName());
         notificationData.put("name",BoxStoreApplication.getCurrentUser().getName());
         notificationData.put("from",BoxStoreApplication.getCurrentUser().getuId());
         notificationData.put("type","request");
         notificationData.put("device_token",selectedStuff.getSellerId().getUserToken());
+        notificationData.put("SellerUID",selectedStuff.getSellerId().getUid());
+        notificationData.put("SellerName",selectedStuff.getSellerId().getName());
 
         Map requestMap = new HashMap();
         requestMap.put("Question_req/"+ BoxStoreApplication.getCurrentUser().getuId() + "/" + user_id + "/request_type","sent");
@@ -76,14 +81,14 @@ public class DetailProductActivity extends AppCompatActivity {
         //상품 이미지배열 첫번째
         //상품 이름
         //상품 가격
-        intent.putExtra("StuffID",selectedStuff.getId());
-        intent.putExtra("BuyerName",BoxStoreApplication.getCurrentUser().getuId());
+        intent.putExtra("stuff_id",selectedStuff.getId());
+        intent.putExtra("BuyerName",BoxStoreApplication.getCurrentUser().getName());
         intent.putExtra("BuyerUID", BoxStoreApplication.getCurrentUser().getuId());
         intent.putExtra("SellerName",selectedStuff.getSellerId().getName());
         intent.putExtra("SellerUID",selectedStuff.getSellerId().getUid());
-        intent.putExtra("ProductImage",selectedStuff.getImageUrl().get(0).toString());
-        intent.putExtra("ProductName",selectedStuff.getStuffName().toString());
-        intent.putExtra("ProductPrice",selectedStuff.getPrice().toString());
+        intent.putExtra("stuff_image",selectedStuff.getImageUrl().get(0).toString());
+        intent.putExtra("stuff_name",selectedStuff.getStuffName().toString());
+        intent.putExtra("stuff_price",selectedStuff.getPrice().toString());
 
         startActivity(intent);
         // TODO: 2017-10-30 구매하기버튼눌렀을때 일단 들어간느 사람이 물건을 올린 당사자가 아니라고 가정함

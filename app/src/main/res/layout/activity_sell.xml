@@ -402,7 +402,7 @@
             app:layout_constraintTop_toBottomOf="@+id/sellProductDetailTitle" />
 
         <View
-            android:id="@+id/sellProductPriceView"
+            android:id="@+id/buyProductPriceView"
             android:layout_width="0dp"
             android:layout_height="85dp"
             android:layout_marginTop="4dp"
@@ -418,8 +418,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:src="@drawable/ic_sell_product_price"
-            app:layout_constraintLeft_toLeftOf="@+id/sellProductPriceView"
-            app:layout_constraintTop_toTopOf="@+id/sellProductPriceView" />
+            app:layout_constraintLeft_toLeftOf="@+id/buyProductPriceView"
+            app:layout_constraintTop_toTopOf="@+id/buyProductPriceView" />
 
         <TextView
             android:id="@+id/sellProductPriceTitle"
@@ -462,7 +462,7 @@
             android:background="#ffffff"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sellProductPriceView" />
+            app:layout_constraintTop_toBottomOf="@+id/buyProductPriceView" />
 
         <ImageView
             android:id="@+id/sellProductStationImageview"

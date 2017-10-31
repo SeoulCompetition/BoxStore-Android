@@ -5,43 +5,88 @@ package com.b05studio.boxstore.model;
  */
 
 public class Notification {
-    private String deviceToken;
-    private String fromUserId;
-    private String sellerName;
-    private String stuffName;
-
-    public String getStuffName() {
-        return stuffName;
-    }
-
-    public void setStuffName(String stuffName) {
-        this.stuffName = stuffName;
-    }
-
+    private String device_token;
+    private String from;
+    private String Name;
+    private String stuff_name;
     private String type;
+    private String SellerUID;
+    private String SellerName;
 
-    public String getDeviceToken() {
-        return deviceToken;
+    public String getSellerUID() {
+        return SellerUID;
     }
 
-    public void setDeviceToken(String deviceToken) {
-        this.deviceToken = deviceToken;
-    }
-
-    public String getFromUserId() {
-        return fromUserId;
-    }
-
-    public void setFromUserId(String fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setSellerUID(String sellerUID) {
+        SellerUID = sellerUID;
     }
 
     public String getSellerName() {
-        return sellerName;
+        return SellerName;
     }
 
     public void setSellerName(String sellerName) {
-        this.sellerName = sellerName;
+        SellerName = sellerName;
+    }
+
+    public String getStuff_id() {
+        return stuff_id;
+    }
+
+    public void setStuff_id(String stuff_id) {
+        this.stuff_id = stuff_id;
+    }
+
+    public String getStuff_image() {
+        return stuff_image;
+    }
+
+    public void setStuff_image(String stuff_image) {
+        this.stuff_image = stuff_image;
+    }
+
+    public String getStuff_price() {
+        return stuff_price;
+    }
+
+    public void setStuff_price(String stuff_price) {
+        this.stuff_price = stuff_price;
+    }
+
+    private String stuff_id;
+    private String stuff_image;
+    private String stuff_price;
+
+    public String getDevice_token() {
+        return device_token;
+    }
+
+    public void setDevice_token(String device_token) {
+        this.device_token = device_token;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getStuff_name() {
+        return stuff_name;
+    }
+
+    public void setStuff_name(String stuff_name) {
+        this.stuff_name = stuff_name;
     }
 
     public String getType() {

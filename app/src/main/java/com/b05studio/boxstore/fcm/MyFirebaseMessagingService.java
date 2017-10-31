@@ -39,6 +39,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
         // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages are handled
         // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
@@ -51,7 +52,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        //Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         String notification_title = remoteMessage.getNotification().getTitle();
         String notification_message = remoteMessage.getNotification().getBody();
@@ -88,6 +89,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         mNotifyMgr.notify(mNotificationId,mBuilder.build());
+
+
+
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {

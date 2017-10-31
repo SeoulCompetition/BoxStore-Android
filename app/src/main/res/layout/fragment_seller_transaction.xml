@@ -7,7 +7,7 @@
 
 
     <View
-        android:id="@+id/sellProductPriceView"
+        android:id="@+id/buyProductPriceView"
         android:layout_width="0dp"
         android:layout_height="90dp"
         android:layout_marginTop="4dp"
@@ -17,14 +17,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/sellProductPriceImage"
+        android:id="@+id/buyProductPriceImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
         android:src="@drawable/ic_sell_price"
-        app:layout_constraintLeft_toLeftOf="@+id/sellProductPriceView"
-        app:layout_constraintTop_toTopOf="@+id/sellProductPriceView" />
+        app:layout_constraintLeft_toLeftOf="@+id/buyProductPriceView"
+        app:layout_constraintTop_toTopOf="@+id/buyProductPriceView" />
 
     <TextView
         android:id="@+id/textView4"
@@ -36,9 +36,9 @@
         android:layout_marginStart="5dp"
         android:textColor="#000000"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/sellProductPriceImage"
-        app:layout_constraintLeft_toRightOf="@+id/sellProductPriceImage"
-        app:layout_constraintTop_toTopOf="@+id/sellProductPriceImage" />
+        app:layout_constraintBottom_toBottomOf="@+id/buyProductPriceImage"
+        app:layout_constraintLeft_toRightOf="@+id/buyProductPriceImage"
+        app:layout_constraintTop_toTopOf="@+id/buyProductPriceImage" />
 
     <EditText
         android:id="@+id/sellProductPriceEditText"
@@ -53,9 +53,9 @@
         android:includeFontPadding="false"
         android:paddingStart="16dp"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/sellProductPriceView"
+        app:layout_constraintEnd_toEndOf="@+id/buyProductPriceView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sellProductPriceView" />
+        app:layout_constraintTop_toTopOf="@+id/buyProductPriceView" />
 
     <View
         android:id="@+id/stationSelectView"
@@ -66,7 +66,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sellProductPriceView" />
+        app:layout_constraintTop_toBottomOf="@+id/buyProductPriceView" />
 
     <ImageView
         android:id="@+id/stationIamge"
@@ -126,19 +126,17 @@
     </Button>
 
     <Button
-        android:visibility="invisible"
         android:id="@+id/StoreItemBtn"
         android:layout_width="330dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="14dp"
         android:layout_marginTop="48dp"
         android:background="@drawable/bg_next_button_style"
         android:text="보관 등록"
         android:textColor="#ffffff"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stationSelectView"
-        app:layout_constraintVertical_bias="0.481">
+        app:layout_constraintTop_toBottomOf="@+id/stationSelectView">
 
     </Button>
 

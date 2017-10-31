@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,12 +33,19 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.itemInfoPrice)
     TextView itemInfoPrice;
 
+    @BindView(R.id.makeDealBtn)
+    TextView makeDealBtn;
+    @BindView(R.id.searchCheaterBtn)
+    TextView searchCheaterBtn;
+
     private String sellerUId = "";
     private String buyerUId= "";
     private String sellerName = "";
     private String buyerName = "";
     private String stuffId;
     private String itemName;
+
+    private String userState = "";
 
 
     @Override
@@ -53,13 +61,26 @@ public class ChatActivity extends AppCompatActivity {
         buyerUId = intent.getStringExtra("BuyerUID");
         sellerUId = intent.getStringExtra("SellerUID");
         sellerName = intent.getStringExtra("SellerName");
-        stuffId = intent.getStringExtra("StuffID");
+        stuffId = intent.getStringExtra("stuff_id");
 
+        if(buyerUId.equals(BoxStoreApplication.getCurrentUser().getuId())){
+            chattalkerName.setText(sellerName);
+            //구매자와 현재 chatAcitivyt에 들어온 사람의 UID가 같을때
+            userState = "BUYER";
+            searchCheaterBtn.setVisibility(View.VISIBLE);
+            makeDealBtn.setVisibility(View.GONE);
 
+        }else {
+            //구매자와 지금 들어온 사람의 UID가 다를때
+            chattalkerName.setText(buyerName);
+            userState = "SELLER";
+            makeDealBtn.setVisibility(View.VISIBLE);
+            searchCheaterBtn.setVisibility(View.GONE);
+        }
 
-        String itemPrice = intent.getStringExtra("ProductPrice");
-        itemName = intent.getStringExtra("ProductName");
-        String itemImageURL = intent.getStringExtra("ProductImage");
+        String itemPrice = intent.getStringExtra("stuff_price");
+        itemName = intent.getStringExtra("stuff_name");
+        String itemImageURL = intent.getStringExtra("stuff_image");
 
         Picasso.with(ChatActivity.this).load(itemImageURL)
                 .into(itemInfoImage);
@@ -77,17 +98,22 @@ public class ChatActivity extends AppCompatActivity {
         itemInfoName.setText("'"+itemName+"'");
         itemInfoPrice.setText(itemPrice+"원");
 
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.chat_frame_layout, ChatFragment.newInstance(buyerUId,sellerUId,stuffId));
         transaction.commit();
     }
     //판매자만 보인다.
     @OnClick(R.id.makeDealBtn)
-    public void onClick(){
+    public void onClickDeal(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //bundlel로 구매자 UID 판매자 UID 전송, 파이어베이스 데이터베이스 생성에 쓰인다.
-        transaction.replace(R.id.chat_frame_layout, SellerTransactionFragment.newInstance(buyerUId,sellerUId,itemName));
+        transaction.replace(R.id.chat_frame_layout, SellerTransactionFragment.newInstance(buyerUId,sellerUId,stuffId));
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+    @OnClick(R.id.searchCheaterBtn)
+    public void onClickSearch(){
+        //todo : 구매자가 사기꾼을 조회한다.
     }
 }

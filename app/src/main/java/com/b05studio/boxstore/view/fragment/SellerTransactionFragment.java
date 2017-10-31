@@ -34,7 +34,7 @@ public class SellerTransactionFragment extends Fragment{
 
     @BindView(R.id.sellProductPriceEditText)
     EditText sellPriceText;
-    @BindView(R.id.stationName)
+    @BindView(R.id.stationText)
     EditText stationNameText;
 
 
@@ -63,7 +63,7 @@ public class SellerTransactionFragment extends Fragment{
         Bundle args = new Bundle();
         args.putString("BuyerUID",paramPrice);
         args.putString("SellerUID",paramStation);
-        args.putString("StuffName",paramStuffName);
+        args.putString("stuff_id",paramStuffName);
         sellerTransactionFragment.setArguments(args);
         return sellerTransactionFragment;
     }
@@ -72,7 +72,7 @@ public class SellerTransactionFragment extends Fragment{
         if (getArguments() != null) {
             mbuyerUID = getArguments().getString("BuyerUID").toString();
             msellerUID = getArguments().getString("SellerUID").toString();
-            mstuffID = getArguments().getString("StuffName").toString();
+            mstuffID = getArguments().getString("stuff_id").toString();
 
         }
     }
@@ -93,7 +93,7 @@ public class SellerTransactionFragment extends Fragment{
         return view;
     }
 
-    @OnClick(R.id.compleTransactionBtn)
+    @OnClick(R.id.completeItemStoreBtn)
     public void onClickComplete(){
 
         //EditText의 값들을 받아서 bundle로 전송
@@ -117,6 +117,8 @@ public class SellerTransactionFragment extends Fragment{
             messageMap.put("type","box");
             messageMap.put("time", ServerValue.TIMESTAMP);
             messageMap.put("sender",msellerUID);
+            messageMap.put("price",itemPrice);
+            messageMap.put("station",stationName);
 
             Map messageUserMap = new HashMap();
             messageUserMap.put(current_user_ref + "/" + push_id,messageMap);
@@ -132,7 +134,7 @@ public class SellerTransactionFragment extends Fragment{
             });
         }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.chat_frame_layout,ChatFragment.newInstance());
+        transaction.replace(R.id.chat_frame_layout,ChatFragment.newInstance(mbuyerUID,msellerUID,mstuffID));
         transaction.commit();
     }
 

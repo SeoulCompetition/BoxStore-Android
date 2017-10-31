@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
-        android:text="거래하긴"
+        android:text="거래하기"
         android:textColor="#ffffff"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/buyerTitleBar"

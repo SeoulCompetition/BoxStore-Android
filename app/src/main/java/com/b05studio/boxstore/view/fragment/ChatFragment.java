@@ -164,8 +164,9 @@ public class ChatFragment extends Fragment {
                         {
                             newMessage.setRecipientOrSenderStatus(MessageChatAdapter.RECIPIENT_BOX);
                         }else {
-                            newMessage.setRecipientOrSenderStatus(MessageChatAdapter.RECIPIENT);
+
                         }
+                        newMessage.setRecipientOrSenderStatus(MessageChatAdapter.RECIPIENT);
                     }
                     messageChatAdapter.refillAdapter(newMessage);
                     chatRecyclerView.scrollToPosition(messageChatAdapter.getItemCount()-1);

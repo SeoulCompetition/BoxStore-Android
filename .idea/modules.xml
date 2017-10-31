@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BoxStore.iml" filepath="$PROJECT_DIR$/BoxStore.iml" />
+      <module fileurl="file://F:\BoxStore\BoxStore-Android\BoxStore.iml" filepath="F:\BoxStore\BoxStore-Android\BoxStore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BoxStore-Android.iml" filepath="$PROJECT_DIR$/BoxStore-Android.iml" />
       <module fileurl="file://C:\Users\young\AndroidStudioProjects\BoxStore\BoxStore-Android.iml" filepath="C:\Users\young\AndroidStudioProjects\BoxStore\BoxStore-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

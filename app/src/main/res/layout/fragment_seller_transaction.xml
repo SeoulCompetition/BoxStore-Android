@@ -5,16 +5,53 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <View
+        android:id="@+id/sellerTitleBar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:background="#4B65A7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/chatBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:src="@drawable/ic_back_button"
+        app:layout_constraintBottom_toBottomOf="@+id/sellerTitleBar"
+        app:layout_constraintLeft_toLeftOf="@+id/sellerTitleBar"
+        app:layout_constraintTop_toTopOf="@+id/sellerTitleBar" />
+
+    <TextView
+        android:id="@+id/opponentName"
+        fontPath="fonts/NOTOSANSKR-REGULAR.OTF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="거래하기"
+        android:textColor="#ffffff"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sellerTitleBar"
+        app:layout_constraintLeft_toLeftOf="@+id/sellerTitleBar"
+        app:layout_constraintRight_toRightOf="@+id/sellerTitleBar"
+        app:layout_constraintTop_toTopOf="@+id/sellerTitleBar" />
+
 
     <View
         android:id="@+id/buyProductPriceView"
         android:layout_width="0dp"
         android:layout_height="90dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="#ffffff"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/sellerTitleBar" />
 
     <ImageView
         android:id="@+id/buyProductPriceImage"
@@ -142,6 +179,7 @@
 
     <View
         android:visibility="gone"
+        android:id="@+id/completeSellerView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

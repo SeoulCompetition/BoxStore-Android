@@ -142,8 +142,8 @@ public class SellerTransactionFragment extends Fragment{
         transaction.add(R.id.chat_frame_layout,ChatFragment.newInstance()); //new Instance() 여기안에 변수 3개드가쓴데 이건 상관없나?
         transaction.addToBackStack(null);
         transaction.commit();
-        //리플레이스인가 리무브인가 커밋은 하면 안되는가
         */
+        //리플레이스인가 리무브인가 커밋은 하면 안되는가
 
     }
 

@@ -101,4 +101,9 @@ public class SellerTransactionActivity extends AppCompatActivity {
         Intent chatIntent = new Intent(this,ChatActivity.class);
         startActivity(chatIntent);
     }
+
+    @OnClick(R.id.StoreItemBtn)
+    public void onClickGotoLocker(){
+        //TODO : 영수증 찍고 보관함 비밀 번호 입력하고 하는거 함
+    }
 }

@@ -17,6 +17,7 @@ import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.model.ChatMessage;
 import com.b05studio.boxstore.view.activity.BuyerTransactionActivity;
+import com.b05studio.boxstore.view.activity.SellerTransactionActivity;
 import com.b05studio.boxstore.view.fragment.SellerTransactionFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
@@ -135,6 +136,14 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         viewHolderRecipientBox.getClickView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(Message.getStep().equals("1")){
+
+                }
+                if(Message.getStep().equals("2")){
+                    Intent intent = new Intent(mContext, SellerTransactionActivity.class);
+                    intent.putExtra("step","2");
+                    mContext.startActivity(intent);
+                }
                 if(Message.getSender().equals(BoxStoreApplication.getCurrentUser().getuId()))
                 {
                     Log.d("Tag"," 1 ");

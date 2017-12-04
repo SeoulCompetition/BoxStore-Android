@@ -1,14 +1,22 @@
 package com.b05studio.boxstore.view.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialcamera.MaterialCamera;
 import com.b05studio.boxstore.R;
 import com.b05studio.boxstore.application.BoxStoreApplication;
 import com.b05studio.boxstore.service.network.BoxStoreHttpService;
@@ -16,6 +24,8 @@ import com.b05studio.boxstore.service.response.BoxtorePostResponse;
 import com.b05studio.boxstore.view.dialog.CheckCriminalDialog;
 import com.b05studio.boxstore.view.fragment.ChatFragment;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +37,61 @@ import retrofit2.Retrofit;
 
 public class ChatActivity extends AppCompatActivity {
 
+    @BindView(R.id.store_stuff)
+    ConstraintLayout storestuffLayout;
+    @BindView(R.id.chat_layout)
+    ConstraintLayout chatLayout;
+
+
+    private static final int RC_CAMERA = 3000;
+    private final static int CAMERA_RQ = 6969;
+
+    private ArrayList<Uri> imagePath = new ArrayList<>();
+
+    @BindView(R.id.sellProductNameEditText)
+    EditText sellProductNameEditText;
+    @BindView(R.id.locker_number)
+    EditText lock_number;
+    @BindView(R.id.locker_password)
+    EditText lock_password;
+    @BindView(R.id.etcEditText)
+    EditText etcEditText;
+
+
+    @OnClick(R.id.seeStoreLocationText)
+    public void onClickStore(){
+
+    }
+
+    @OnClick(R.id.bill_photo_btn)
+    public void onClickBilBtn(){
+        final Activity activity = ChatActivity.this;
+        final String[] permissions = new String[]{Manifest.permission.CAMERA};
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, permissions, RC_CAMERA);
+            Log.d("Permission!!!!!!", "PERMIDOJFOSIJFIOSDJOI");
+        } else {
+            new MaterialCamera(ChatActivity.this)
+                    .stillShot() // launches the Camera in stillshot mode
+                    .start(CAMERA_RQ);
+        }
+    }
+    @OnClick(R.id.completeItemStoreBtn)
+    public void onClickCompleteBtn(){
+
+        final String tradeStationName = sellProductNameEditText.getText().toString();
+        final String lockerNumber = lock_number.getText().toString();
+        final String lockerPassword = lock_password.getText().toString();
+        final String etcEditTextString = etcEditText.getText().toString();
+        final String BillURL = imagePath.get(0).toString();
+
+        Intent intent = new Intent();
+        intent.putExtra("trade_station",tradeStationName);
+        intent.putExtra("locker_number",lockerNumber);
+        intent.putExtra("locker_password",lockerPassword);
+        intent.putExtra("etc",etcEditTextString);
+        intent.putExtra("bill_URL",BillURL);
+    }
 
     @BindView(R.id.opponentName)
     TextView chattalkerName;
@@ -51,6 +116,7 @@ public class ChatActivity extends AppCompatActivity {
     private String buyerName = "";
     private String stuffId;
     private String itemName;
+    private String IntentType;
 
     private String userState = "";
 
@@ -61,31 +127,60 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        ButterKnife.bind(this);
+        storestuffLayout.setVisibility(View.GONE);
 
+        ButterKnife.bind(this);
         Intent intent = getIntent();
+
+        IntentType = intent.getStringExtra("Type");
+        if(IntentType != null && IntentType.equals("Notification")){
+            // 판매자가 알람을 클릭해서 채팅창으로 들어온 경우
+            buyerUId = intent.getStringExtra("BuyerUID");
+            buyerName = intent.getStringExtra("BuyerName");
+            sellerUId = intent.getStringExtra("SellerUID");
+            sellerName = intent.getStringExtra("SellerName");
+            stuffId = intent.getStringExtra("stuff_id");
+        } else if (IntentType != null && IntentType.equals("Bill")){
+
+            // Activity 화면 체인지
+            storestuffLayout.setVisibility(View.VISIBLE);
+            chatLayout.setVisibility(View.GONE);
+
+            // 구매자가 문의하기를 클릭하여 방문한 경우
+            buyerUId = intent.getStringExtra("BuyerUID");
+            buyerName = intent.getStringExtra("BuyerName");
+            sellerUId = intent.getStringExtra("SellerUID");
+            sellerName = intent.getStringExtra("SellerName");
+            stuffId = intent.getStringExtra("stuff_id");
+
+        }else {
+            //todo : 구매자도 채팅창에서 클릭해서 오는경우 역시 추가해야 한다 그경우 Type를 Chat으로 설정할것
+            // 구매자가 문의하기를 클릭하여 방문한 경우
+            buyerUId = intent.getStringExtra("BuyerUID");
+            buyerName = intent.getStringExtra("BuyerName");
+            sellerUId = intent.getStringExtra("SellerUID");
+            sellerName = intent.getStringExtra("SellerName");
+            stuffId = intent.getStringExtra("stuff_id");
+        }
         //구매자 판매자에 따라 name 표시 바뀌게
 
-        buyerName = intent.getStringExtra("BuyerName");
-        buyerUId = intent.getStringExtra("BuyerUID");
         sellerUId = intent.getStringExtra("SellerUID");
         sellerName = intent.getStringExtra("SellerName");
         stuffId = intent.getStringExtra("stuff_id");
 
 
-        if(buyerUId.equals(BoxStoreApplication.getCurrentUser().getuId())){
+        if(sellerUId.equals(BoxStoreApplication.getCurrentUser().getuId())){
+            //판매자와 지금 유저 UID 가 같을때 그대는 판매자요
+            chattalkerName.setText(buyerName);
+            userState = "SELLER";
+            makeDealBtn.setVisibility(View.VISIBLE);
+            searchCheaterBtn.setVisibility(View.GONE);
+        }else {
             chattalkerName.setText(sellerName);
             //구매자와 현재 chatAcitivyt에 들어온 사람의 UID가 같을때
             userState = "BUYER";
             searchCheaterBtn.setVisibility(View.VISIBLE);
             makeDealBtn.setVisibility(View.GONE);
-
-        }else {
-            //구매자와 지금 들어온 사람의 UID가 다를때
-            chattalkerName.setText(buyerName);
-            userState = "SELLER";
-            makeDealBtn.setVisibility(View.VISIBLE);
-            searchCheaterBtn.setVisibility(View.GONE);
         }
 
         String itemPrice = intent.getStringExtra("stuff_price");
@@ -113,8 +208,9 @@ public class ChatActivity extends AppCompatActivity {
         itemInfoPrice.setText(itemPrice+"원");
 
 
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.chat_frame_layout, ChatFragment.newInstance(buyerUId,sellerUId,stuffId));
+        transaction.replace(R.id.chat_frame_layout, ChatFragment.newInstance(buyerUId,sellerUId,stuffId,IntentType));
         transaction.commit();
     }
     //판매자만 보인다.
@@ -134,6 +230,7 @@ public class ChatActivity extends AppCompatActivity {
         transaction.commit();
         */
     }
+    //구매자만 보인다.
     @OnClick(R.id.searchCheaterBtn)
     public void onClickSearch(){
         // 구매자 사기꾼 조회하는 부분..

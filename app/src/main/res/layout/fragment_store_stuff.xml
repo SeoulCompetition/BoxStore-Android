@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="#F1F1F1"
     android:fillViewport="true"
-    tools:ignore="MissingPrefix">
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    tools:ignore="MissingPrefix"
+    android:id="@+id/storeStuff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
         <View
-            android:id="@+id/storeTitleBar"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:background="#4B65A7"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/storeTitleBar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:background="#4B65A7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -303,16 +300,17 @@
             app:layout_constraintTop_toTopOf="@+id/etcMessageImage" />
 
         <EditText
+            android:id="@+id/etcEditText"
             fontPath="fonts/NOTOSANSKR-DEMILIGHT.OTF"
             android:layout_width="340dp"
             android:layout_height="81dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_sell_edittext"
             android:hint="기타 전하고 싶은 말을 입력해주세요"
             android:includeFontPadding="false"
             android:paddingStart="16dp"
             android:textSize="10sp"
-            android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/etcMessageView"
             app:layout_constraintRight_toRightOf="@+id/etcMessageView"
             app:layout_constraintStart_toStartOf="@+id/etcMessageView"
@@ -339,5 +337,3 @@
         </Button>
 
     </android.support.constraint.ConstraintLayout>
-
-</android.support.v4.widget.NestedScrollView>

@@ -65,15 +65,18 @@ public class SellerTransactionActivity extends AppCompatActivity {
 
         sellPriceText.setText(intent.getStringExtra("Price"));
         stationNameText.setText(intent.getStringExtra("Station"));
+        String step = intent.getStringExtra("step");
 
-        if(intent.getStringExtra("step").equals("2")){
-            completeView.setVisibility(View.VISIBLE);
-            storeItemBtn.setVisibility(View.VISIBLE);
-            completeBtn.setVisibility(View.GONE);
-            stationNameText.setClickable(false);
-            stationNameText.setFocusable(false);
-            sellPriceText.setClickable(false);
-            sellPriceText.setFocusable(false);
+        if(step != null){
+            if(step.equals("2")){
+                completeView.setVisibility(View.VISIBLE);
+                storeItemBtn.setVisibility(View.VISIBLE);
+                completeBtn.setVisibility(View.GONE);
+                stationNameText.setClickable(false);
+                stationNameText.setFocusable(false);
+                sellPriceText.setClickable(false);
+                sellPriceText.setFocusable(false);
+            }
         }
 
     }
@@ -91,11 +94,11 @@ public class SellerTransactionActivity extends AppCompatActivity {
             String chat_user_ref = "messages/" + mbuyerUID + "/" + msellerUID + "/" + mstuffID;
 
             DatabaseReference user_message_push = mRootRef.child("messages")
-                    .child(msellerUID).child(mbuyerUID).child(mstuffID).push();
+                    .child(msellerUID).child(mbuyerUID).child(mstuffID).child("chat").push();
 
             String push_id = user_message_push.getKey();
 
-            Map messageMap = new HashMap();
+            Map<String, Object> messageMap = new HashMap<String, Object>();
             messageMap.put("message", BoxStoreApplication.getCurrentUser().getName());
             messageMap.put("seen", false);
             messageMap.put("type", "box");
@@ -108,9 +111,9 @@ public class SellerTransactionActivity extends AppCompatActivity {
             messageMap.put("stuff_id", mstuffID);
             messageMap.put("step", "1");
 
-            Map messageUserMap = new HashMap();
-            messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
-            messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
+            Map<String, Object> messageUserMap = new HashMap<>();
+            messageUserMap.put(current_user_ref + "/chat/" + push_id, messageMap);
+            messageUserMap.put(chat_user_ref + "/chat/" + push_id, messageMap);
 
             mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
                 @Override
@@ -129,11 +132,22 @@ public class SellerTransactionActivity extends AppCompatActivity {
         chatIntent.putExtra("BuyerUID",mbuyerUID);
         chatIntent.putExtra("SellerUID",msellerUID);
         chatIntent.putExtra("stuff_id",mstuffID);
+        chatIntent.putExtra("Type","Notification");
         startActivity(chatIntent);
     }
 
     @OnClick(R.id.storeItemBtn)
     public void onClickGotoLocker(){
         //TODO : 영수증 찍고 보관함 비밀 번호 입력하고 하는거 함 영제
+
+        Intent chatIntent = new Intent(this,ChatActivity.class);
+        chatIntent.putExtra("BuyerUID",mbuyerUID);
+        chatIntent.putExtra("SellerUID",msellerUID);
+        chatIntent.putExtra("stuff_id",mstuffID);
+        chatIntent.putExtra("price",sellPriceText.getText().toString().trim());
+        chatIntent.putExtra("station",stationNameText.getText().toString().trim());
+        chatIntent.putExtra("Type","Bill");
+        startActivity(chatIntent);
+
     }
 }

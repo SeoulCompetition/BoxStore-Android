@@ -68,6 +68,7 @@ public class ChatFragment extends Fragment {
     private String paramPrice;
     private String paramStation;
 
+    private String mArgumentType;
     private String mRecipientId;
     private String mCurrentUserId;
 
@@ -95,12 +96,13 @@ public class ChatFragment extends Fragment {
         ChatFragment chatFragment = new ChatFragment();
         return chatFragment;
     }
-    public static ChatFragment newInstance(String paramPrice, String paramStation,String paramStuffId){
+    public static ChatFragment newInstance(String paramPrice, String paramStation,String paramStuffId,String paramType){
         ChatFragment chatFragment = new ChatFragment();
         Bundle args = new Bundle();
         args.putString("BuyerUID",paramPrice);
         args.putString("SellerUID",paramStation);
         args.putString("stuff_id",paramStuffId);
+        args.putString("Type",paramType);
         chatFragment.setArguments(args);
         return chatFragment;
     }
@@ -108,19 +110,22 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mCurrentUserId = BoxStoreApplication.getCurrentUser().getuId();
+        //todo : 구매자와 판매자는 각각 다른 getArguments방식을 통해서 정보를 대입한다.
         if (getArguments() != null) {
-            mCurrentUserId = BoxStoreApplication.getCurrentUser().getuId();
-            if(mCurrentUserId.equals(getArguments().getString("BuyerUID")))
-            {
-                //만약 현재 유저와 구매자의 uid가 같다면
-                mRecipientId = getArguments().getString("SellerUID");
-            } else {
-                mRecipientId = getArguments().getString("BuyerUID");
-            }
+            //먼저 arguemntsType 을 받는다.
+            mArgumentType = getArguments().getString("Type");
+            if(mArgumentType != null){
+                if(mArgumentType.equals("Notification")){
+                    mRecipientId = getArguments().getString("BuyerUID");
+
+                }else{
+                    mRecipientId  =  getArguments().getString("SellerUID");
+                }
                 //구매자가 접근할때 bundle을 이용해서 값을 받고 후에 저장
                 stuffId = getArguments().getString("stuff_id");
-
-
+            }
         }
     }
 
@@ -147,8 +152,6 @@ public class ChatFragment extends Fragment {
             }
         });
 
-
-
         setDatabaseInstance();
         setUsersId();
         return view;
@@ -158,9 +161,10 @@ public class ChatFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        DatabaseReference massageRef = mRootRef.child("messages").child(mCurrentUserId).child(mRecipientId).child(stuffId);
+        DatabaseReference massageRef = mRootRef.child("messages").child(mCurrentUserId).child(mRecipientId).child(stuffId).child("chat");
 
         Query messageQuery = massageRef.limitToLast(20);
+        
         messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildKey) {
@@ -251,7 +255,7 @@ public class ChatFragment extends Fragment {
             final String chat_user_ref = "messages/"+ mRecipientId + "/" + mCurrentUserId  + "/"+ stuffId;
 
             DatabaseReference user_message_push = mRootRef.child("messages")
-                    .child(mCurrentUserId).child(mRecipientId).child(stuffId).push();
+                    .child(mCurrentUserId).child(mRecipientId).child(stuffId).child("chat").push();
 
             final String push_id = user_message_push.getKey();
 
@@ -261,7 +265,9 @@ public class ChatFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     if(task.isSuccessful()){
+
                         String download_url = task.getResult().getDownloadUrl().toString();
+
                         //
                         //ChatMessage newMessage = new ChatMessage(download_url,mCurrentUserId,mRecipientId,"image");
                         //messageChatDatabase.push().setValue(newMessage);
@@ -288,7 +294,9 @@ public class ChatFragment extends Fragment {
                             @Override
                             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                 if(databaseError != null) {
+
                                     Log.d("CHAT_LOG", databaseError.getMessage().toString());
+
                                 }
                             }
                         });
@@ -308,7 +316,7 @@ public class ChatFragment extends Fragment {
 
 
             DatabaseReference user_message_push = mRootRef.child("messages")
-                    .child(mCurrentUserId).child(mRecipientId).child(stuffId).push();
+                    .child(mCurrentUserId).child(mRecipientId).child(stuffId).child("chat").push();
 
             String push_id = user_message_push.getKey();
 
@@ -323,8 +331,8 @@ public class ChatFragment extends Fragment {
             messageMap.put("stuff_id",stuffId);
 
             Map messageUserMap = new HashMap();
-            messageUserMap.put(current_user_ref + "/" + push_id,messageMap);
-            messageUserMap.put(chat_user_ref + "/" + push_id,messageMap);
+            messageUserMap.put(current_user_ref + "/chat"+ "/" + push_id,messageMap);
+            messageUserMap.put(chat_user_ref + "/chat"+ "/" + push_id,messageMap);
 
             mUserMessageChatText.setText("");
 
@@ -338,5 +346,7 @@ public class ChatFragment extends Fragment {
             });
         }
     }
+
+
 
 }

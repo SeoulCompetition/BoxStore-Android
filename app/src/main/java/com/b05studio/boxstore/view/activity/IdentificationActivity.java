@@ -103,7 +103,6 @@ public class IdentificationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-
 //        if (savedInstanceState != null) {
 //            onRestoreInstanceState(savedInstanceState);
 //        }

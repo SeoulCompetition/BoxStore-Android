@@ -4,7 +4,7 @@ package com.b05studio.boxstore.model;
  * Created by young on 2017-10-27.
  */
 
-public class Product {
+public class  Product {
 
     private String sellerId;
     private String stuffName;

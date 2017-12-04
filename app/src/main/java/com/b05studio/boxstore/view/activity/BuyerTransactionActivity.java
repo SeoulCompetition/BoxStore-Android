@@ -56,7 +56,7 @@ public class BuyerTransactionActivity extends AppCompatActivity {
             String chat_user_ref = "messages/" + mbuyerUID + "/" + msellerUID + "/" + mstuffID;
 
             DatabaseReference user_message_push = mRootRef.child("messages")
-                    .child(msellerUID).child(mbuyerUID).child(mstuffID).push();
+                    .child(msellerUID).child(mbuyerUID).child(mstuffID).child("chat").push();
 
             String push_id = user_message_push.getKey();
 
@@ -75,8 +75,8 @@ public class BuyerTransactionActivity extends AppCompatActivity {
 
 
             Map messageUserMap = new HashMap();
-            messageUserMap.put(current_user_ref + "/" + push_id,messageMap);
-            messageUserMap.put(chat_user_ref + "/" + push_id,messageMap);
+            messageUserMap.put(current_user_ref + "/chat/" + push_id,messageMap);
+            messageUserMap.put(chat_user_ref + "/chat/" + push_id,messageMap);
 
             mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
                 @Override
@@ -89,6 +89,7 @@ public class BuyerTransactionActivity extends AppCompatActivity {
         }
 
         Intent chatIntent = new Intent(this,ChatActivity.class);
+        chatIntent.putExtra("Type","Detail");
         chatIntent.putExtra("BuyerUID",mbuyerUID);
         chatIntent.putExtra("SellerUID",msellerUID);
         chatIntent.putExtra("stuff_id",mstuffID);

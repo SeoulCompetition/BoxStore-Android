@@ -188,10 +188,10 @@ public class NotificationFragment extends Fragment {
                     intent.putExtra("stuff_image",c.getStuff_image());
                     intent.putExtra("SellerUID",c.getSellerUID());
                     intent.putExtra("SellerName",c.getSellerName());
+                    intent.putExtra("Type","Notification");
                     startActivity(intent);
                 }
             });
-
         }
 
         @Override
@@ -208,12 +208,9 @@ public class NotificationFragment extends Fragment {
         /*refresh view*/
             notifyItemInserted(getItemCount()-1);
         }
-
-
         public void cleanUp() {
             mNotifyList.clear();
         }
-
     }
 
 

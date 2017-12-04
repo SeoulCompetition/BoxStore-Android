@@ -128,6 +128,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(Message.getStep().equals("1")){
             viewHolderRecipientBox.getmBuyerNameAndProductName().setText(BoxStoreApplication.getCurrentUser().getName()+"님이 신청하신"
                     +" 문의하신 상품"+ "에 대한 판매자의 거래 승인이 요청되었습니다.");
+
         }
         if(Message.getStep().equals("2")){
             viewHolderRecipientBox.getmBuyerNameAndProductName().setText(BoxStoreApplication.getCurrentUser().getName()+"님이 신청하신"
@@ -137,9 +138,18 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClick(View v) {
                 if(Message.getStep().equals("1")){
-
+                    //fragement BuyerTransactionActivity.class
+                    Intent intent = new Intent(mContext, BuyerTransactionActivity.class);
+                    intent.putExtra("step","2");
+                    intent.putExtra("Price",Message.getPrice());
+                    intent.putExtra("Station",Message.getStation());
+                    intent.putExtra("SellerUID",Message.getSellerUID());
+                    intent.putExtra("BuyerUID", Message.getBuyerUID());
+                    intent.putExtra("stuff_id",Message.getStuff_id());
+                    mContext.startActivity(intent);
                 }
                 if(Message.getStep().equals("2")){
+                    /*
                     Log.d("TAG","2");
                     Intent intent = new Intent(mContext, SellerTransactionActivity.class);
                     intent.putExtra("step","2");
@@ -149,16 +159,7 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     intent.putExtra("BuyerUID", Message.getBuyerUID());
                     intent.putExtra("stuff_id",Message.getStuff_id());
                     mContext.startActivity(intent);
-                }
-                if(Message.getSender().equals(BoxStoreApplication.getCurrentUser().getuId()))
-                {
-                    Log.d("Tag"," 1 ");
-                    /*
-
                     */
-
-                }else {
-
                 }
             }
         });
@@ -169,15 +170,13 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         final ChatMessage Message= mChatList.get(position);
 
-
-
         if(Message.getStep().equals("1")){
             viewHolderSellerBox.getmSellerNameAndProductName().setText(BoxStoreApplication.getCurrentUser().getName()+" 님께서"
                     +" 문의하신 상품"+ "에 대한 거래 승인을 요청하셨습니다.");
         }
         if(Message.getStep().equals("2")){
             viewHolderSellerBox.getmSellerNameAndProductName().setText(BoxStoreApplication.getCurrentUser().getName()+"님께서"
-                    +" 문의하신 상품"+ "에 대한 판매자의 거래 승인이 완료되었습니다.");
+                    +" 문의하신 상품"+ "에 대한 판매자의 거래 승인이 완료하셨습니다.");
         }
 
         viewHolderSellerBox.getClickView().setOnClickListener(new View.OnClickListener() {
@@ -187,11 +186,6 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 //todo : 거래 진행 화면으로 연결 근데 셀러가 클릭하면 셀러 프래그먼트가 떠야되고 바이어가 클릭하면 바이어 프래그먼트가 떠야됨
 
                 if(Message.getStep().equals("1")){
-
-                }
-                if(Message.getSender().equals(BoxStoreApplication.getCurrentUser().getuId()))
-                {
-
                     Intent intent =new Intent(mContext,SellerTransactionActivity.class);  //메세지를 보낸 사람과 현재 기기의 유저가 같은경우  판매자
                     Log.d("Tag"," 1 ");
                     if(Message.getStep().equals("2")){
@@ -200,7 +194,17 @@ public class MessageChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         intent.putExtra("Station",Message.getStation());
                         mContext.startActivity(intent);
                     }
-
+                }else{
+                    //step 2
+                    Log.d("TAG","2");
+                    Intent intent = new Intent(mContext, SellerTransactionActivity.class);
+                    intent.putExtra("step","2");
+                    intent.putExtra("Price",Message.getPrice());
+                    intent.putExtra("Station",Message.getStation());
+                    intent.putExtra("SellerUID",Message.getSellerUID());
+                    intent.putExtra("BuyerUID", Message.getBuyerUID());
+                    intent.putExtra("stuff_id",Message.getStuff_id());
+                    mContext.startActivity(intent);
                 }
             }
         });

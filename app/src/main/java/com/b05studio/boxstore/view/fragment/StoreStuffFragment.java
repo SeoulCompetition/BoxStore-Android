@@ -63,4 +63,5 @@ public class StoreStuffFragment extends Fragment {
     public void onClickCompleteStore(){
 
     }
+
 }

@@ -37,8 +37,6 @@ import retrofit2.Retrofit;
 
 public class ChatActivity extends AppCompatActivity {
 
-    @BindView(R.id.store_stuff)
-    ConstraintLayout storestuffLayout;
     @BindView(R.id.chat_layout)
     ConstraintLayout chatLayout;
 
@@ -47,51 +45,6 @@ public class ChatActivity extends AppCompatActivity {
     private final static int CAMERA_RQ = 6969;
 
     private ArrayList<Uri> imagePath = new ArrayList<>();
-
-    @BindView(R.id.sellProductNameEditText)
-    EditText sellProductNameEditText;
-    @BindView(R.id.locker_number)
-    EditText lock_number;
-    @BindView(R.id.locker_password)
-    EditText lock_password;
-    @BindView(R.id.etcEditText)
-    EditText etcEditText;
-
-
-    @OnClick(R.id.seeStoreLocationText)
-    public void onClickStore(){
-
-    }
-
-    @OnClick(R.id.bill_photo_btn)
-    public void onClickBilBtn(){
-        final Activity activity = ChatActivity.this;
-        final String[] permissions = new String[]{Manifest.permission.CAMERA};
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, permissions, RC_CAMERA);
-            Log.d("Permission!!!!!!", "PERMIDOJFOSIJFIOSDJOI");
-        } else {
-            new MaterialCamera(ChatActivity.this)
-                    .stillShot() // launches the Camera in stillshot mode
-                    .start(CAMERA_RQ);
-        }
-    }
-    @OnClick(R.id.completeItemStoreBtn)
-    public void onClickCompleteBtn(){
-
-        final String tradeStationName = sellProductNameEditText.getText().toString();
-        final String lockerNumber = lock_number.getText().toString();
-        final String lockerPassword = lock_password.getText().toString();
-        final String etcEditTextString = etcEditText.getText().toString();
-        final String BillURL = imagePath.get(0).toString();
-
-        Intent intent = new Intent();
-        intent.putExtra("trade_station",tradeStationName);
-        intent.putExtra("locker_number",lockerNumber);
-        intent.putExtra("locker_password",lockerPassword);
-        intent.putExtra("etc",etcEditTextString);
-        intent.putExtra("bill_URL",BillURL);
-    }
 
     @BindView(R.id.opponentName)
     TextView chattalkerName;
@@ -127,7 +80,6 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        storestuffLayout.setVisibility(View.GONE);
 
         ButterKnife.bind(this);
         Intent intent = getIntent();
@@ -142,9 +94,6 @@ public class ChatActivity extends AppCompatActivity {
             stuffId = intent.getStringExtra("stuff_id");
         } else if (IntentType != null && IntentType.equals("Bill")){
 
-            // Activity 화면 체인지
-            storestuffLayout.setVisibility(View.VISIBLE);
-            chatLayout.setVisibility(View.GONE);
 
             // 구매자가 문의하기를 클릭하여 방문한 경우
             buyerUId = intent.getStringExtra("BuyerUID");

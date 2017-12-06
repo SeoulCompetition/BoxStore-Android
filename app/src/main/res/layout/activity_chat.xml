@@ -8,14 +8,6 @@
     android:fillViewport="true"
     tools:ignore="MissingPrefix">
 
-
-    <include
-        android:id="@+id/store_stuff"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/fragment_store_stuff"
-        />
-
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/chat_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -37,10 +37,6 @@ import retrofit2.Retrofit;
 
 public class ChatActivity extends AppCompatActivity {
 
-    @BindView(R.id.chat_layout)
-    ConstraintLayout chatLayout;
-
-
     private static final int RC_CAMERA = 3000;
     private final static int CAMERA_RQ = 6969;
 
@@ -92,16 +88,6 @@ public class ChatActivity extends AppCompatActivity {
             sellerUId = intent.getStringExtra("SellerUID");
             sellerName = intent.getStringExtra("SellerName");
             stuffId = intent.getStringExtra("stuff_id");
-        } else if (IntentType != null && IntentType.equals("Bill")){
-
-
-            // 구매자가 문의하기를 클릭하여 방문한 경우
-            buyerUId = intent.getStringExtra("BuyerUID");
-            buyerName = intent.getStringExtra("BuyerName");
-            sellerUId = intent.getStringExtra("SellerUID");
-            sellerName = intent.getStringExtra("SellerName");
-            stuffId = intent.getStringExtra("stuff_id");
-
         }else {
             //todo : 구매자도 채팅창에서 클릭해서 오는경우 역시 추가해야 한다 그경우 Type를 Chat으로 설정할것
             // 구매자가 문의하기를 클릭하여 방문한 경우
